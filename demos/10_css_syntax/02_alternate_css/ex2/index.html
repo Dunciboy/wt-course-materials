@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Notes on a stylesheet selection UI in Mozilla</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/menu.css">
+	<link rel="stylesheet" href="css/Oldstyle.css" title="Oldstyle">
+	<link rel="alternate stylesheet" href="css/forest.css" title="Forest">
+	<link rel="alternate stylesheet" href="css/plain.css" title="Plain">
+	<link rel="alternate stylesheet" href="css/Ultramarine.css" title="Ultramarine">
+	<link rel="alternate stylesheet" href="css/Steely.css" title="Steely">
+	<link rel="copyright" href="http://dbaron.org/css/legal.html">
+</head>
+
+<body>
+	<h1>Notes on a stylesheet selection UI in Mozilla</h1>
+
+	<p>
+
+		A good system for selection of alternate and user stylesheets has
+		not yet appeared in a web browser.  The only browser that supports
+		any part of such a system is Opera, and the features are very limited.
+		Here I present a few ideas on what I think such a system would be.
+
+	</p>
+
+	<p>
+
+		Todd Fahrner has some <a href="http://style.verso.com/cssui/">notes
+		on many other issues</a> relating to the UI of a CSS-based browser.
+
+	</p>
+
+	<h2>Why?</h2>
+
+	<p>
+
+		Alternate and user stylesheets give control to the user and
+		make web browsing a much more pleasant experience.  A good
+		interface would allow users to easily switch between user
+		stylesheets and between author stylesheets, and to easily
+		disable either.  They also encourage web page authors to
+		maintain accessibility.
+	</p>
+
+	<p>
+		Alternate stylesheets allow authors
+		to present a web page in different ways using the same content.
+		This can be used to present the same page in different layouts
+		or for different audiences.  The different sheets could be targeted
+		towards different types of audiences (within a company, outside it)
+		or just to people with different preferences.
+	</p>
+
+	<p>
+		User stylesheets are an important accessibility feature.  They are
+		already supported in a very simplistic way by MSIE (since version
+		4, or maybe earlier) and by Opera.  However, the simple interfaces
+		they provide make user stylesheets almost unusable because the state
+		of the web today requires turning off user stylesheets for many
+		poorly designed pages.  Thus a more comprehensive interface is needed.
+		Furthermore, a user may want to switch easily between his own stylesheets
+		for reasons of taste or usability.
+	</p>
+
+	<!--
+	<p>
+		Microsoft has bet their future (i.e, Office 2000) on badly
+		written CSS all in style elements.  User stylesheets will show
+		users how bad this output really is.
+	</p>
+	-->
+
+	<h2>What features</h2>
+
+	<h3>Alternate stylesheet selection</h3>
+
+	<p>
+		A good alternate stylesheet user interface will allow users to
+		switch between alternate stylesheets provided by the author.
+		It will also allow the user to <em>choose that none of the
+		preferred or alternate stylesheets is applied</em> (however,
+		persistent stylesheets would still be applied - see later in
+		this section).  This latter choice is what I call "No Optional
+		Styles" in the menus below.  These features are already
+		implemented internally in Mozilla; they only need to be exposed
+		in the UI.  Peter Linss wrote in an email message to me (quoted
+		with permission):
+	</p>
+
+	<!-- permission to quote given in email of Tue, 18 May 1999 14:50:11 -0700 -->
+
+	<pre>I added some utility methods to nsIPresShell a while back to make
+	connecting this UI simple (this is what the extra cheesy viewer code
+	uses):
+	  NS_IMETHOD GetActiveAlternateStyleSheet(nsString&amp; aSheetTitle) = 0;
+	  NS_IMETHOD SelectAlternateStyleSheet(const nsString&amp; aSheetTitle) = 0;
+	  NS_IMETHOD ListAlternateStyleSheets(nsStringArray&amp; aTitleList) = 0;
+
+	To access the title of the default sheet you use the Get/SetHeaderData api
+	on nsIDocument under the "Default-Style" header field. This is initialized
+	to the preferred sheet title, selecting a different alternate doesn't
+	effect it. You can also pass "" as the title to turn off all but persistent
+	sheets.
+	</pre>
+
+	<p>
+		Ian Hickson has written <a href="http://www.bath.ac.uk/%7Epy8ieh/internet/discussion/linkelement.txt">some
+		notes</a> that may be useful in using these functions.  They may be
+		especially relevant for internationalization issues.
+	</p>
+
+	<p>
+		<code>No optional styles</code> means that no author
+		<dfn>preferred</dfn> or <dfn>alternate</dfn> stylesheets will be
+		used, but <dfn>persistent</dfn> stylesheets will (see <a href="http://www.w3.org/TR/REC-html40/">HTML 4.0</a> for <a href="http://www.w3.org/TR/REC-html40/present/styles.html#h-14.3.1">
+		explanation of these terms</a>).  It should thus be one of the mutually
+		exclusive choices for preferred/alternate styles, which is what the
+		choices in the first part of <code>Page Styles</code> are.
+	</p>
+
+
+	<h3>Disabling author CSS</h3>
+
+	<p>
+		If a page becomes unusable because of bad styles (possibly bad style
+		that works in buggy browsers), the user should be able to turn off
+		all author styles (including persistent linked stylesheets, style elements,
+		and style attributes).  This should be an option on the same menu as those
+		listed above.  See my examples below for how I would distinguish it from
+		the above choices.  I don't think this is implemented yet, but it could be
+		very useful.  (Note that user styles and UA styles would still apply.)
+	</p>
+
+	<p>
+		In contrast to <code>No optional styles</code>,
+		the <code>disable author styles</code> menuitem used below
+		will disable all author
+		stylesheets (including STYLE elements and STYLE attributes).
+	</p>
+
+	<h3>Author stylesheet selection permanence (and memory)</h3>
+
+	<p>
+
+		Should there be some sort of a style memory that remembers the
+		combination of remember until and the selection, and stores, say, the
+		previous 200 (configurable) pages visited, and goes by the most
+		recent thing that applies to a given page?  If there is a memory, then
+		"Remember until" and "Disable until" should become (as they did in
+		<em>some</em> of the examples below) "Remember for" and "Disable for."
+
+	</p>
+
+	<p>
+		The different permanence options that I use below are the following:
+	</p>
+
+	<dl>
+		<dt>Selected Style</dt>
+		<dd>Remember this choice of stylesheet (while / when) this is one of
+		the choices the author gives.</dd>
+
+		<dt>This List of Styles (default)</dt>
+		<dd>Remember this choice of stylesheet (while / when) this list of
+		stylesheets is the one the author gives.</dd>
+
+		<dt>This Page</dt>
+		<dd>Remember this choice of stylesheet (while / when) user is looking
+		at this page.</dd>
+	</dl>
+
+
+	<h3>User stylesheet selection and disabling</h3>
+
+	<p>
+		User stylesheets are an exciting feature of CSS.  They allow the user
+		to specify the default rendering of a document either at a level
+		between the UA's defaults and the author, or at a level that overrides
+		the author.  They are almost a necessity for users with some
+		disabilities who are prevented from using the web.  They are also a
+		neat feature for general (well, maybe geeky, but they're the types
+		who design web pages) users.
+	</p>
+
+	<p>
+		Unfortunately, many pages around today are designed badly, and thus
+		interact badly with user stylesheets.  Therefore, a good UI for user
+		stylesheets would allow the user to disable the user stylesheet when
+		it conflicts with pages (using the same memory options I give above
+		for selection of author stylesheets).  It would also allow the user
+		to switch between a group of user-configurable stylesheets so he
+		could view the page in a different style depending on his mood.
+	</p>
+
+	<h2>The example</h2>
+
+	<p>
+
+		As an example, I will use <a href="http://dbaron.org/css/">my homepage</a>.  It has <a href="http://dbaron.org/css/style/index">one persistent stylesheet</a>, one preferred
+		stylesheet, <a href="http://dbaron.org/css/style/forest">Forest</a>, and four alternate
+		stylesheets, <a href="http://dbaron.org/css/style/plain">Plain</a>, <a href="http://www.w3.org/StyleSheets/Core/Ultramarine">Ultramarine</a>,
+		<a href="http://www.w3.org/StyleSheets/Core/Steely">Steely</a>, and
+		<a href="http://www.w3.org/StyleSheets/Core/Oldstyle">Oldstyle</a>.
+
+	</p>
+
+	<p>
+
+		Furthermore, for user stylesheets, I will assume that the eight <a href="http://www.w3.org/StyleSheets/Core/preview">W3C Core Styles</a>
+		are set up as user stylesheets.  (They would need to be modified a
+		bit, but that's besides the point for now.)
+
+	</p>
+
+	<h3 id="submenu">As part of View menu</h3>
+
+	<p>
+		Probably the most logical place for such an interface is on the
+		View menu.  Images of these menus as top-level menus are available
+		<a href="#toplevel">below</a>.
+	</p>
+
+	<ul class="menu">
+		<li>
+			<span class="menulabel">V</span>iew
+			<ul>
+				<li>
+					Increase Font Size
+				</li>
+				<li>
+					Decrease Font Size
+				</li>
+				<li>
+					Magnify
+				</li>
+				<li>
+					Un-magnify
+				</li>
+				<li>
+					<span class="menulabel">A</span>uthor's Style
+					<ul>
+						<li class="radio"><span class="menulabel">F</span>orest (default)</li>
+						<li><span class="menulabel">P</span>lain</li>
+						<li><span class="menulabel">U</span>ltramarine</li>
+						<li><span class="menulabel">S</span>teely</li>
+						<li><span class="menulabel">O</span>ldstyle</li>
+						<li><span class="menulabel">N</span>o Optional Styles</li>
+						<li><span class="menulabel">D</span>isable Author's Styles</li>
+						<li>———</li>
+						<li><span class="menulabel">R</span>emember for
+							<ul>
+								<li>Selected <span class="menulabel">S</span>tyle</li>
+								<li class="radio">This <span class="menulabel">L</span>ist of Styles</li>
+								<li>This <span class="menulabel">P</span>age</li>
+								<li>———</li>
+								<li class="check"><span class="menulabel">A</span>lways Disable</li>
+								<li>———</li>
+								<li><span class="menulabel">M</span>emory ...</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span class="menulabel">M</span>y Style
+					<ul>
+						<li><u>N</u>one</li>
+						<li><u>O</u>ldstyle</li>
+						<li><u>M</u>odernist</li>
+						<li><u>M</u>idnight</li>
+						<li><u>U</u>ltramarine</li>
+						<li><u>S</u>wiss</li>
+						<li><u>C</u>hocolate</li>
+						<li><u>T</u>raditional</li>
+						<li><u>S</u>teely</li>
+						<li></li>
+						<li><u>D</u>isable Until
+							<ul>
+								<li>?</li>
+							</ul>
+						</li>
+						<li><u>C</u>onfigure...</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+	<p>
+		If "Always Disable" is checked, "Disable Page Styles"
+		should probably be grayed and checked.
+	</p>
+
+	<p>
+		Should the author styles menu disappear if there are no stylesheets (linked, STYLE
+		elements, or STYLE attributes)?  I'm not sure...
+	</p>
+
+
+	<hr title="Beginning of Footer">
+	<p><a href="http://validator.w3.org/check/referer" title="W3C HTML Validator"><img src="css/vh40.png" alt="Valid HTML 4.0!" height="31" width="88"></a></p>
+
+	<p>(Back to
+	<a href="http://dbaron.org/css/">CSS</a>,
+	<a href="http://dbaron.org/">David Baron</a>)</p>
+
+	<p>
+		<a href="http://dbaron.org/" title="David Baron's Homepage">LDB</a>,
+		<a rev="made" href="mailto:dbaron@dbaron.org" title="Send e-mail to David Baron">dbaron@dbaron.org</a>,
+		1999-05-18
+	</p>
+
+</body>
+</html>

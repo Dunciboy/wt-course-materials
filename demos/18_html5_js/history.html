@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+
+	View through localhost
+
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>History API demo</title>
+</head>
+<body>
+	<p>Select a photo:</p>
+	<ul id="menu">
+		<li><a href="img/photo1.jpg" id="photo1">photo1</a></li>
+		<li><a href="img/photo2.jpg" id="photo2">photo2</a></li>
+		<li><a href="img/photo3.jpg" id="photo3">photo3</a></li>
+	</ul>
+	<p>
+		<img src="img/photo1.jpg" alt="" id="photo" />
+	</p>
+	<p><small>Note: since these urls aren't real, refreshing the page will land on an invalid url.</small></p>
+	<script>
+
+		var data = {
+			photo1: {
+				href: "img/photo1.jpg",
+				title: "corner house",
+				url: "viewphoto1"
+			},
+			photo2: {
+				href: "img/photo2.jpg",
+				title: "flower market",
+				url: "viewphoto2"
+			},
+			photo3: {
+				href: "img/photo3.jpg",
+				title: "streetlights",
+				url: "viewphoto3"
+			}
+		};
+
+		var links = document.querySelectorAll('#menu a');
+
+		for (var i = 0; i < links.length; i++) {
+			links[i].addEventListener('click', function(evt) {
+				history.pushState(data[this.id], '', data[this.id].url);
+				document.getElementById('photo').src = this.href;
+				evt.preventDefault();
+				evt.stopPropagation();
+			}, false);
+		}
+
+		window.addEventListener('popstate', function(event) {
+			if (!event.state) return;
+			alert('popping back to ' + event.state.title);
+			document.getElementById('photo').src = event.state.href;
+		});
+</script>
+</body>
+</html>

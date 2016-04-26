@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Testpage </title>
+  <meta charset="utf-8" />
+</head>
+<body>
+
+  <form action="/scripts/test.php" method="post" enctype="multipart/form-data">
+
+    <fieldset>
+      <legend>Login</legend>
+      <dl>
+        <dt><label for="username">Choose a username:</label></dt>
+        <dd>
+          <input type="text" id="username" name="username" />
+        <dd>
+        <dt><label for="password">Choose a password:</label></dt>
+        <dd>
+          <input type="password" id="password" name="password" />
+        </dd>
+      </dl>
+    </fieldset>
+
+    <fieldset>
+      <legend>About you</legend>
+      <dl>
+        <dt><label for="name">Full name:</label></dt>
+        <dd>
+          <input type="text" id="name" name="name" />
+        <dd>
+        <dt>Gender:</dt>
+        <dd>
+          <label><input type="radio" name="gender" value="f" checked /> Female</label>
+          <label><input type="radio" name="gender" value="m" /> Male</label>
+        </dd>
+        <dt><label for="desc">About yourself:</label></dt>
+        <dd>
+          <textarea id="desc" name="desc" cols="40" rows="5"></textarea>
+        </dd>
+        <dt><label for="photo">Upload a picture (.gif of .jpeg):</label></dt>
+        <dd>
+          <input type="file" id="photo" name="photo" />
+        <dd>
+      </dl>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your Background</legend>
+      <dl>
+        <dt>Knowledge:</dt>
+        <dd>
+          <label><input type="checkbox" name="html" checked /> HTML</label>
+          <label><input type="checkbox" name="js" /> Javascript</label>
+          <label><input type="checkbox" name="css" checked /> CSS</label>
+          <label><input type="checkbox" name="php" /> PHP</label>
+        </dd>
+        <dt><label for="education">Your education:</label></dt>
+        <dd>
+          <select name="education" id="education">
+            <option value="-1">Select...</option>
+            <option value="0">Primary school</option>
+            <option value="1">Secondary school</option>
+            <option value="2">Higer education</option>
+            <option value="3">Master</option>
+          </select>
+        </dd>
+      </dl>
+    </fieldset>
+
+    <input type="hidden" name="verb" value="xyz" />
+
+    <p>
+      <input type="submit" name="btnOk" value="Send" />
+      <input type="submit" name="btnCancel" value="Cancel" />
+    </p>
+  </form>
+
+</body>
+</html>

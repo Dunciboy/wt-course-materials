@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 &mdash; HTML</title>
+  <meta name="author" content="Rogier van der Linde - ikdoeict.be">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="library/reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="library/reveal/css/theme/rogier.css" id="rogier">
+  <link rel="stylesheet" href="library/highlight/styles/vs.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/16_html5_html.css">
+</head>
+
+<body>
+
+  <!-- SLIDES -->
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <!-- 0 : Title -->
+        <section>
+          <h1>Part 1: HTML</h1>
+          <small>use the arrow keys to navigate; press space for slide overview<br /></small>
+          <figure>
+            <img src="img/16_html5_html/icon.jpg" alt="" class="border" />
+            <figcaption>SVG demo</figcaption>
+          </figure>
+
+          <footer>
+            <a href="http://www.ikdoeict.be/">ikdoeict.be</a> &mdash; <a href="mailto:rogier.vanderlinde@odisee.be">rogier.vanderlinde@odisee.be</a>
+          </footer>
+        </section>
+
+        <section>
+          <section>
+            <h1>Part 1: HTML</h1>
+            <h2>Document</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>XHTML 1.1</h2>
+            <ul>
+              <li>
+                Basic XHTML 1.1 document:
+              </li>
+              <li class="no-style">
+                <pre class="bigger"><code class="language-html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html;
+    charset=ISO-8859-1" /&gt;
+  &lt;link rel="stylesheet" type="text/css" href="css/some.css" /&gt;
+  &lt;script type="text/javascript" src="js/some.js" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;... here comes the page content ...&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>HTML5</h2>
+            <ul>
+              <li>
+                Basic HTML5 document:
+              </li>
+              <li class="no-style">
+                <pre class="bigger"><code class="language-html right">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;link rel="stylesheet" href="css/some.css" /&gt;
+  &lt;script src="js/some.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  ... here comes the page content ...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                much easier to remember
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 1: HTML</h1>
+            <h2>Semantics</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>Link relations</h2>
+            <ul>
+              <li>
+                New link relations:
+                <pre class="bigger"><code class="language-html">&lt;link <em>rel="alternate"</em> type="application/rss+xml"
+  href="http://myblog.com/feed" /&gt;
+&lt;link <em>rel="icon"</em> href="images/icons/favicon.ico" /&gt;
+&lt;link <em>rel="first"</em> href="http://myblog.com/page1.php"&gt;
+&lt;link <em>rel="prefetch"</em> href="http://myblog.com/main.php"&gt;
+
+&lt;a <em>rel="author"</em> href="http://myblog.com/aboutme"&gt;Rogier&lt;/a&gt;
+&lt;a <em>rel="external"</em>
+  href="http://notmysite.com"&gt;tutorial&lt;/a&gt;
+&lt;a <em>rel="next"</em> href="http://myblog.com/page2.php"&gt;
+&lt;a <em>rel="search"</em>
+  href="http://myblog.com/search"&gt;search this blog&lt;/a&gt;
+&lt;a <em>rel="tag"</em>
+  href="http://myblog.com/category/games"&gt;games posts&lt;/a&gt;
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Microdata</h2>
+            <ul>
+              <li>
+                Describes the meaning of semantically related elements:
+                <pre class="bigger"><code class="language-html">&lt;div <em>itemscope</em> <em>itemtype</em>="http://example.org/band"&gt;
+  &lt;p&gt;My name is &lt;span <em>itemprop</em>="name"&gt;Neil&lt;/span&gt;.&lt;/p&gt;
+  &lt;p&gt;My band is &lt;span <em>itemprop</em>="band"&gt;Four Parts Water&lt;/span&gt;.&lt;/p&gt;
+  &lt;p&gt;I am &lt;span <em>itemprop</em>="nationality"&gt;British&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                inspired by <a href="http://microformats.org/">http://microformats.org/</a> <br />(view with the Firefox <a href="https://addons.mozilla.org/nl/firefox/addon/operator/">Operator plugin</a>)
+              </li>
+              <li>
+                more information see <a href="http://www.schema.org/docs/gs.html">http://www.schema.org/docs/gs.html</a></li>
+            </ul>
+          </section>
+          <section data-toc-title="ARIA">
+            <h2>ARIA (1)</h2>
+            <ul>
+              <li>
+                ARIA (Accessible Rich Internet Applications):
+                <pre class="bigger"><code class="language-html">&lt;ul id="tree1" <em>role</em>="tree" tabindex="0" <em>aria-labelledby</em>="label_1"&gt;
+  &lt;li role="treeitem" tabindex="-1" <em>aria-expanded</em>="true"&gt;Fruits&lt;/li&gt;
+  &lt;li role="group"&gt;
+    &lt;ul&gt;
+      &lt;li role="treeitem" tabindex="-1"&gt;Oranges&lt;/li&gt;
+      &lt;li role="treeitem" tabindex="-1"&gt;Pineapples&lt;/li&gt;
+      ...
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>provides semantic hints for the blind</li>
+              <li>further reading in <a href="http://www.anysurfer.be/nl/in-de-praktijk/websites/aria">this Anysurfer article</a></li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>ARIA (2)</h2>
+            <ul>
+              <li>
+                ARIA (Accessible Rich Internet Applications):
+                <pre class="bigger"><code class="language-html">&lt;h2 id="limg"&gt;Paragliding&lt;/h2&gt;
+&lt;p id="dimg"&gt;
+  A long description of our paragliding trip ...
+&lt;/p&gt;
+
+&lt;div&gt;
+&lt;img src="takeoff.png"
+  alt="Getting ready to take off"
+  <em>aria-labelledby</em>="limg"
+  <em>aria-describedby</em>="dimg"&gt;
+&lt;/div&gt;
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Their worst idea</h2>
+            <ul>
+              <li>
+                Their worst idea so far:
+                <pre class="bigger"><code class="language-html">&lt;table role="presentation"&gt;
+  ...
+&lt;/table&gt;
+</code></pre>
+              </li>
+              <li>
+                To me this is something like:
+                <pre class="bigger"><code class="language-html">&lt;div ok="true"&gt;
+  ... &lt;!-- put whatever rubbish code you like here--&gt;
+&lt;/div&gt;
+</code></pre>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 1: HTML</h1>
+            <h2>Markup</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>Sectioning</h2>
+            <ul>
+              <li>
+                Traditionally <code>&lt;div&gt;</code> is used for sectioning, but it is colorless and odourless: it adds structure but has no meaning
+              </li>
+              <li>
+                HTML5 comes with a set of brand new sectioning elements:
+                <ul>
+                  <li><em><code>&lt;section&gt;</code></em>: any section of related content</li>
+                  <li><em><code>&lt;header&gt;</code></em>: introductory content (title, navigation links...)</li>
+                  <li><em><code>&lt;nav&gt;</code></em>: links used for main navitation</li>
+                  <li><em><code>&lt;footer&gt;</code></em>: closing content (author, copyright, contact...)</li>
+                  <li><em><code>&lt;aside&gt;</code></em>: related information (links, content-aware advertising etc...)</li>
+                  <li><em><code>&lt;article&gt;</code></em>: independent content (blogpost, comment, product...)</li>
+                </ul>
+              </li>
+              <li>
+                see the <a href="../webtechnology/09_html_sections.html">presentation on sections</a> for in-depth information
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Scoped styles</h2>
+            <ul>
+              <li>
+                To style independent sections, <em>scoped styles</em> are introduced:
+                <pre class="bigger"><code class="language-html">&lt;h1&gt;Scoped style demo&lt;/h1&gt;
+&lt;article class="ad"&gt;
+  &lt;style <em>scoped</em>&gt;
+    /* styles will only apply to this article */
+    h1 {
+      font-size: 14px;
+    }
+    p {
+      color: #009;
+    }
+  &lt;/style&gt;
+  &lt;h1&gt;Advertisement&lt;/h1&gt;
+  &lt;p&gt;Buy our &lt;a href="#"&gt;brand new lorem ipsum T-shirt&lt;/a&gt; today!&lt;/p&gt;
+  &lt;p&gt;&amp;copy; &lt;a href="#"&gt;someCompany&lt;/a&gt;&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+              </li>
+            </ul>
+            <div class="demolink"><a href="demos/16_html5_html/scoped.html">demo</a></div>
+            <ul class="arrow">
+              <li>only supported by Firefox</li>
+              <li>probably won't make it due to the rise of Web Components (see further)</li>
+            </ul>
+          </section>
+          <section id="slide_chandged_elements">
+            <h2>Changed elements</h2>
+            <ul>
+              <li>
+                Obsolete:
+                <ul>
+                  <li><em><del><code>&lt;acronym&gt;</code></del></em> (use <code>&lt;abbr&gt;</code>)</li>
+                  <li><em><del><code>&lt;big&gt;</code></del></em></li>
+                </ul>
+              </li>
+              <li>
+                Changed:
+                <ul>
+                  <li><em><code>&lt;small&gt;</code></em> now means 'small print for legal issues'</li>
+                  <li><em><code>&lt;b&gt;</code></em> now means 'stylistically offset' (if extra importance: use <code>&lt;em&gt;</code>)</li>
+                  <li><em><code>&lt;i&gt;</code></em> now means 'alternate voice or mood' (if extra importance: use <code>&lt;strong&gt;</code>)</li>
+                  <li><em><code>&lt;cite&gt;</code></em> now means 'title of a work' (film, book...) but not the author anymore</li>
+                  <li>
+                    <em><code>&lt;a&gt;</code></em> is now allowed to contain blocklevel elements:
+                <pre class="bigger"><code class="language-html">&lt;a href="#"&gt;
+  &lt;h3&gt;Product name&lt;/h2&gt;
+  &lt;p&gt;...product description...&lt;/p&gt;
+  &lt;p&gt;&lt;img src="img/product1.jpg" alt="photo of product" /&gt;&lt;/p&gt;
+&lt;/a&gt;
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="New elements">
+            <h2>New elements (1)</h2>
+            <ul>
+              <li>
+                Meter and progress:
+                <pre class="bigger"><code class="language-html" contenteditable data-subject="#meter">Your score is:
+&lt;meter min="0" max="100" low="30" high="70" optimum="100" value="80"&gt;
+  A+
+&lt;/meter&gt;
+</code></pre>
+                <pre class="bigger"><code class="language-html" contenteditable data-subject="#progress">Download is:
+&lt;progress value="75" max="100"&gt;3/4 complete&lt;/progress&gt;
+</code></pre>
+              </li>
+            </ul>
+            <div class="codedemo">
+              <p id="meter">
+                Your score is: <meter min="0" max="100" low="30" high="70" optimum="100" value="80">A+</meter><br />
+              </p>
+              <p id="progress">
+                Download is: <progress value="75" max="100">3/4complete</progress>
+              </p>
+            </div>
+            <div class="tooltip">
+              <div>
+                Tip: you can edit the numbers above by clicking them and using the up and down keys
+              </div>
+            </div>
+          </section>
+          <section data-toc-title="">
+            <h2>New elements (2)</h2>
+            <ul>
+              <li>
+                Mark:
+                <pre class="bigger"><code class="language-html overlayrun">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+eiusmod tempor incididunt ut labore &lt;mark&gt;dolore magna aliqua&lt;/mark&gt;.
+Ut enim, quis nostrud exercitation &lt;mark&gt;ullamco laboris&lt;/mark&gt; nisi
+ut aliquip ex ea commodo consequat.</code></pre>
+              </li>
+              <li>
+                Details:
+                <pre class="bigger"><code class="language-html overlayrun">&lt;details open&gt;
+&lt;p&gt;
+  If your browser supports this element, it should
+  allow you to expand and collapse these details.
+&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>New elements (3)</h2>
+            <ul>
+              <li>
+                Add a caption with <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>:
+                <pre class="bigger"><code class="language-html overlayrun">&lt;figure&gt;
+  &lt;img src="img/16_html5_html/photo.jpg" alt="picture of my two brothers" /&gt;
+  &lt;figcaption&gt;picture of my two brothers&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+              </li>
+              <li>
+                A <code>&lt;figure&gt;</code> may contain multiple images:
+                <pre class="bigger"><code class="language-html overlayrun">&lt;figure&gt;
+  &lt;img src="img/16_html5_html/horseA.jpg" alt="drawing step1" /&gt;
+  &lt;img src="img/16_html5_html/horseB.jpg" alt="drawing step2" /&gt;
+  &lt;img src="img/16_html5_html/horseC.jpg" alt="drawing step3" /&gt;
+  &lt;figcaption&gt;how to draw a horse&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+              </li>
+              <li class="arrow" style="font-size: smaller">
+                can also contain diagrams and even code listings
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>New elements (4)</h2>
+            <ul>
+              <li>
+                Create a <code>&lt;dialog&gt;</code> (currently <a href="http://caniuse.com/#search=dialog">Chrome and Opera only</a>):
+                <pre class="bigger"><code class="language-html overlayrun">&lt;dialog id="dialog1" open&gt;
+  &lt;h1&gt;Hello World!&lt;/h1&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet. Earum, inventore!&lt;/p&gt;
+  &lt;button id="exit"&gt;Exit&lt;/button&gt;
+&lt;/dialog&gt;
+</code></pre>
+              </li>
+            </ul>
+            <div class="demolink"><a href="demos/16_html5_html/dialog.html">demo</a> (with css and javascript)</div>
+          </section>
+          <section data-toc-title="New attributes">
+            <h2>New attributes (1)</h2>
+            <ul>
+              <li>
+                Make an element editable with the <em><code>contenteditable</code></em> attribute:
+              </li>
+              <li class="no-style">
+                <div class="codescrollpanel"><pre class="bigger"><code class="language-html">  ...
+  &lt;script&gt;
+    window.onload = function() {
+      document.getElementById("bntSave").addEventListener('click', function() {
+        document.getElementById("savedpanel").innerHTML = document.getElementById("editpanel").innerHTML;
+      });
+    }
+  &lt;/script&gt;
+  &lt;style&gt;
+    #editpanel {
+      width: 400px;
+      height: 200px;
+      border: 1px dotted;
+    }
+    #savedpanel {
+      font-size: smaller;
+      width: 400px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p <b>contenteditable</b> id="editpanel"&gt;
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    ex ea commodo consequat.
+  &lt;/p&gt;
+  &lt;p&gt;&lt;input type="button" value="Save" id="bntSave" /&gt;&lt;/p&gt;
+  &lt;p id="savedpanel"&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+                <div class="demolink"><a href="demos/18_html5_js/contenteditable.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>New attributes (2)</h2>
+            <ul>
+              <li>
+                Prefix custom attributes with <em><code>data-</code></em>:
+                <pre class="bigger"><code class="language-html">&lt;p <em>data-</em>databaseid="23" <em>data-</em>editable="false"
+  <em>data-</em>someproperty="somevalue"&gt;
+  ...
+&lt;/p&gt;
+</code></pre>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>mainly used for Javascript</li>
+              <li>yes, this actually validates!</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Webforms</h2>
+            <ul>
+              <li>
+                New form elements and attributes:
+                <div class="codescrollpanel"><pre class="bigger"><code class="language-html">  &lt;form action="#"&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;New form attributes&lt;/legend&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;&lt;label for="text1"&gt;Focus:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="text" name="text1" id="text1" autofocus /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="text2"&gt;Placeholder:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="text" name="text2" id="text2" placeholder="type some text" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="text3"&gt;Required:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="text" name="text3" id="text3" required /&gt;&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;New form input types&lt;/legend&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;&lt;label for="email1"&gt;Email:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="email" name="email1" id="email1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="time1"&gt;Time:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="time" name="time1" id="time1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="date1"&gt;Date:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="date" name="date1" id="date1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="month1"&gt;Month:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="month" name="month1" id="month1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="week1"&gt;Week:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="week" name="week1" id="week1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="range1"&gt;Range:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="range" min="0" max="50" value="0" name="range1" id="range1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="color1"&gt;Color:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="color" name="color1" id="color1" /&gt;&lt;/dd&gt;
+        &lt;dt&gt;&lt;label for="search1"&gt;Search:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;&lt;input type="search" results="10" name="search1" id="search1" /&gt;&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Interactivity&lt;/legend&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;&lt;label for="text4"&gt;Datalist:&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;
+          &lt;input type="text" name="text4" id="text4" list="datalist1" /&gt;
+          &lt;datalist id="datalist1"&gt;
+            &lt;option value="possible value 1"&gt;
+            &lt;option value="possible value 2"&gt;
+            &lt;option value="possible value 3"&gt;
+          &lt;/datalist&gt;
+        &lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/fieldset&gt;
+    &lt;p&gt;&lt;input type="submit" value="Submit form" /&gt;&lt;/p&gt;
+  &lt;/form&gt;
+</code></pre></div>
+                <div class="demolink"><a href="demos/16_html5_html/webforms.html">demo</a></div>
+              </li>
+            </ul>
+            <div class="tooltip">
+              <div>
+                For more fun with datalists, you might want to check <a href="http://demo.agektmr.com/datalist/">this webpage</a>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Webforms &mdash; speech</h2>
+            <ul>
+              <li>
+                <del>there's even an experimental speech imput (Chrome)</del> support dropped
+                <pre class="bigger"><code class="language-html">Your city: &lt;input type="text" x-webkit-speech /&gt;
+</code></pre>
+              </li>
+            </ul>
+            <p>&nbsp;</p>
+            <ul class="arrow">
+              <li>
+                speech recognition still functions, but you need <a href="http://www.labnol.org/software/add-speech-recognition-to-website/19989/">slightly more code</a>
+              </li>
+              <li>
+                basic demo <a href="https://www.google.com/intl/en/chrome/demos/speech.html">by Google</a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Webforms &mdash; validation</h2>
+            <ul>
+              <li>
+                You can apply validation:
+                <pre class="bigger"><code class="language-html">&lt;form&gt;
+  &lt;p&gt;
+    &lt;label for="text1"&gt;Required: &lt;/label&gt;
+    &lt;input type="text" id="text1" required /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for="text2"&gt;Email: &lt;/label&gt;
+    &lt;input type="email" id="text2" /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for="text3"&gt;URL: &lt;/label&gt;
+    &lt;input type="url" id="text3" /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for="text4"&gt;Pattern: &lt;/label&gt;
+    &lt;input type="text" id="text4" pattern="[A-Z]-[0-9]{4}" placeholder="e.g. B-4567" /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for="text5"&gt;Even number between 10 and 20: &lt;/label&gt;
+    &lt;input type="number" id="text5" min="10" max="20" step="2" /&gt;
+  &lt;/p&gt;
+  &lt;input type="submit" value="Submit"&gt;
+  &lt;input type="submit" value="Cancel" formnovalidate&gt;
+&lt;/form&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/16_html5_html/webforms_validation.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Webforms &mdash; styling</h2>
+            <ul>
+              <li>
+                You can style some parts of the validation:
+                <pre class="bigger"><code class="language-css">input:invalid {
+  border: 2px solid #e88;
+}
+input:valid {
+  border: 2px solid #090;
+}
+[required]:after {
+  content: '*';
+}
+</code></pre>
+                <div class="demolink"><a href="demos/16_html5_html/webforms_css.html">demo</a></div>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                in-depth article about validation <a href="http://www.html5rocks.com/en/tutorials/forms/constraintvalidation/">here</a>
+              </li>
+            </ul>
+          </section>
+          <section id="slide_webforms_iphone">
+            <h2>Webforms &mdash; mobile</h2>
+            <ul>
+              <li>
+                Most smartphones recognize the new input types:
+              </li>
+              <li class="no-style">
+                <figure>
+                  <img src="img/16_html5_html/iphone1.jpg" alt="" class="border" />
+                  <img src="img/16_html5_html/iphone2.jpg" alt="" class="border" />
+                  <img src="img/16_html5_html/iphone3.jpg" alt="" class="border" />
+                  <figcaption>note how iPhone change its keyboard (type <code>tel</code>, <code>url</code>, <code>email</code>)</figcaption>
+                </figure>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 1: HTML</h1>
+            <h2>Multimedia</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>Audio and video</h2>
+            <ul>
+              <li>
+                These days still mostly done with Flash based players
+              </li>
+              <li>
+                HTML5 provides brand new <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> tags:
+                <pre class="bigger"><code class="language-html">&lt;audio src="media/paoloconte.mp3"
+  controls
+  width="670"
+  style="border: solid 3px black; margin:200"&gt;
+  Your browser dows not support the audio tag
+&lt;/audio&gt;
+</code></pre>
+                <pre class="bigger"><code class="language-html">&lt;video src="media/tango.mp4"
+  controls
+  poster="img/meloYBratt.jpg"
+  width="320" height="240"&gt;
+  Your browser dows not support the video tag
+&lt;/video&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/16_html5_html/audio_video.html">demo</a> (Chrome)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Audio and video &mdash; media</h2>
+            <ul>
+              <li>
+                Different media for different systems:
+                <pre class="bigger"><code class="language-html">&lt;video poster="img/poster.jpg"&gt;
+  &lt;source src="media/video.3gp"
+          type="video/3gpp" media="handheld"&gt;
+  &lt;source src="media/video.ogv"
+          type="video/ogg; codecs=theora, vorbis"&gt;
+  &lt;source src="media/video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+&lt;audio&gt;
+  &lt;source src="media/music.oga" type="audio/ogg"&gt;
+  &lt;source src="media/music.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+</code></pre>
+              </li>
+              <li class="no-style">
+                <ul class="x-style">
+                  <li>Firefox and Opera don't support mp3/aac/mp4 (patents!)</li>
+                  <li>IE doesn't support oga/ogv/wav</li>
+                  <li>Safari doesn't support oga/ogv</li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tooltip">
+              <div>
+                Unfortunately, this means Opera and Firefox are not supported for most of the audio &amp; video demos. There are indeed tools to convert mp3 or mp4 to oga or ogv, but most servers are not configured to serve these file types anyway.
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Audio and video &mdash; Javascript</h2>
+            <ul>
+              <li>
+                Build custom controls with Javascript:
+                <div class="codescrollpanel"><pre class="bigger"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; HTML5 testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script&gt;
+    window.onload = function() {
+      var video = document.getElementById("video");
+      video.controls = false;
+      document.getElementById("lnkPlay").onclick = function() {
+        if (video.paused) video.play();
+        else video.pause();
+        return false;
+      }
+      document.getElementById("lnkMute").onclick = function() {
+        if (video.volume &gt; 0) video.volume = 0;
+        else video.volume = 1;
+        return false;
+      }
+      document.getElementById("inpSeek").onchange = function() {
+        video.currentTime = this.value;
+      }
+    }
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;video src="media/tango.mp4" poster="img/meloYBratt.jpg"
+    width="320" height="240" id="video" controls&gt;
+    Your browser dows not support the video tag
+  &lt;/video&gt;
+  &lt;nav id="myControls"&gt;
+    &lt;a href="#" id="lnkPlay"&gt;play&lt;/a&gt;
+    &lt;a href="#" id="lnkMute"&gt;mute&lt;/a&gt;
+    &lt;input type="range" min="0" max="211" value="0" id="inpSeek"  /&gt;
+  &lt;/nav&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+                <div class="demolink"><a href="demos/16_html5_html/audio_video_js.html">demo</a> (Chrome)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Audio and video &mdash; CSS</h2>
+            <ul>
+              <li>
+                Even styling with CSS will be possible:
+                <pre class="bigger"><code class="language-css">#testvideo {
+  /* for other browsers change prefix to -moz-, -o- or -ie- */
+  -webkit-transform: rotateZ(5deg);
+  box-shadow: rgba(0, 0, 128, 0.25) 10px 10px 15px #990;
+}
+</code></pre>
+                <pre class="bigger"><code class="language-html">&lt;video src="media/tango.mp4"
+  controls
+  poster="img/meloYBratt.jpg"
+  width="360" height="240" id="testvideo"&gt;
+  Your browser dows not support the video tag
+&lt;/video&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/16_html5_html/audio_video_css.html">demo</a> (Chrome)</div>
+              </li>
+              <li>
+                Think of all the nice things you could do:
+                <ul>
+                  <li>background video (<a href="http://syddev.com/jquery.videoBG/demo_div.html">1</a>, <a href="http://www.beyonce.com/music">2</a>, <a href="http://damienhirst.com/">3</a>, <a href="http://www.ycoyacht.com/">4</a>...)</li>
+                  <li><a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=q7BjhX3K-5w#!">CSS filtering video</a></li>
+                  <li><a href="http://www.apple.com/html5/showcase/video/">video masking and scaling</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Graphics &mdash; SVG</h2>
+            <ul>
+              <li>
+                Use Scalable Vector Graphics in your webpage:
+                <pre class="bigger"><code class="language-html" contenteditable data-step="10" data-subject="#svg1">&lt;svg height="150"&gt;
+  &lt;defs&gt;
+    &lt;linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"&gt;
+      &lt;stop offset="0%"
+            style="stop-color:rgb(255,255,0);stop-opacity:1" /&gt;
+      &lt;stop offset="100%"
+            style="stop-color:rgb(255,0,0);stop-opacity:1" /&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+  &lt;ellipse cx="200" cy="60" rx="85" ry="55" fill="url(#grad1)"
+          onclick="alert('hello');"/&gt;
+  &lt;text fill="#ffffff" font-size="45" x="155" y="75"&gt;SVG&lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+              </li>
+            </ul>
+            <div id="svg1">
+              <svg height="150">
+                <defs>
+                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="200" cy="60" rx="85" ry="55" fill="url(#grad1)" onclick="alert('hello');" />
+                <text fill="#ffffff" font-size="45" x="155" y="75">SVG</text>
+              </svg>
+            </div>
+            <div class="tooltip">
+              <div>
+                Tip: you can edit the numbers above by clicking them and using the up and down keys
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Graphics &mdash; Inline SVG</h2>
+            <ul>
+              <li>
+                Crazy text demo:
+                <div class="codescrollpanel"><pre class="bigger"><code class="language-html">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;!-- Created with Inkscape (http://www.inkscape.org/)
+Created by ed@opera.com, 2007-07-05.
+--&gt;
+&lt;svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   viewBox="0 0 500 500"
+   id="svgroot"&gt;
+  &lt;defs&gt;
+    &lt;linearGradient
+       id="linearGradient3270"&gt;
+      &lt;stop
+         style="stop-color:#4c0000;stop-opacity:1"
+         offset="0"
+         id="stop3272" /&gt;
+      &lt;stop
+         style="stop-color:#9b0000;stop-opacity:0.77319586"
+         offset="1"
+         id="stop3278" /&gt;
+    &lt;/linearGradient&gt;
+    &lt;filter
+       id="filter3246"&gt;
+      &lt;feGaussianBlur
+         id="feGaussianBlur3248"
+         stdDeviation="5.3786588"
+         inkscape:collect="always" /&gt;
+    &lt;/filter&gt;
+    &lt;radialGradient
+       cx="75.110962"
+       cy="419.52441"
+       r="286.5"
+       fx="75.110962"
+       fy="419.52441"
+       id="radialGradient3276"
+       xlink:href="#linearGradient3270"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6032362,1.2076622,-1.5679002,0.7831777,700.96274,-211.40865)"
+       spreadMethod="pad" /&gt;
+  &lt;/defs&gt;
+  &lt;g&gt;
+    &lt;rect
+       width="500"
+       height="500"
+       style="fill:url(#radialGradient3276);stroke-width:30;stroke-linecap:round;"
+       id="bg" /&gt;
+  &lt;g transform="translate(-120 -100)"&gt;
+    &lt;path
+       d="M 362.85715,349.50504 C 358.12981,356.81092 350.67666,346.73714 350.71429,341.64789 C 350.81627,327.85633 367.22572,322.12645 378.57144,325.21933 C 398.86627,330.75175 406.26373,354.82622 399.28571,373.07648 C 389.04518,399.85947 356.42337,409.13291 331.42856,398.07645 C 298.1144,383.33994 286.92857,341.90419 302.14288,310.2193 C 321.28853,270.3471 371.65046,257.23526 410.00003,276.64791 C 456.4465,300.15923 471.49146,359.50501 447.85713,404.50506 C 420.00489,457.53607 351.64169,474.51851 299.99997,446.64787 C 240.37757,414.47011 221.45475,337.06819 253.57146,278.79071 C 290.06451,212.57214 376.51952,191.70688 441.42862,228.07649 C 514.24681,268.8777 537.05603,364.39597 496.42854,435.93365 C 451.32433,515.35404 346.73537,540.10836 268.57138,495.21929"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3246)"
+       id="path2160" /&gt;
+    &lt;path
+       d="M 362.85715,349.50504 C 358.12981,356.81092 350.67666,346.73714 350.71429,341.64789 C 350.81627,327.85633 367.22572,322.12645 378.57144,325.21933 C 398.86627,330.75175 406.26373,354.82622 399.28571,373.07648 C 389.04518,399.85947 356.42337,409.13291 331.42856,398.07645 C 298.1144,383.33994 286.92857,341.90419 302.14288,310.2193 C 321.28853,270.3471 371.65046,257.23526 410.00003,276.64791 C 456.4465,300.15923 471.49146,359.50501 447.85713,404.50506 C 420.00489,457.53607 351.64169,474.51851 299.99997,446.64787 C 240.37757,414.47011 221.45475,337.06819 253.57146,278.79071 C 290.06451,212.57214 376.51952,191.70688 441.42862,228.07649 C 514.24681,268.8777 537.05603,364.39597 496.42854,435.93365 C 451.32433,515.35404 346.73537,540.10836 268.57138,495.21929"
+       transform="translate(0.758,-1.533235)"
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:20;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3287" /&gt;
+    &lt;text editable="simple" dy="5"
+       style="font-size:12px;font-family:Bitstream Vera Sans,sans-serif"&gt;
+     &lt;textPath xlink:href="#path3287"&gt;
+    Hello spiral text field Hello spiral text field
+    Hello spiral text field Hello spiral text field
+    Hello spiral text field Hello spiral text field
+    Hello spiral text field Hello spiral text field
+    &lt;/textPath&gt;
+    &lt;/text&gt;
+  &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+</code></pre></div>
+                <div class="demolink"><a href="demos/16_html5_html/svg_text.svg">demo</a></div>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                or take a look at the famous <a href="demos/16_html5_html/svg_tiger.svg">Tiger Example</a>
+              </li>
+              <li>
+                small drawback: SVG support is <a href="http://www.codedread.com/svg-support.php">very</a> <a href="http://www.codedread.com/svg-support-table.html">variable</a>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section data-index-title="">
+          <section>
+            <h2>References</h2>
+            <ul>
+              <li>
+                Some credits:
+                <ul>
+                  <li>
+                    HTML5 input types<br />
+                    <a href="http://www.456bereastreet.com/archive/201004/html5_input_types/">http://www.456bereastreet.com/archive/201004/html5_input_types/</a>
+                  </li>
+                  <li>
+                    Excellent HTML5 overview<br />
+                    <a href="http://slides.html5rocks.com/">http://slides.html5rocks.com/</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section data-index-title="">
+          <section>
+            <h2>Questions?</h2>
+          </section>
+        </section>
+
+    </div>
+
+    <!-- ikdoeict.be Link -->
+    <a href="http://www.ikdoeict.be/" title="ikdoeict.be" id="ikdoeict">ikdoeict.be</a>
+
+    <!-- Index Link -->
+    <aside class="back">
+      <nav>
+        <p><a href="index.html">&larr; Back to index</a></p>
+      </nav>
+    </aside>
+
+
+  </div>
+
+  <script src="library/jquery.min.js"></script>
+  <script src="library/head.min.js"></script>
+  <script src="library/reveal/reveal.min.js"></script>
+  <script src="library/highlight/highlight.pack.js"></script>
+  <script src="library/prefixfree.js"></script>
+  <script src="library/css-snippets.js"></script>
+  <script src="library/css-edit.js"></script>
+  <script src="library/incrementable.js"></script>
+  <script src="library/main.js"></script>
+
+</body>
+</html>

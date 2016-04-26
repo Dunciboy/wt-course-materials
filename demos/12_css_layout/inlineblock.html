@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Floating multiple elements </title>
+	<meta charset="utf-8" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box:first-child {
+			border-left: 2px solid black;
+		}
+		.box {
+			border: 2px solid black;
+			border-left: 0;
+			font: 12px Verdana;
+			height: 20px;
+			line-height: 20px;
+			padding: 5px;
+			display: inline-block;
+		}
+		#wrapper {
+			border: 1px dotted black;
+			width: 500px;
+			margin: 10px auto;
+			padding: 10px;
+			text-align: center;
+		}
+	</style>
+	<!--[if lte IE 7]>
+	<style>
+		.box {
+			display: inline;
+		}
+	</style>
+	<![endif]-->
+</head>
+<body>
+	<div id="wrapper">
+		<div class="box" id="box1">item</div><div class="box" id="box2">one more item</div><div class="box" id="box3">last item</div>
+	</div>
+</body>
+</html>

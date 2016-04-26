@@ -1,0 +1,96 @@
+body {
+	background-color: #999;
+}
+
+#wrapper {
+	background-color: white;
+}
+
+#wrapper > header {
+	background-color: #333;
+}
+
+#mainmenu ul {
+	background-color: #666;
+}
+
+#submenu {
+	background-color: #ff9;
+}
+
+#wrapper > footer {
+	background-color: #666;
+}
+
+/* Site Wrapper */
+#wrapper {
+	width: 900px;
+	margin: 0 auto;
+}
+
+/* Header Section */
+#wrapper > header {
+	height: 60px;
+	position: relative;
+}
+
+#wrapper > header h1 {
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	margin: 0;
+	padding: 0px;
+}
+
+#wrapper > header p {
+	text-align: right;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	margin: 0;
+}
+
+/* Main Menu Section */
+#mainmenu ul li {
+	display: inline-block;
+}
+#mainmenu ul li a {
+	line-height: 24px;
+	display: inline-block;
+	height: 28px;
+	width: 50px;
+	padding: 2px 5px;
+	text-align: center;
+}
+#mainmenu ul li + li:before {
+	content: '|';
+	color: #999;
+}
+
+/* Sub Menu Section */
+
+#submenu {
+	width: 180px;
+	float: left;
+}
+
+/* Content Section */
+#content {
+	width: 640px;
+	float: left;
+}
+
+#content aside {
+	float: right;
+	width: 130px;
+	border: 1px solid gray;
+}
+
+/* Footer Section */
+#wrapper > footer {
+	clear: both;
+}
+
+#wrapper > footer li {
+	display: inline-block;
+}

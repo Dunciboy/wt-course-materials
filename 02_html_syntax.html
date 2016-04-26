@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webtechnology &mdash; Syntax</title>
+  <meta name="author" content="Rogier van der Linde - ikdoeict.be">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="library/reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="library/reveal/css/theme/rogier.css" id="rogier">
+  <link rel="stylesheet" href="library/highlight/styles/vs.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/02_html_syntax.css">
+</head>
+
+<body>
+
+  <!-- SLIDES -->
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      <!-- 0 : Title -->
+      <section>
+        <section>
+          <h1>SYNTAX</h1>
+          <small>use the arrow keys to navigate; press space for slide overview</small>
+          <figure>
+            <img src="img/02_html_syntax/icon.jpg" alt="" class="border" />
+            <figcaption></figcaption>
+          </figure>
+          <footer>
+            <a href="http://www.ikdoeict.be/">ikdoeict.be</a> &mdash; <a href="mailto:rogier.vanderlinde@odisee.be">rogier.vanderlinde@odisee.be</a>
+          </footer>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>SYNTAX</h1>
+          <h2>Web standards</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Web standards</h2>
+          <ul>
+            <li>A web standard describes within a certain field:
+              <ul>
+                <li>syntax rules</li>
+                <li>best practices</li>
+                <li>technical specifications for rendering engines (e.g. browsers)</li>
+              </ul>
+            </li>
+            <li>Most important organizations for the web:
+              <ul>
+                <li><a href="http://www.w3.org/">W3C</a> (HTML, CSS, WCAG...)</li>
+                <li><a href="http://www.ecma-international.org/">ECMA</a> (Javascript, several XML formats...)</li>
+              </ul>
+            </li>
+            <li>Preparative work may be done by specialized working groups
+              <ul>
+                <li><a href="http://www.whatwg.org/">WHATWG</a> (HTML5)</li>
+                <li><a href="http://www.w3.org/2011/04/webrtc/">Web RTC working group</a></li>
+                <li>...</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Status of a standard">
+          <h2>Status of a standard (1)</h2>
+          <ul>
+            <li><em>Under development</em>: under construction (CSS3)</li>
+            <li><em>Working draft</em>: published for review by "the community"; major changes expected (HTML5, <del>XHTML2</del>)</li>
+            <li>
+              <em>Candidate recommendation</em>: feedback from implementors; minor changes possible, usually for practical reasons (CSS2.1 until 2011)
+              <br />&rarr; nerdspeak for 'done and dusted'
+            </li>
+            <li><em>Proposed recommendation</em>: document is submitted to W3C council for final approvement</li>
+            <li><em>W3C Recommendation</em>: accepted by the W3C for wide deployment (XHTML1.1, CSS2.1...)</li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Status of a standard (2)</h2>
+          <ul>
+            <li>
+              Some standards are split modules; each module is handled separately:<br />
+              <img src="img/02_html_syntax/css3_status.png" alt="CSS3 status" />
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Parties involved</h2>
+          <ul>
+            <li>
+              Parties involved in a standard:
+              <ul>
+                <li><em>W3C</em> &rarr; draft and publish the standards (actually not very important factor)</li>
+                <li><em>browser vendors</em> &rarr; implement standards and experiment with new features</li>
+                <li><em>visitors</em> &rarr; choose device and browser (<a href="http://www.netmagazine.com/features/developers-guide-browser-adoption-rates">adoptation rate</a>)</li>
+                <li><em>website owner</em> &rarr; target audience and graceful degradation expectations</li>
+                <li><em>open source community</em> &rarr; available code snippets, frameworks...</li>
+                <li><em>you</em> &rarr; skills, favorites...</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Can I use...?</h2>
+          <ul>
+            <li>
+              It is better not to think of a standard as a undividable unit
+            </li>
+            <li>
+              Think of it as a recommended use of a related set of techniques, each of which may be used if support is sufficient for your goal
+            </li>
+            <li>
+              Get a general idea of browser support:
+              <ul>
+                <li><a href="http://html5test.com/">HTML5test</a> (compatibility test)</li>
+                <li><a href="http://html5readiness.com/">html5readiness.com</a> (nice visualization)</li>
+                <li><a href="http://css3test.com//">CSS3test</a> (compatibility test)</li>
+              </ul>
+            </li>
+            <li>
+              Find detailed compatibility info here:
+              <ul>
+                <li><a href="http://www.caniuse.com/">caniuse.com</a></li>
+                <li><a href="http://html5please.com/">html5please.com</a></li>
+                <li><a href="http://www.quirksmode.org/compatibility.html">quirksmode.org</a></li>
+                <li><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28HTML5%29">wikipedia.org</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Graceful degradation">
+          <h2>Graceful degradation (1)</h2>
+          <ul>
+            <li>
+              For unsupporting browsers sometimes a fallback (mostly Javascript) is available
+            </li>
+            <li>
+              If not: websites <a href="http://dowebsitesneedtolookexactlythesameineverybrowser.com/">do not need to look identical in every browser</a>
+            </li>
+            <li>
+              Example for CSS3 animations (see <a href="http://farukat.es">farukat.es</a>):
+            </li>
+            <li class="no-style clearfix">
+              <div class="comparevideo">
+                <div class="video">
+                  <video controls muted>
+                    <source src="demos/02_html_syntax/chrome.mp4" type="video/mp4">
+                    <source src="demos/02_html_syntax/chrome.ogv" type="video/ogg">
+                  </video>
+                  <p class="caption">supported in Chrome19</p>
+                </div>
+                <div class="video">
+                  <video controls muted>
+                    <source src="demos/02_html_syntax/ie.mp4" type="video/mp4">
+                    <source src="demos/02_html_syntax/ie.ogv" type="video/ogg">
+                  </video>
+                  <p class="caption">unsupported but still acceptable in IE9</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Graceful degradation (2)</h2>
+          <ul>
+            <li>
+              Example for CSS3 rounded corners and box shadow:
+            </li>
+            <li class="no-style">
+              <figure class="comparefigure">
+                <img src="img/02_html_syntax/degradation2.jpg" alt="degradation example" class="border" />
+                <img src="img/02_html_syntax/degradation1.jpg" alt="degradation example" class="border" />
+                <figcaption>the unsupported version on the right is still acceptable</figcaption>
+              </figure>
+            </li>
+            <li>
+              This is called <em>graceful degradation</em><br />
+              <ul>
+                <li>code for the best browser first</li>
+                <li>provide acceptable fallback for lesser browsers</li>
+                <li>'top-down' approach</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Graceful degradation (3)</h2>
+          <ul>
+            <li>
+              These small differences may even help pushing users to better browsers
+            </li>
+            <li>
+              Differences are ok as long as they are non-critical:<br />
+              <div class="bluetable" id="tblCritical">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>critical</th>
+                      <th>non-critical</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Accessibility</td>
+                      <td>Presentation</td>
+                    </tr>
+                    <tr>
+                      <td>Layout</td>
+                      <td>Design</td>
+                    </tr>
+                    <tr>
+                      <td>Usability</td>
+                      <td>Experience</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+          <ul class="arrow">
+            <li>
+              Interesting reading on common CSS3 fallbacks:
+              <a href="http://coding.smashingmagazine.com/2011/05/03/using-css3-older-browsers-and-common-considerations/">Using CSS3 &mdash; Older Browsers And Common Considerations</a>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Web standards timeline">
+          <h2>Web standards timeline (1)</h2>
+          <div class="bluetable scrolltable" id="tblHistory">
+            <table>
+              <thead>
+                <tr>
+                  <th>year</th>
+                  <th>html</th>
+                  <th>css</th>
+                  <th>javascript</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1991</td>
+                  <td>HTML1</td>
+                  <td></td>
+                  <td></td>
+                  <td>Defines 20 HTML elements (13 remain today)</td>
+                </tr>
+                <tr>
+                  <td>1992</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1993</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1994</td>
+                  <td>HTML2</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>New elements like &lt;h1&gt;, &lt;br /&gt;&hellip;</p>
+                    <p>NN1 appears</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1995</td>
+                  <td><del>HTML3</del></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>HTML3 was too ambitious and never made it</p>
+                    <p>IE1 appears</p>
+                    <p>Browsor specific HTML extensions</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1996</td>
+                  <td></td>
+                  <td>CSS1</td>
+                  <td>JS 1.0</td>
+                  <td>Javascript introduced in NN2</td>
+                </tr>
+                <tr>
+                  <td>1997</td>
+                  <td>HTML3.2</td>
+                  <td></td>
+                  <td>JS 1.2</td>
+                  <td>
+                    <p>First HTML version developed by the W3C; math formulas dropped, most of NN's additions adopted</p>
+                    <p>IE4 vs NN4 &mdash; browser war at its peak</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1998</td>
+                  <td>HTML4</td>
+                  <td>CSS2</td>
+                  <td>JS 1.3</td>
+                  <td>Three HTML variations: Transitional, Frameset and Strict.</td>
+                </tr>
+                <tr>
+                  <td>1999</td>
+                  <td></td>
+                  <td></td>
+                  <td>JS 1.4</td>
+                  <td>IE5 released; NN starts sinking</td>
+                </tr>
+                <tr>
+                  <td>2000</td>
+                  <td>
+                    XHTML1<br />
+                    (S, F, T)
+                  </td>
+                  <td></td>
+                  <td>JS 1.5</td>
+                  <td>XHTML = reformulation of HTML in XML syntax</td>
+                </tr>
+                <tr>
+                  <td>2001</td>
+                  <td>XHTML1.1</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>XHTML1.1 is based on XHTML1.0 Strict</p>
+                    <p>IE reaches nearly 100% marketshare</p>
+                    <p>IE6 released with Windows XP</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2002</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>2003</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>IE4- and NN4- disappeared - tableless web layout is now possible</td>
+                </tr>
+                <tr>
+                  <td>2004</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>Firefox 1.0 released</p>
+                    <p>Rebellion in XHTML2 workgroup; parallel HTML5 workgroup formed</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2005</td>
+                  <td></td>
+                  <td>CSS2.1</td>
+                  <td>JS 1.6</td>
+                  <td>CSS2.1 &#8776; snapshot of browser CSS2 support</td>
+                </tr>
+                <tr>
+                  <td>2006</td>
+                  <td></td>
+                  <td></td>
+                  <td>JS 1.7</td>
+                  <td>IE7 released</td>
+                </tr>
+                <tr>
+                  <td>2007</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>2008</td>
+                  <td></td>
+                  <td></td>
+                  <td>JS 1.8</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>2009</td>
+                  <td>
+                    <del>XHTML2</del>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>IE8 released</p>
+                    <p>W3C gives up on XHTML2 and embraces HTML5</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2010</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>2011</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>IE9 released; marketshare below 60%</td>
+                </tr>
+                <tr>
+                  <td>today</td>
+                  <td>HTML5</td>
+                  <td>CSS3</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>future</td>
+                  <td></td>
+                  <td>CSS4</td>
+                  <td>JS Harmony</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+<!--
+
+HTML5:
+ Opera, Apple & Firefox rebelleren in 2004 tegen XHTML2 werkgroep
+ vormen WHATWG (Web Hypertext Application Technology Working Group)
+ W3C wou theoretisch pure standaarden, los van de noden van web designers; het WHATWG wou meer nadruk op formaten voor web applicaties ipv zuiver websites
+ W3C werkt op basis van consensus, WHATWG minder democratisch op basis van voorstellen en een eindbeslissing die bij de editor ligt (Ian Hickson van Opera)
+ W3C's werk leidt niet snel nergens heen, het leidt heel heel traag nergens heen
+
+> grote bekommernis: strictere XHTML syntax overboord gegooid, de keuze is aan de programmeur (+ discussie: lijkt me dom - vrije keuze is zelden een goede zaak geweest)
+> aan de andere kant: voor het eerst beloven ze ook een volledige error handling specificatie voor browsers bij pagina fouten (nu doet elke browser een beetje naar goeddunken)
+
+Volgorde XHTML2: 1 theoretical purity 2 implementers 3 authors 4 users
+Volgorde HTML5: omgekeerd
+
+XHTML2 te vergelijken met poging tot invoering van decimaal tijdssysteem na de Franse revolutie; heeft niet lang geduurd, want niemand gebruikte het
+"Pave the cowpaths"!
+
+-->
+        <section data-toc-title="">
+          <h2>Web standards Timeline (2)</h2>
+          <ul>
+            <li>
+              In ancient times: hybrid markup
+              <ul>
+                <li>HTML 2.0, 1995</li>
+                <li>HTML 3.2, 1997</li>
+                <li>HTML 4.01, 1999</li>
+              </ul>
+            </li>
+            <li>
+              Yesteryears: move towards structural markup
+              <ul>
+                <li>HTML 4.01 Transitional</li>
+                <li>HTML 4.01 Frameset</li>
+                <li>HTML 4.01 Strict</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Web standards Timeline (3)</h2>
+          <ul>
+            <li>
+              Yesterday: stricter syntax
+              <ul>
+                <li>XHTML 1.0 Transitional</li>
+                <li>XHTML 1.0 Frameset</li>
+                <li>XHTML 1.0 Strict</li>
+              </ul>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Today: pave the cowpaths
+              <ul>
+                <li><del>XHTML 2.0</del> <em>HTML5</em>!</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            <img src="img/02_html_syntax/html5.jpg" alt="html5 logo" style="position: absolute; bottom: 30px; right: 30px" />
+          </p>
+        </section>
+        <section>
+          <h2>Typical XHTML 1.1 page</h2>
+          <ul>
+            <li>
+              Example of a typical XHTML 1.1 page:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html wrong">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html;
+    charset=ISO-8859-1" /&gt;
+  &lt;script type="text/javascript" src="js/scripts.js"&gt;&lt;/script&gt;
+  &lt;link type="text/css" rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;... here comes the page content ...&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              <div class="demolink"><a href="demos/02_html_syntax/strict.html">demo</a></div>
+            </li>
+          </ul>
+          <ul class="arrow">
+            <li>Strict XHTML syntax</li>
+            <li>Valid but not easy to remember</li>
+            <li>Still widely used today</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Typical HTML5 page</h2>
+          <ul>
+            <li>
+              The same page in HTML5:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html right">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script src="js/scripts.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  ... here comes the page content ...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              <div class="demolink"><a href="demos/02_html_syntax/html5.html">demo</a></div>
+            </li>
+          </ul>
+          <ul class="arrow">
+            <li>Also valid, much simpler and modern</li>
+            <li>New sites should use HTML5</li>
+            <li>We'll use HTML5 in this course</li>
+          </ul>
+        </section>
+        <section data-toc-title="In this course">
+          <h2>In this course (1)</h2>
+          <ul>
+            <li>
+              We will use HTML5 + CSS2.1 and some CSS3
+            </li>
+            <li>
+              HTML5's syntax is rather loose, so we'll add some custom rules:
+              <ul class="v-style">
+                <li>lowercase for tag names and attributes</li>
+                <li>double quotes around attribute values</li>
+                <li>close empty elements with / or, e.g. <code>&lt;br /&gt;</code></li>
+                <li>close all non-empty elements with end tag, e.g. <code>&lt;li&gt;</code>...<code>&lt;/li&gt;</code></li>
+                <li class="x-style">do not use presentational markup like <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;font&gt;</code>...</li>
+              </ul>
+            </li>
+            <li>
+              Always <a href="http://validator.w3.org/check">validate our code</a>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>In this course (2)</h2>
+          <ul>
+            <li>
+              You may use experimental CSS3 and HTML5 techniques, but:
+              <ul class="v-style">
+                <li>make sure it is non-critical</li>
+                <li>or: provide Javascript backup</li>
+                <li>or: provide acceptable graceful degradation</li>
+                <li>if it is vendor specific: use vendor prefixes</li>
+                <li class="x-style">do not make 'webkit only' sites</li>
+              </ul>
+            </li>
+          </ul>
+          <ul>
+            <li class="no-style">
+              &rarr; <em>test your site on all common browsers and systems!</em>
+            </li>
+          </ul>
+        </section>
+        <section style="text-align:center">
+          <h2>Are standards important?</h2>
+          <img src="img/02_html_syntax/blender.jpg" alt="goldfish in blender" />
+        </section>
+        <section data-toc-title="How is the web doing?">
+          <h4>Nice Standards, but...</h4>
+          <h2>How is the web doing? (1)</h2>
+          <ul>
+            <li>
+              http://www.google.com
+            </li>
+            <li class="fragment">
+              no real HTML5 and lots of errors
+              <img src="img/02_html_syntax/google2.png" alt="google" style="border: 0" />
+            </li>
+          </ul>
+          <p>
+          </p>
+        </section>
+        <section data-toc-title="">
+          <h4>Nice Standards, but...</h4>
+          <h2>How is the web doing? (2)</h2>
+          <ul>
+            <li>
+              http://www.amazon.com
+            </li>
+            <li class="fragment no-style">
+              still HTML 4.01 and lots of errors
+              <img src="img/02_html_syntax/amazon.png" alt="amazon" style="border: 0" />
+            </li>
+          </ul>
+          <p>
+          </p>
+        </section>
+        <section data-toc-title="">
+          <h4>Nice Standards, but...</h4>
+          <h2>How is the web doing? (3)</h2>
+          <ul>
+            <li>
+              http://www.microsoft.com
+            </li>
+            <li class="fragment no-style">
+              still XHTML 1.0 and lots of errors
+              <img src="img/02_html_syntax/microsoft.png" alt="microsoft" style="border: 0" />
+            </li>
+          </ul>
+          <p>
+          </p>
+        </section>
+        <section data-toc-title="">
+          <h4>Nice Standards, but...</h4>
+          <h2>How is the web doing? (4)</h2>
+          <ul>
+            <li>
+              but: http://ie.microsoft.com/testdrive/
+            </li>
+            <li class="no-style">
+              <img src="img/02_html_syntax/microsoftOk.png" alt="microsoftOk" style="border: 0" />
+            </li>
+            <li class="fragment no-style">&rarr; no significant errors</li>
+            <li class="fragment no-style">&rarr; they can if they want</li>
+          </ul>
+          <p>
+          </p>
+        </section>
+<!--
+
+Expedia case: één enkel tekstvak aanpassen leverde gelijk 12,5 miljoen dollar meerinkomsten op
+Bij betaling werden nl. betalingsgegevens gevraagd, en de 'company' -> veel mensen dachten dat
+dit de company info van Visa zelf was of snapten de vraag niet en haakten af
+
+-->
+        <section>
+          <h4>Nice Standards, but...</h4>
+          <h2>What about us?</h2>
+          <ul>
+            <li>
+              Majority of sites
+              <ul>
+                <li>bad code</li>
+                <li>old code</li>
+                <li>high maintenance costs</li>
+                <li>bad usability</li>
+                <li>bad accessibility</li>
+              </ul>
+            </li>
+            <li>
+              Choose different!
+              <ul>
+                <li>usability</li>
+                <li>accessibility</li>
+                <li>good and standards compliant code</li>
+                <li class="fragment">this is not about ethics, but...</li>
+              </ul>
+            </li>
+            <li class="fragment no-style">
+              <img src="img/02_html_syntax/money3.png" alt="money" style="position: absolute; bottom: 50px; right: 40px; border:0" />
+            </li>
+            <li class="fragment no-style">
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>SYNTAX</h1>
+          <h2>Markup languages</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Presentational markup</h2>
+          <ul>
+            <li>Example of presentational markup: WordPerfect</li>
+          </ul>
+          <p>
+            <img src="img/02_html_syntax/wp.png" alt="wp" />
+          </p>
+        </section>
+        <section>
+          <h2>Structural markup</h2>
+          <ul>
+            <li>Example of structural markup: XML</li>
+          </ul>
+          <p>
+            <img src="img/02_html_syntax/xml.png" alt="xml" />
+          </p>
+        </section>
+        <section>
+          <h2>Hybrid markup</h2>
+          <ul>
+            <li>Example of hybrid markup: TeX</li>
+          </ul>
+          <p>
+            <img src="img/02_html_syntax/tex.png" alt="tex" />
+          </p>
+        </section>
+        <section>
+          <h2>HTML markup</h2>
+          <ul>
+            <li>HTML: structural markup language for web pages (or better: web based applications)</li>
+            <li>In earlier times also presentational, but <i>please</i> for design and layout, use CSS instead!</li>
+          </ul>
+          <p>
+            <img src="img/02_html_syntax/html.png" alt="html" />
+          </p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>SYNTAX</h1>
+          <h2>HTML syntax</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section data-toc-title="Basic page structure">
+          <h2>Basic page structure (1)</h2>
+          <ul>
+            <li>
+              Page structure in HTML5:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html right">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  ... here comes the page content ...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              <div class="demolink"><a href="demos/02_html_syntax/html5.html">demo</a></div>
+            </li>
+          </ul>
+          <ul class="arrow">
+            <li>We will always use this basic structure</li>
+          </ul>
+          <div class="tooltip">
+            <div>
+              It is important that the language attribute is set and correct, or screenreaders will try to read the content in a wrong language, which sounds rather funny
+            </div>
+          </div>
+        </section>
+        <section data-toc-title="">
+          <h2>Basic page structure (2)</h2>
+          <ul>
+            <li>
+              Essential parts:
+              <ul>
+                <li>Doctype declaration <code>&lt;!DOCTYPE html&gt;</code></li>
+                <li>Elements <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> </li>
+                <li>A relevant title in  <code>&lt;title&gt;...&lt;/title&gt;</code></li>
+                <li>Characterset declaration <code>&lt;meta charset="..." /&gt;</code></li>
+              </ul>
+            </li>
+            <li>
+              Without doctype, some browsers might fall back to <i>quirks modus</i> and display the page different
+            </li>
+            <li>
+              Without charset declaration, some characters may display different
+            </li>
+            <li>
+              Check if your page validates with the Web Developer plugin!
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Basic example</h2>
+          <ul>
+            <li>
+              Sample page with some basic elements (headers, lists, paragraphs...)
+            </li>
+            <li class="no-style">
+              <div class="codescrollpanel"><pre class="bigger"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="nl"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Eenvoudig voorbeeld&lt;/h1&gt;
+  &lt;h2&gt;Introductie&lt;/h2&gt;
+  &lt;p&gt;
+    Dit is een voorbeeld van een simpele webpagina.
+    Desondanks bestaat zelfs een eenvoudige webpagina als deze veel
+    verschillende markup elementen.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Probeer ondertussen de functie van de verschillende markup
+    elementen te begrijpen die in de code van deze pagina
+    voorkomen. De belangrijkste staan hieronder opgesomd. Je
+    kunt als je dit wil de link onderaan gebruiken om alvast
+    een voorsmaakje te krijgen van de mogelijkheden van HTML.
+    Maar het beste is natuurlijk de cursus
+    verderlezen &lt;img src="img/02_html_syntax/icon_wink.gif" alt="wink icon" /&gt;
+  &lt;/p&gt;
+  &lt;h2&gt;Over dit voorbeeld&lt;/h2&gt;
+  &lt;p&gt;&lt;em&gt;Enkele belangrijke elementen in de body:&lt;/em&gt;&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;de hoofdings in twee verschillende niveau's&lt;/li&gt;
+    &lt;li&gt;paragrafen&lt;/li&gt;
+    &lt;li&gt;de &lt;em&gt;benadrukte&lt;/em&gt; tekst&lt;/li&gt;
+    &lt;li&gt;dit opsommingslijstje&lt;/li&gt;
+    &lt;li&gt;de link onderaan&lt;/li&gt;
+    &lt;li&gt;de afbeelding&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    Volg deze link om naar de
+    &lt;a href="http://www.w3schools.com/"&gt;w3schools tutorials&lt;/a&gt; te
+    gaan.
+  &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+              <div class="demolink"><a href="demos/02_html_syntax/samplepage.html">demo</a></div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Code layout">
+          <h2>Code layout (1)</h2>
+          <ul>
+            <li>Browsers ignore code layout (double spaces, tabs, enters)</li>
+            <li>In theory this means total freedom</li>
+            <li>BUT see house rules:
+              <ul>
+                <li>opening and closing tag on the same line, or</li>
+                <li>opening and closing tag on seperate lines with the same indent, and the content indented</li>
+                <li>indent with tabs only, no spaces</li>
+              </ul>
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html">&lt;xxx&gt;
+...
+...
+...
+&lt;/xxx&gt;
+
+&lt;xxx&gt;...&lt;/xxx&gt;</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Code layout (2)</h2>
+          <ul>
+            <li>Enters are converted to spaces</li>
+            <li>Example:</li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html" contenteditable data-subject="#layoutdemo">&lt;!-- remove all whitespaces and see what happens --&gt;
+&lt;img src="img/02_html_syntax/button1.png" /&gt;
+&lt;img src="img/02_html_syntax/button2.png" /&gt;
+&lt;img src="img/02_html_syntax/button3.png" /&gt;
+&lt;img src="img/02_html_syntax/button4.png" /&gt;</code></pre>
+            </li>
+          </ul>
+          <div id="layoutdemo">
+            <img src="img/02_html_syntax/button1.png" alt="" />
+            <img src="img/02_html_syntax/button2.png" alt="" />
+            <img src="img/02_html_syntax/button3.png" alt="" />
+            <img src="img/02_html_syntax/button4.png" alt="" />
+          </div>
+          <div class="tooltip">
+            <div>
+              Tip: the codepanel is editable; try it out!
+            </div>
+          </div>
+        </section>
+        <section data-toc-title="HTML elements">
+          <h2>HTML elements (1)</h2>
+          <ul>
+            <li>Are codes marking the <i>structure</i> of content</li>
+            <li>Non-empty elements: <code>&lt;xxx&gt;...&lt;/xxx&gt;</code> <br />(I'll list them as <code><em>&lt;xxx&gt;</em></code>)</li>
+            <li>Empty elements: <code>&lt;xxx /&gt;</code><br />(I'll list them as <code><em>&lt;xxx /&gt;</em></code>)</li>
+            <li>Elements from the page example: <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;img /&gt;</code></li>
+            <li>House rules:
+              <ul>
+                <li>use lowercase for element name</li>
+                <li>always close empty elements with a /</li>
+                <li>always use a closing tag for non-empty elements</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>HTML elements (2)</h2>
+          <ul>
+            <li>
+              For an overview see <a href="files/appendix.pdf">appendix</a>:
+              <img src="img/02_html_syntax/appendix.png" alt="appendix" />
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Blocklevel and inline">
+          <h2>Blocklevel and inline (1)</h2>
+          <ul>
+            <li>Blocklevel: appears on a single line</li>
+            <li>Inline: can appear in the middle of a line of text</li>
+            <li>Blocklevel elements may contain blocklevel and inline elements</li>
+            <li>Inline elements may only contain inline elements (exception: <code>&lt;a&gt;</code> can also contain blocklevel elements)</li>
+            <li>Blocklevel or inline?<br /> <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;img /&gt;</code></li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Blocklevel and inline (2)</h2>
+          <ul>
+            <li>Always structure your page or content block with blocklevel elements first before adding inline elements</li>
+            <li>This validates but lacks structure:</li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html dontrun">  ...
+  &lt;p&gt;here is a picture of myself:&lt;/p&gt;
+  &lt;img src="img/me.jpg" alt="picture of myself" /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </li>
+            <li>Better:</li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html dontrun"> ...
+  &lt;p&gt;here is a picture of myself:&lt;/p&gt;
+  &lt;p&gt;&lt;img src="img/me.jpg" alt="picture of myself" /&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </li>
+          </ul>
+          <div class="tooltip">
+            <div>
+              Wrapping an inline element in a blocklevel element is actually not really necessary as long as you <i>make</i> it blocklevel. For this we need CSS, which is a topic for later chapters, so for now we'll stick to wrapping it in a blocklevel element.
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <ul>
+            <li>Additional properties of an element</li>
+            <li>Should be in the opening tag, never in the closing tag</li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html dontrun">&lt;img src="..." alt="..." /&gt;
+&lt;a href="..."&gt;...&lt;/a&gt;</code></pre>
+            </li>
+            <li>House rules:
+              <ul>
+                <li>lowercase for attribute name</li>
+                <li>use double qoutes around attribute value</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Comments</h2>
+          <ul>
+            <li>Anything between <code>&lt;!--</code> and <code>--&gt;</code> is ignored</li>
+            <li>Commenting is a good habit!</li>
+            <li class="no-style">May also be used to disable pieces of code:
+              <pre class="bigger"><code class="language-html dontrun">    ...
+    &lt;li&gt;the bulleted list&lt;/li&gt;
+    &lt;li&gt;the link below&lt;/li&gt;
+    &lt;li&gt;the image&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;!-- There's still a bug somewhere here
+  &lt;p&gt;
+    Follow this link to go to the
+    &lt;a href="http://www.w3schools.com/&gt;w3schools tutorials&lt;/a&gt;
+  &lt;/p&gt;
+  --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Metatags</h2>
+          <ul>
+            <li>Provides metadata about the HTML document.</li>
+            <li>It usually consists of name/value pairs:
+              <pre class="bigger"><code class="language-html dontrun">&lt;head&gt;
+  ...
+  &lt;meta name="description" content="Slides for Webtechnology1" /&gt;
+  &lt;meta name="keywords" content="HTML, CSS" /&gt;
+  &lt;meta name="author" content="Rogier van der Linde" /&gt;
+&lt;/head&gt;</code></pre>
+            </li>
+            <li>Many such tags exist, in fact, you may specify any name/value pair</li>
+            <li>Description and keywords were once important for search engine indexing, but are largely ignored these days</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Link relations</h2>
+          <ul>
+            <li>Links the document to other resources:
+              <pre class="bigger"><code class="language-html dontrun">&lt;head&gt;
+  ...
+  &lt;link rel="alternate" type="application/rss+xml"
+    href="http://myblog.com/feed" /&gt;
+  &lt;link rel="icon" href="img/icons/favicon.ico" /&gt;
+  &lt;link rel="first" href="http://myblog.com/page1.php"&gt;
+  &lt;link rel="prefetch" href="http://myblog.com/main.php"&gt;
+  &lt;link rel="stylesheet" href="css/main.css"&gt;
+&lt;/head&gt;</code></pre>
+            </li>
+            <li>A browser may or may not do something with these links</li>
+            <li>See <a href="demos/02_html_syntax/favicon.html">this favorite icon demo</a> (Firefox)</li>
+          </ul>
+        </section>
+
+      </section>
+      <section>
+        <section>
+          <h2>Questions?</h2>
+        </section>
+      </section>
+
+    </div>
+
+    <!-- ikdoeict.be Link -->
+    <a href="http://www.ikdoeict.be/" title="ikdoeict.be" id="ikdoeict">ikdoeict.be</a>
+
+    <!-- Index Link -->
+    <aside class="back">
+      <nav>
+        <p><a href="index.html">&larr; Back to index</a></p>
+      </nav>
+    </aside>
+
+  </div>
+
+  <script src="library/jquery.min.js"></script>
+  <script src="library/head.min.js"></script>
+  <script src="library/reveal/reveal.min.js"></script>
+  <script src="library/highlight/highlight.pack.js"></script>
+  <script src="library/prefixfree.js"></script>
+  <script src="library/css-snippets.js"></script>
+  <script src="library/css-edit.js"></script>
+  <script src="library/incrementable.js"></script>
+  <script src="library/main.js"></script>
+
+</body>
+</html>

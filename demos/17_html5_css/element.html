@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+
+	Run this page in Firefox
+	Read more: https://developer.mozilla.org/en-US/docs/Web/CSS/element
+
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+		#wall {
+		    width: 400px; 
+		    height: 200px; 
+		    border: 1px solid; 
+		    background: -moz-element(#tile);            
+		}
+		#tile {
+			transform: rotate(15deg); 
+			padding: 10px; 
+			float: left;
+		}
+    </style>
+</head>
+<body>
+    <div id="wall"></div>
+    <div id="tile">
+      test
+    </div>    
+</body>
+</html>

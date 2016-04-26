@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 &mdash; Javascript</title>
+  <meta name="author" content="Rogier van der Linde - ikdoeict.be">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="library/reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="library/reveal/css/theme/rogier.css" id="rogier">
+  <link rel="stylesheet" href="library/highlight/styles/vs.css">
+  <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+
+  <!-- SLIDES -->
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <!-- 0 : Title -->
+        <section>
+          <h1>Part 2: Javascript</h1>
+          <small>use the arrow keys to navigate; press space for slide overview<br /></small>
+          <figure>
+            <img src="img/18_html5_js/icon.jpg" alt="" style="width: 411px; margin: 0 auto" />
+            <figcaption style="width: 411px; margin: 0 auto">WebGL screenshot</figcaption>
+          </figure>
+
+          <footer>
+            <a href="http://www.ikdoeict.be/">ikdoeict.be</a> &mdash; <a href="mailto:rogier.vanderlinde@odisee.be">rogier.vanderlinde@odisee.be</a>
+          </footer>
+        </section>
+        <section>
+          <section>
+            <h1>Part 2: Javascript</h1>
+            <h2>Core</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>New selectors</h2>
+            <ul>
+              <li>
+                Finding elements by class:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript">var el = document.getElementById("section1");
+var els = document.getElementsByTagName("div");
+var els = <b>document.getElementsByClassName</b>("section");
+</code></pre>
+              </li>
+              <li>
+                Finding elements by CSS selector:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript">var el = <b>document.querySelector</b>("#section1"); // new
+var els = <b>document.querySelectorAll</b>("ul li:nth-child(odd)");
+var els = <b>document.querySelectorAll</b>("table.test > tr > td");
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>ClassList</h2>
+            <ul>
+              <li>
+                Handling CSS classes assigned to an element:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;div id="main" class="shadow rounded"&gt;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-javascript">var el = document.querySelector('#main').classList;
+el.add('highlight');
+el.remove('shadow');
+el.toggle('highlight');
+
+console.log(el.contains('highlight')); // false
+console.log(el.contains('shadow')); // false
+console.log(el.classList.toString() == el.className); // true
+</code></pre>
+              </li>
+              <li class="no-style">
+                &rarr; discover <a href="http://www.slideshare.net/nzakas/javascript-apis-youve-never-heard-of-and-some-you-have">more DOM functions here</a>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="Web workers">
+            <h2>Web workers (1)</h2>
+            <ul>
+              <li>
+                Slow scripts may block the main thread:<br />
+                <img src="img/18_html5_js/slowscript.png" alt="" />
+              </li>
+              <li>
+                <em>Web Workers</em> are the Javascript version of threads:
+                <ul>
+                  <li class="v-style">you can start a worker</li>
+                  <li class="v-style">you can send and receive messages</li>
+                  <li class="v-style">you can terminate a worker</li>
+                  <li class="v-style">a worker can also kill itself</li>
+                  <li class="x-style">you can't pause or resume a worker</li>
+                  <li class="x-style">you can't restart a worker</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Web workers (2)</h2>
+            <ul>
+              <li>
+                An example with a worker calculating PI, HTML code:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;p&gt;
+  &lt;label for="cycles"&gt;Number of cycles:&lt;/label&gt;
+  &lt;input type="number" id="cycles" value="10000000" step="1000000" /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  &lt;button id="btnStart"&gt;Start worker&lt;/button&gt;
+  &lt;button id="btnKill"&gt;Kill worker&lt;/button&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  Result: &lt;output id="outResult"&gt;&lt;/output&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  Messages: &lt;br /&gt;
+  &lt;output id="outMsg"&gt;&lt;/output&gt;
+&lt;/p&gt;</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Web workers (3)</h2>
+            <ul>
+              <li>
+                An example with a worker calculating PI, main script:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript">var $ = function (s) { return document.getElementById(s); };
+
+// create worker
+var worker = new Worker('js/worker.js');
+
+// attach start and kill button events
+window.onload = function() {
+  $('btnStart').addEventListener('click', function(e) {
+    worker.postMessage({cmd: 'start', cycles: $('cycles').value});
+  }, false);
+  $('btnKill').addEventListener('click', function(e) {
+    worker.postMessage({cmd: 'die'});
+  }, false);
+}
+
+// listen to incoming messages from worker
+worker.addEventListener('message', function(e) {
+  if (e.data.msg) $('outMsg').innerHTML += e.data.msg + '&lt;br /&gt;';
+  if (e.data.result) $('outResult').textContent = e.data.result;
+}, false);
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Web workers (4)</h2>
+            <ul>
+              <li>
+                An example with a worker calculating PI, worker script:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript">self.addEventListener('message', function(e) {
+  switch (e.data.cmd) {
+    // 'start' message coming in
+    case 'start':
+      self.postMessage({msg: "[POST FROM WORKER] Okay, I'm starting"});
+      // simple PI calculation algorithm
+      var pi = 0;
+      var n = 1;
+      for (i = 0; i &lt;= e.data.cycles; i++) {
+        pi = pi + (4 / n) - (4 / (n + 2))
+        n = n + 4
+        self.postMessage({result: pi});
+      }
+      self.postMessage({msg: "[POST FROM WORKER] Finished"});
+      break;
+    // 'die' message coming in
+    case 'die':
+      self.postMessage({
+        msg: "[POST FROM WORKER] Aargh!! (worker died; buttons won't work anymore)"
+      });
+      self.close();
+      break;
+    // unknown message coming in
+    default:
+      self.postMessage('Unknown command');
+  };
+}, false);
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/worker.html">demo</a> (view through a web server)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Web sockets</h2>
+            <ul>
+              <li>
+                Client can push content to the server with AJAX
+              </li>
+              <li>
+                Server can push content to the client with <em>Web Sockets</em>
+              </li>
+              <li>
+                Code example:
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;title&gt;Websocket Test&lt;/title&gt;
+  &lt;script language="javascript"&gt;
+
+    // the socket
+    var wsUri = "ws://echo.websocket.org/";
+    var mySocket;
+
+    // helper function to write message with specified color
+    var writeMessage = function(message, color) {
+      if (!color) color = 'black';
+      var p = document.createElement("p");
+      p.innerHTML = '&lt;span style="color: ' + color + '"&gt;' + message + '&lt;/span&gt;&lt;br /&gt;';
+      $('output').appendChild(p);
+    }
+
+    // helper function to convert ready states to strings
+    var readyStateToString = function(state) {
+      switch (state) {
+        case 0:
+        return 'CONNECTING...';
+        break;
+      case 1:
+        return 'OPEN';
+        break;
+      case 2:
+        return 'CLOSING...';
+        break;
+      case 3:
+        return 'CLOSED';
+        break;
+      default:
+        return 'UNKNWON';
+        break;
+      };
+    }
+
+    // shorthand
+    var $ = function (s) { return document.getElementById(s); };
+
+    window.addEventListener("load", function() {
+      // create socket
+      mySocket = new WebSocket(wsUri);
+      writeMessage(readyStateToString(mySocket.readyState));
+
+      // open, close and error events
+      mySocket.addEventListener("open", function(evt) {
+        writeMessage(readyStateToString(mySocket.readyState));
+      });
+      mySocket.addEventListener("close", function(evt) {
+        writeMessage(readyStateToString(mySocket.readyState));
+      });
+      mySocket.addEventListener("error", function(evt) {
+        writeMessage('ERROR: ' + evt.data, '#900');
+      });
+
+      // capture socket messages
+      mySocket.addEventListener("message", function(evt) {
+        writeMessage('RESPONSE: ' + evt.data, 'blue');
+      });
+
+      // send button
+      $('btnSend').addEventListener('click', function() {
+        writeMessage("SENDING: " + $('inpMessage').value, '#663300');
+        mySocket.send($('inpMessage').value);
+      });
+
+      // close button
+      $('btnClose').addEventListener('click', function() {
+        mySocket.close();
+        writeMessage(readyStateToString(mySocket.readyState));
+        $('btnClose').disabled = true;
+        $('btnSend').disabled = true;
+      });
+    }, false);
+
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Websocket Test&lt;/h2&gt;
+  &lt;p&gt;
+    &lt;label for="Message"&gt;Send a message:&lt;/label&gt;
+    &lt;input type="text" id="inpMessage" value="Leo! Leheheheo!" /&gt;
+    &lt;input type="button" id="btnSend" value="Send Message" /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button id="btnClose"&gt;Close Websocket&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;p&gt;&lt;output id="output"&gt;&lt;/output&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/websocket.html">demo</a></div>
+              </li>
+            </ul>
+            <div class="tooltip">
+              <div>
+                Setting up the client is rather easy, but setting up a server for handling web sockets requires some work. You may find an example with <a href="http://net.tutsplus.com/tutorials/javascript-ajax/start-using-html5-websockets-today/">PHP on Apache here</a>. <br />
+                Another option is <a href="http://elegantcode.com/2011/05/04/taking-baby-steps-with-node-js-websockets/">using node.js</a>, a cross-browser serverside javascript implementation for sockets, which may or may not use real web sockets under the hood.
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>History API</h2>
+            <ul>
+              <li>
+                Push and pop history entries:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;ul id="menu"&gt;
+  &lt;li&gt;&lt;a href="img/photo1.jpg" id="photo1"&gt;photo1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="img/photo2.jpg" id="photo2"&gt;photo2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="img/photo3.jpg" id="photo3"&gt;photo3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="img/photo1.jpg" alt="" id="photo" /&gt;&lt;/p&gt;</code></pre>
+                <pre><code class="language-javascript smallpanel">// data used when popping a history entry
+var data = {
+  photo1: {
+    href: "img/photo1.jpg",
+    title: "corner house",
+    url: "viewphoto1"
+  },
+  photo2: {
+    href: "img/photo2.jpg",
+    title: "flower market",
+    url: "viewphoto2"
+  },
+  photo3: {
+    href: "img/photo3.jpg",
+    title: "streetlights",
+    url: "viewphoto3"
+  }
+};
+
+// push history entry when link is clicked and show image
+var links = document.querySelectorAll('#menu a');
+for (var i = 0; i &lt; links.length; i++) {
+  links[i].addEventListener('click', function(evt) {
+    history.pushState(data[this.id], '', data[this.id].url);
+    document.getElementById('photo').src = this.href;
+    evt.preventDefault();
+    evt.stopPropagation();
+  }, false);
+}
+
+// when popping history entry: show alert and adjust image
+window.addEventListener('popstate', function(event) {
+  if (!event.state) return;
+  alert('popping back to ' + event.state.title);
+  document.getElementById('photo').src = event.state.href;
+});</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/history.html">demo</a> (view through a web server)</div>
+              </li>
+            </ul>
+            <div class="tooltip">
+              <div>
+                Browser history is only updated when a new page is loaded; this is a problem for rich applications where page reloads are avoided as much as possible, and page updates are done with Javascript. In extreme situations the whole site can be rendered in a single page, like <a href="http://slides.html5rocks.com/">http://slides.html5rocks.com/</a> or <a href="http://www.shemosaics.com/">http://www.shemosaics.com/</a>; this is called a <i>Single Page Interface</i> (SPI). <br /><br />
+                To solve this problem, traditionally anchors (#) were (mis)used. The problem is now elegantly solved with the HTML5 History API.
+              </div>
+            </div>
+          </section>
+          <section data-toc-title="Application Cache">
+            <h2>Application Cache (1)</h2>
+            <ul>
+              <li>
+                Browser cache is far from perfect – try using the back button after closing and reopening your laptop
+              </li>
+              <li>
+                With Application Cache API:
+                <ul class="v-style">
+                  <li>browse through a site, even when it is offline</li>
+                  <li>better speed</li>
+                  <li>reduced server load</li>
+                </ul>
+              </li>
+              <li>It is simple: add this attribute
+                <pre><code class="language-html">&lt;html manifest="manifest.cache"&gt;
+</code></pre>
+
+              </li>
+              <li>
+                It can be updated with Javascript:
+                <pre><code class="language-javascript">window.applicationCache.update();
+</code></pre>
+
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Application Cache (2)</h2>
+            <ul>
+              <li>For the caching rules, create a file "manifest.cache":
+                <pre><code class="language-html"># v1
+# this is how you add a comment to the manifest.
+CACHE MANIFEST
+index.html
+stylesheet.css
+images/masthead.png
+scripts/misc.js
+
+NETWORK:
+search.php
+login.php
+/api
+
+FALLBACK:
+images/dynamic.php static_image.png
+</code></pre>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>Google docs &amp; GMail use Application Cache for offline-viewing</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 2: Javascript</h1>
+            <h2>Files</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section data-toc-title="Local File API">
+            <h2>Local File API (1)</h2>
+            <ul>
+              <li>
+                For security reasons, browsers do not have access to the local file system
+              </li>
+              <li>
+                With HTML5 local file API however, full access to files and folders should be possible, in a <i>sandboxed environment</i>:
+                <ul>
+                  <li class="v-style">javascript can create, read and modify files and folders in this directory</li>
+                  <li class="x-style">these files cannot access any resources outside the sandbox</li>
+                  <li class="x-style">the total size of this sandbox is limited</li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tooltip">
+              <div>
+                <p>
+                  At the time of writing, file API <a href="http://caniuse.com/#feat=fileapi">seems quite well supported</a>, but this refers to the general <a href="http://www.w3.org/TR/FileAPI/">file API</a> (mostly uploading and reading), not to the Local File API section which should have made writing directories and files possible: the W3C <a href="http://www.w3.org/TR/file-system-api/">declared it dead</a>
+                </p>
+                <p>
+                  Google Chrome was the only one who ever implemented it anyway, and they seem to be throwing the towel soon
+                </p>
+              </div>
+            </div>
+          </section>
+          <section data-toc-title="">
+            <h2>Local File API (2)</h2>
+            <ul>
+              <li>
+                Basic file writing code:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript smallpanel">// write to file writer
+var onCreateWriterReady = function(fileWriter) {
+  var blob = new Blob([$('areFile').value], {type: 'text/plain'});
+  fileWriter.write(blob);
+  console.log('file created');
+}
+
+// create file writer
+var onGetFileReady = function(fileEntry) {
+  fileEntry.createWriter(onCreateWriterReady);
+}
+
+// create file
+var onInitFs = function(fs) {
+  fs.root.getFile('log.txt', {create: true}, onGetFileReady);
+}
+
+// request file system with 1Mb space
+webkitRequestFileSystem(window.PERSISTENT, 1024*1024, onInitFs);
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Local File API (3)</h2>
+            <ul>
+              <li>
+                Example illustrating writing / removing files and directories:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script&gt;
+
+    // run this page from localhost in Chrome Canary (http://tools.google.com/dlpage/chromesxs)
+    // or run this page from localhost in Chrome with --unlimited-quota-for-files
+    // (e.g. C:\Users\Rogier\AppData\Local\Google\Chrome\Application\chrome.exe --unlimited-quota-for-files)
+
+    // shorthand notation for getElementById()
+    var $ = function (s) { return document.getElementById(s); };
+
+    // handles all kind of file API related errors
+    var errorHandler = function (e) {
+      // initialize message
+      var msg = '';
+
+      // handle different errorcodes
+      switch (e.code) {
+        case FileError.QUOTA_EXCEEDED_ERR:
+          msg = 'QUOTA_EXCEEDED_ERR';
+          break;
+        case FileError.NOT_FOUND_ERR:
+          msg = 'NOT_FOUND_ERR';
+          break;
+        case FileError.SECURITY_ERR:
+          msg = 'SECURITY_ERR';
+          break;
+        case FileError.INVALID_MODIFICATION_ERR:
+          msg = 'INVALID_MODIFICATION_ERR';
+          break;
+        case FileError.INVALID_STATE_ERR:
+          msg = 'INVALID_STATE_ERR';
+          break;
+        default:
+          msg = 'Unknown Error';
+          break;
+      };
+
+      // show error
+      alert('Error: ' + msg);
+    }
+
+    // called when File system request is succesfull
+    var onInitFs = function(fs) {
+      // bind save button
+      $('btnSave').addEventListener('click', function() {
+        // set message
+        $('message').innerHTML = 'Writing file...';
+
+        // find or create root directory
+        fs.root.getDirectory('MyFiles', {create: true}, function(dirEntry) {
+          // find or create file
+          fs.root.getFile(dirEntry.name + '/' + $('txtName').value, {create: true}, function(fileEntry) {
+            // create a FileWriter object for our file
+            fileEntry.createWriter(function(fileWriter) {
+              // callback if write succesfull
+              fileWriter.addEventListener('writeend', function(e) {
+                $('message').innerHTML = 'Write completed';
+                $('fileList').innerHTML += '&lt;li&gt;&lt;a href="' + fileEntry.toURL() + '"&gt;' + $('txtName').value + '&lt;/a&gt;&lt;/li&gt;';
+              });
+
+              // callback if write failed
+              fileWriter.addEventListener('error', function(e) {
+                $('message').innerHTML = 'Write failed: ' + $('txtName').value;
+              });
+
+              // create a new Blob and write it to log.txt.
+              var blob = new Blob([$('areFile').value], {type: 'text/plain'});
+              fileWriter.write(blob);
+            }, errorHandler);
+          }, errorHandler);
+        }, errorHandler);
+      }, false);
+
+      // bind delete all button
+      $('btnDelAll').addEventListener('click', function() {
+        // get MyFiles directory
+        fs.root.getDirectory('MyFiles/', {}, function(dirEntry) {
+          // delete all files
+          dirEntry.removeRecursively(function() {
+            $('message').innerHTML = 'All files removed';
+            $('fileList').innerHTML = '';
+          }, errorHandler);
+        }, errorHandler);
+      }, false);
+    }
+
+    // initialize file system API
+    window.addEventListener('load', function() {
+      webkitRequestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
+    }, false);
+
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;&lt;label for="txtName"&gt;Filename: &lt;/dt&gt;
+    &lt;dd&gt;&lt;input type="text" id="txtName" value="log.txt" /&gt;&lt;/dd&gt;
+    &lt;dt&gt;&lt;label for="areFile"&gt;Content: &lt;/dt&gt;
+    &lt;dd&gt;&lt;textarea id="areFile"&gt;Lorem Ipsum bladibla&lt;/textarea&gt;&lt;/dd&gt;
+    &lt;dt&gt;&nbsp;&lt;/dt&gt;
+    &lt;dd&gt;
+      &lt;input type="button" id="btnSave" value="Save"&gt;
+      &lt;input type="button" id="btnDelAll" value="Delete All"&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;p id="message"&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/fileApi.html">demo</a> (read inline instructions)</div>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                watch <a href="http://screenr.com/UHL">http://screenr.com/UHL</a> for a full demo video
+              </li>
+              <li>
+                also see the <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">excellent htm5rocks File API tuturial</a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Drag and drop files</h2>
+            <ul>
+              <li>
+                Drag/drop made easy with <code>ondrop</code> event and <code>dataTransfer.getData()</code> method:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">  ...
+  &lt;script&gt;
+    window.addEventListener('load', function() {
+      var dropZone = document.querySelector('#dropzone');
+      dropZone.addEventListener('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      dropZone.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      dropZone.addEventListener('drop', function(e) {
+        txtPassed = e.dataTransfer.getData('text/plain');
+        this.innerHTML = txtPassed;
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+  &lt;/script&gt;
+  &lt;style&gt;
+    #dropzone {
+      height: 200px;
+      width: 400px;
+      border: 2px ridge;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    ex ea commodo consequat.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+  &lt;/p&gt;
+  &lt;div id="dropzone"&gt;
+    ...select a text above, and drag it here...
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/dragdrop1.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Drag and drop images</h2>
+            <ul>
+              <li>
+                Example with images and <code>draggable</code> attribute:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">  ...
+  &lt;script&gt;
+    window.addEventListener('load', function() {
+      var dropZone = document.querySelector('#dropzone');
+      dropZone.addEventListener('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      dropZone.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      dropZone.addEventListener('drop', function(e) {
+        imgPassed = e.dataTransfer.getData('text/uri-list');
+        this.innerHTML = "&lt;img src='" + imgPassed + "'/&gt;";
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+  &lt;/script&gt;
+  &lt;style&gt;
+    #dropzone {
+      height: 200px;
+      width: 400px;
+      border: 2px ridge;
+    }
+    ol {
+      list-style: none;
+      padding: 0;
+    }
+    ol li {
+      display: inline-block;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="dragzone"&gt;
+    &lt;img src="img/product1.jpg" alt="ball" /&gt;
+    &lt;img src="img/product2.jpg" alt="animal" <b>draggable="false"</b> /&gt;
+    &lt;img src="img/product3.jpg" alt="rope" /&gt;
+  &lt;/div&gt;
+  &lt;div id="dropzone"&gt;
+    ...drop item here...
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/dragdrop2.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>File desktop drag in</h2>
+            <ul>
+              <li>
+                Example images dragging from your desktop, HTML and CSS:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;style&gt;
+  #dropzone {
+    height: 150px;
+    border: 2px dashed #0687FF;
+  }
+  #thumbnails {
+    height: 125px;
+    margin-top: 10px;
+  }
+  #thumbnails img {
+    height: 100px;
+    margin: 10px
+  }
+&lt;/style&gt;
+  ...
+&lt;div id="dropzone">Drop in images from your desktop&lt;/div&gt;
+&lt;div id="thumbnails"&gt;&lt;/div&gt;</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Images desktop drag in</h2>
+            <ul>
+              <li>
+                Example images dragging from your desktop, Javascript:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript smallpanel">window.addEventListener('load', function() {
+  // drop area
+  var dropzone = document.getElementById('dropzone');
+
+  // thumbnails area
+  var thumbnails = document.getElementById('thumbnails');
+
+  // dropzone events
+  dropzone.addEventListener('dragenter', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  });
+  dropzone.addEventListener('dragover', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  });
+  dropzone.addEventListener('dragleave', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  });
+  dropzone.addEventListener('drop', function(e) {
+    // fetch and iterate dropped files
+    var files = e.dataTransfer.files;
+    for (var i = 0; i &lt; files.length; i++) {
+      // get next file
+      file = files[i];
+
+      // images only
+      if (!file.type.match(/image.*/)) continue;
+
+      // create reader for dropped file
+      var reader = new FileReader();
+      reader.addEventListener('load', function(evt) {
+        thumbnails.innerHTML = thumbnails.innerHTML
+          + ('&lt;img src="' + evt.target.result + '" alt="' + file.name + '" /&gt;');
+      });
+      reader.addEventListener('error', function(evt) {
+        alert('an error occurred');
+      });
+
+      // feed dropped file to reader
+      reader.readAsDataURL(file);
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+});
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/dragin.html">demo</a> (Chrome &amp; FF, view through a web server)</div>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                A great example using drag-in is <a href="http://spritepad.wearekiss.com/">Spritepad</a>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="Files desktop drag out">
+            <h2>Files desktop drag out (1)</h2>
+            <ul>
+              <li>
+                Example dragging files to your desktop, HTML and CSS:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;style&gt;
+  .dragout {
+    background: #999;
+    color: #fff;
+    text-decoration: none;
+    padding: 2px 5px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+&lt;/style&gt;
+...
+  Drag each of these files onto your desktop:
+  &lt;a class="dragout" href="http://static....es.pdf" data-downloadurl
+  ="application/pdf:Chrome3DGlasses.pdf:http://static...es.pdf"&gt;PDF&lt;/a&gt;
+  &lt;a class="dragout" href="media/star.mp3" data-downloadurl
+  ="audio/mpeg:star.mp3:http://sli...star.mp3"&gt;MP3&lt;/a&gt;
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Files desktop drag out (2)</h2>
+            <ul>
+              <li>
+                Example dragging files to your desktop, Javascript:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-javascript">window.addEventListener('load', function() {
+  // files ready for dragging
+  var files = document.querySelectorAll('.dragout');
+
+  // create drag events
+  for (var i = 0; i &lt; files.length; i++) {
+    files[i].addEventListener('dragstart', function(evt) {
+      evt.dataTransfer.setData('DownloadURL', this.getAttribute('data-downloadurl'));
+    });
+  }
+});
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/dragout.html">demo</a> (Chrome; view through a web server)</div>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 2: Javascript</h1>
+            <h2>System</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>Webcam</h2>
+            <ul>
+              <li>
+                Access the webcam:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;script&gt;
+
+    window.addEventListener("load", function() {
+
+      function onSuccess(stream) {
+        document.getElementById('webcamstream').src = window.webkitURL.createObjectURL(stream);
+      }
+
+      function onError(e) {
+        console.log(e.toString());
+      }
+
+      if (navigator.webkitGetUserMedia) {
+        navigator.webkitGetUserMedia('video, audio', onSuccess, onError);
+      }
+
+    }, false);
+
+  &lt;/script&gt;
+  &lt;style&gt;
+
+    #webcamstream {
+      width: 640px;
+      height: 480px;
+    }
+
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;video id="webcamstream" autoplay&gt;&lt;/video&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/webcam.html">demo</a> (Chrome over localhost)</div>
+              </li>
+            </ul>
+            <ul class="arrow">
+              <li>
+                photobooth demo at <a href="https://neave.com/webcam/html5/">http://neave.com/webcam/html5/</a> (Firefox)
+              </li>
+              <li>
+                augmented reality experiment at <a href="http://www.html5rocks.com/en/tutorials/webgl/jsartoolkit_webrtc/">html5rocks.com</a>
+              </li>
+              <li>
+                magic xylophone at <a href="http://www.soundstep.com/blog/experiments/jsdetection/">soundstep.com</a>
+              </li>
+              <li>
+                read more on <a href="http://creativejs.com/2012/03/getting-started-with-getusermedia/">http://creativejs.com/...getusermedia/</a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Geolocation</h2>
+            <ul>
+              <li>
+                Demo:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"&gt;&lt;/script&gt;
+  &lt;script&gt;
+
+    var map;
+
+    var showPosition = function(position) {
+      var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var mapOptions = {
+        zoom: 13,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById('content'), mapOptions);
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'You are here'
+      });
+    }
+
+    window.addEventListener('load', function() {
+      document.getElementById('btn1').addEventListener('click', function() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        }
+      });
+    });
+
+  &lt;/script&gt;
+  &lt;style&gt;
+    #content {
+      height: 300px;
+      width: 500px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id="btn1"&gt;Show Position&lt;/button&gt;
+  &lt;div id="content" style="height: 280px"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/geolocation.html">demo</a> (view through a web server)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Device orientation</h2>
+            <ul>
+              <li>
+                Example:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Device Orientation Demo&lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;style&gt;
+    .layer {
+      position: absolute;
+    }
+  &lt;/style&gt;
+  &lt;script&gt;
+
+    window.addEventListener('load', function(evt) {
+
+      window.addEventListener('deviceorientation', function(evt) {
+        var layers = document.querySelectorAll('.layer');
+        for (var i = 0; i &lt; layers.length; i++) {
+          var layer = layers[i];
+          layer.style.left = Math.round(evt.gamma * i).toString() + 'px';
+          layer.style.top = Math.round(evt.beta * i).toString() + 'px';
+        }
+      }, false);
+
+    });
+
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;img src="img/chrome-layer-01.png" alt="" class="layer"&gt;
+  &lt;img src="img/chrome-layer-02.png" alt="" class="layer"&gt;
+  &lt;img src="img/chrome-layer-03.png" alt="" class="layer"&gt;
+  &lt;img src="img/chrome-layer-04.png" alt="" class="layer"&gt;
+  &lt;img src="img/chrome-layer-05.png" alt="" class="layer"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/orientation.html">demo</a> (orientation enabled devices only; <a href="http://www.caniuse.com/#search=orientation">check browser support here</a>)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Notifications</h2>
+            <ul>
+              <li>
+                Little taskbar notification popups (you need to request permission once per site first):
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html smallpanel">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Notification demo &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script&gt;
+
+    window.addEventListener('load', function() {
+
+      var showNotification = function(msg) {
+        // permission granted?
+        if (window.webkitNotifications.checkPermission() != 0) return;
+        // create notification
+        window.webkitNotifications.createNotification("img/avatar.jpg", "Notifier", msg).show();
+      }
+
+      document.getElementById("lnkNotifyMe").addEventListener('click', function() {
+        if (window.webkitNotifications.checkPermission() != 0) {
+          // request permission
+          var request = window.webkitNotifications.requestPermission(function() {
+            // on success: show notification
+            showNotification("Hello there!");
+          });
+        } else {
+          // permission was already granted; show notification
+          showNotification("Hello there again!");
+        }
+        return false;
+      });
+
+    });
+
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="button" id="lnkNotifyMe" value="Notify Me" /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/notifications.html">demo</a> (Chrome; view through a web server)</div>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 2: Javascript</h1>
+            <h2>Storage</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section>
+            <h2>Web storage</h2>
+            <ul>
+              <li>
+                <em>LocalStorage</em> is like cookies (but easier to use):
+                <ul>
+                  <li>used for long term data storage</li>
+                  <li>data belongs to a single domain (e.g. kahosl.be)</li>
+                  <li>data is shared across all browser windows and tabs</li>
+                  <li>data persists when window is closed</li>
+                </ul>
+              </li>
+              <li>
+                <em>SessionStorage</em> is similar, but:
+                <ul>
+                  <li>data is for a single tab only</li>
+                  <li>data does not persist when window is closed</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>LocalStorage</h2>
+            <ul>
+              <li>
+                Simple persistent todo list with localStorage:
+              </li>
+              <li class="no-style">
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script&gt;
+
+    window.addEventListener('load', function() {
+      var list1 = document.getElementById("list1");
+      list1.addEventListener('blur', function() {
+        localStorage.setItem("todoData", this.innerHTML);
+      });
+      if (localStorage.getItem("todoData")) {
+        list1.innerHTML = localStorage.getItem("todoData");
+      }
+    })
+
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My simple todo list&lt;/h1&gt;
+  &lt;ul id="list1" contenteditable&gt;
+    &lt;li&gt;do groceries&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/localstorage.html">demo</a> (view through a web server)</div>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>WebSQL</h2>
+            <ul>
+              <li>Based on SQLite</li>
+              <li>User permission may be needed if size > 5Mb</li>
+              <li>All usual queries possible: create, open, drop database; select, insert, update, delete tables/records… </li>
+              <li>It seems that the <a href="http://www.w3.org/TR/webdatabase/">W3C declared it dead</a></li>
+              <li>For future apps: use IndexedDB or localStorage</li>
+              <li>You can still find a <a href="demos/18_html5_js/websql.html">working WebSQL demo here</a></li>
+            </ul>
+          </section>
+          <section>
+            <h2>Indexed DB</h2>
+            <ul>
+              <li>Is an object store, not a relational database</li>
+              <li>You can create multiple object stores in your IndexedDB</li>
+              <li>Syntax is still under development and not for production yet</li>
+              <li>Demo: <a href="demos/18_html5_js/indexedDb.html">friends database</a> (Chrome; view through a web server)</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Part 2: Javascript</h1>
+            <h2>Multimedia</h2>
+            <ul class="chapterlist">
+              <!-- to be filled by Javascript -->
+            </ul>
+          </section>
+          <section data-toc-title="Sound API">
+            <h2>Sound API (1)</h2>
+            <ul>
+              <li>
+                Another very promising emerging technology is the sound API. Features:
+                <ul class="v-style">
+                  <li>sound scheduling</li>
+                  <li>filters (low pass, notch, peak...)</li>
+                  <li>volume, gain, cross-fadings, mixing</li>
+                  <li>read and write raw data (which basically means anything is possible)</li>
+                </ul>
+              </li>
+              <li>
+                Partial implementations already on Chrome and Firefox
+              </li>
+              <li>
+                Some great online demos:
+                <ul>
+                  <li><a href="http://chromium.googlecode.com/svn/trunk/samples/audio/index.html">Collection of sound demos</a> (be sure to check the <a href="http://chromium.googlecode.com/svn/trunk/samples/audio/javascript-processing.html">JS processing demo</a>)</li>
+                  <li><a href="http://labs.dinahmoe.com/ToneCraft/#">ToneCraft by DinahMoe</a></li>
+                  <li><a href="http://daftpunk.themaninblue.com/">Anatomy of a Mashup</a></li>
+                  <li>Many more <a href="http://chromium.googlecode.com/svn/trunk/samples/audio/samples.html">web audio examples here</a></li>
+                </ul>
+              </li>
+              <li>
+                Check out <a href="http://updates.html5rocks.com/2012/09/Live-Web-Audio-Input-Enabled">this article</a> on using live audio input from line-in or the microphone (be sure to try the pitch detector)
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Sound API (2)</h2>
+            <ul>
+              <li>
+                A basic demo (note how devices are chained together):
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="nl"&gt;
+&lt;head&gt;
+  &lt;title&gt; Webforms demo &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;style&gt;
+    input {
+      width: 40em;
+    }
+    label {
+      font-family: Calibri;
+      width: 5em;
+      display: inline-block;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;&lt;label for="rngFrequency"&gt;Frequency:&lt;/label&gt; &lt;input type="range" min="200" value="1100" max="2000" id="rngFrequency" /&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;label for="rngVolume"&gt;Volume:&lt;/label&gt; &lt;input type="range" min="0" value="0.5" max="1" id="rngVolume" step="0.01" /&gt;&lt;/p&gt;
+  &lt;script&gt;
+    // create audio context
+    var audioContext = new AudioContext();
+
+    // create oscillator
+    var oscillator = audioContext.createOscillator();
+    oscillator.frequency.value = 1000;
+
+    // create amp
+    var amp = audioContext.createGain();
+    amp.gain.value = 0.5;
+
+    // connect oscillator to amp, and amp to output
+    oscillator.connect(amp);
+    amp.connect(audioContext.destination);
+
+    // start oscillator
+    oscillator.start();
+
+    // bind sliders
+    document.getElementById('rngFrequency').addEventListener('input', function() {
+      oscillator.frequency.value = this.value;
+    });
+    document.getElementById('rngVolume').addEventListener('input', function() {
+      amp.gain.value = this.value;
+    });
+
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/soundAPI.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="Canvas">
+            <h2>Canvas (1)</h2>
+            <ul>
+              <li>
+                Enables bitmapped-style drawing
+              </li>
+              <li>
+                A basic demo:
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt; HTML5 testpage &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;script&gt;
+    window.addEventListener('load', function() {
+      var canvasContext = document.getElementById("canvas").getContext("2d");
+      canvasContext.fillRect(250, 25, 150, 100);
+      canvasContext.beginPath();
+      canvasContext.arc(450, 110, 100, Math.PI * 1/8, Math.PI * 3/2);
+      canvasContext.lineWidth = 15;
+      canvasContext.lineCap = 'round';
+      canvasContext.strokeStyle = 'rgba(255, 127, 0, 0.5)';
+      canvasContext.stroke();
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="canvas" width="838" height="220"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                <div class="demolink"><a href="demos/18_html5_js/canvas.html">demo</a></div>
+              </li>
+            </ul>
+          </section>
+          <section data-toc-title="">
+            <h2>Canvas (2)</h2>
+            <ul>
+              <li>
+                Introduced by Apple; today supported by every major browser except IE&lt;9
+              </li>
+              <li>
+                Objects must be remembered in memory and repainted on every animation frame
+              </li>
+              <li>
+                You can also paint images, which is great for HTML5 games!
+              </li>
+              <li>
+                Some online demos:
+                <ul>
+                  <li><a href="http://www.cuttherope.ie/">Cut The Rope</a></li>
+                  <li><a href="http://www.addyosmani.com/resources/canvasphoto/">Canvas photo</a></li>
+                  <li><a href="http://www.mrspeaker.net/dev/parcycle/">Particles generator</a></li>
+                  <li><a href="http://kinderen.tweehuizen.be/test/index.html">Tweehuizen (own work)</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>WebGL</h2>
+            <ul>
+              <li>
+                The ultimate technology for creating 3D
+              </li>
+              <li>
+                Actually uses the canvas element for painting
+              </li>
+              <li>
+                Some of the latest demos:
+                <ul>
+                  <li><a href="http://litewerx.dk/microscopix/demo-main.html?1024">Anaemia demo</a></li>
+                  <li><a href="http://hacks.mozilla.org/2011/07/tilt-visualize-your-web-page-in-3d/">Firefox Tilt</a></li>
+                  <li><a href="http://www.ambiera.at/coppercube/demos/version3/backyard/embedwebgl.html">3D Backyard</a></li>
+                  <li><a href="http://webglmol.sourceforge.jp/glmol/viewer.html">Molecule viewer</a></li>
+                  <li><a href="http://webglsamples.googlecode.com/hg/aquarium/aquarium.html">Fishtank</a></li>
+                  <li><a href="http://www.zygotebody.com/">Body browser</a></li>
+                  <li><a href="http://mrdoob.github.com/three.js/">Three.js WebGL library demos</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>More API's</h2>
+            <ul>
+              <li>
+                Expect these API's to appear soon:
+                <ul>
+                  <li>media capture API</li>
+                  <li>battery status API</li>
+                  <li>vibration API</li>
+                  <li>contacts API</li>
+                  <li>web intents API</li>
+                  <li>...</li>
+                </ul>
+              </li>
+              <li class="no-style">
+                &rarr; time to dust off your RSS reader!
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section data-index-title="">
+          <section>
+            <h2>Questions?</h2>
+          </section>
+        </section>
+
+    </div>
+
+    <!-- ikdoeict.be Link -->
+    <a href="http://www.ikdoeict.be/" title="ikdoeict.be" id="ikdoeict">ikdoeict.be</a>
+
+    <!-- Index Link -->
+    <aside class="back">
+      <nav>
+        <p><a href="index.html">&larr; Back to index</a></p>
+      </nav>
+    </aside>
+
+
+  </div>
+
+  <script src="library/jquery.min.js"></script>
+  <script src="library/head.min.js"></script>
+  <script src="library/reveal/reveal.min.js"></script>
+  <script src="library/highlight/highlight.pack.js"></script>
+  <script src="library/prefixfree.js"></script>
+  <script src="library/css-snippets.js"></script>
+  <script src="library/css-edit.js"></script>
+  <script src="library/incrementable.js"></script>
+  <script src="library/main.js"></script>
+
+</body>
+</html>

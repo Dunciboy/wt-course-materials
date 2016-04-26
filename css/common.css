@@ -1,0 +1,81 @@
+/**
+ * Common styles
+ *
+ * Copyright (C) 2013-2014 Rogier van der Linde
+ */
+
+/*********************************************
+ * TABLE STYLES
+ *********************************************/
+
+/* scrollbar */
+
+.reveal .scrolltable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.reveal .scrolltable tbody {
+  display: block;
+  overflow: auto;
+}
+
+.reveal .scrolltable thead tr {
+  display: block
+}
+
+/* borders */
+
+.reveal .bluetable td, .reveal .bluetable th {
+  border: 2px solid #fff;
+  padding: 7px 5px;
+}
+
+.reveal .bluetable th {
+  border-bottom: 0;
+}
+
+.reveal .bluetable tr {
+  border: 0;
+}
+
+/* colors and fonts */
+
+.reveal .bluetable {
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+.reveal .bluetable td p {
+  line-height: 1.2em;
+  margin: 0 !important;
+  margin-top: 5px !important;
+  padding: 0 !important;
+}
+
+.reveal .bluetable tr td p:first-child {
+  margin-top: 0 !important;
+}
+
+.reveal .bluetable th {
+  color: #fff;
+}
+
+.reveal .bluetable td {
+  color: #000;
+}
+
+.reveal .bluetable tr:nth-child(even) {
+  background-color: #e9edf4;
+}
+
+.reveal .bluetable tr:nth-child(odd) {
+  background-color: #d0d8e8;
+}
+
+.reveal .bluetable thead th {
+  background-color: #4f81bd;
+  text-transform: uppercase;
+  font-weight: bold;
+}

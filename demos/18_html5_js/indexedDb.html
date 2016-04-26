@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+
+	View through localhost
+
+-->
+<html lang="en">
+<head>
+	<title> IndexedDB demo </title>
+	<meta charset="utf-8" />
+	<script>
+
+		var db;
+		var $ = function (s) { return document.getElementById(s); };
+
+		var listFriends = function() {
+			$('friends').innerHTML = '';
+			var transaction = db.transaction(['friendsStore'], 'readonly');
+			var store = transaction.objectStore('friendsStore');
+			var keyRange = IDBKeyRange.lowerBound(1);
+			var cursorRequest = store.openCursor(keyRange);
+
+			var html = '';
+			cursorRequest.onsuccess = function(e) {
+				var cursor = e.target.result;
+				if (!cursor) return;
+				html += '<li>Name: ' + cursor.value.name + '; age: ' + cursor.value.age + ' <a href="#" class="lnkDel" onclick="deleteFriend(' + cursor.key + ')">delete</a></li>';
+				$('friends').innerHTML = html;
+				cursor.continue();
+			};
+
+			cursorRequest.onerror = function() {
+				alert('cursorRequest failed');
+			}
+		}
+
+		var deleteFriend = function(i) {
+          var trans = db.transaction(['friendsStore'], 'readwrite');
+          var store = trans.objectStore('friendsStore');
+          var request = store.delete(i);
+          request.onsuccess = function(e) {
+            listFriends();
+          };
+          request.onerror = function(e) {
+            alert('delete failed');
+          };
+
+		}
+
+		window.addEventListener('load', function() {
+			var request = indexedDB.open('myIndexedDatabase', 4);
+			request.onupgradeneeded = function(e) { 
+				var db = e.target.result;
+				var store = db.createObjectStore('friendsStore', { autoIncrement : true });
+			};
+			request.onsuccess = function(e) {
+				db = e.target.result;
+				listFriends();
+				initEvents();
+			}
+			request.onerror = function(e) {
+				alert('Database error: ' + e.target.errorCode);
+			};
+		});
+
+		var initEvents = function() {
+			$('btnAdd').onclick = function() {
+				var transaction = db.transaction(['friendsStore'], 'readwrite');
+				var store = transaction.objectStore('friendsStore');
+				var request = store.add({
+					'name': $('name').value,
+					'age': $('age').value
+				});
+				request.onsuccess = function(e) {
+					listFriends();
+				};
+				request.onerror = function(e) {
+					alert('friend add failed');
+				};
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<dl>
+		<dt><label for="name">Name:</label></dt>
+		<dd><input type="text" id="name" /></dd>
+		<dt><label for="age">Age:</label></dt>
+		<dd><input type="number" id="age" /></dd>
+		<dt>&nbsp;</dt>
+		<dd><input type="button" id="btnAdd" value="Add friend" /></dd>
+	</dl>
+	<p>
+		Current friends:
+	</p>
+	<ul id="friends"></ul>
+</body>
+</html>

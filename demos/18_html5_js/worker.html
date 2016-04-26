@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+
+	View through localhost
+
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Web worker demo</title>
+</head>
+<body>
+	<p>
+		<label for="cycles">Number of cycles:</label><input type="number" id="cycles" value="10000000" step="1000000" />
+	</p>
+	<p>
+		<button id="btnStart">Start worker</button>
+		<button id="btnKill">Kill worker</button>
+		<button id="btnWhistle">Whistle a song</button>
+	</p>
+	<p>
+		Result: <output id="outResult"></output>
+	</p>
+	<p>
+		Messages: <br />
+		<output id="outMsg"></output>
+	</p>
+
+	<script>
+
+		var $ = function (s) { return document.getElementById(s); };
+
+		var worker = new Worker('js/worker.js');
+
+		window.onload = function() {
+			$('btnStart').addEventListener('click', function(e) {
+				worker.postMessage({cmd: 'start', cycles: $('cycles').value});
+			}, false);
+			$('btnKill').addEventListener('click', function(e) {
+				worker.postMessage({cmd: 'die'});
+			}, false);
+			$('btnWhistle').addEventListener('click', function(e) {
+				$('outMsg').innerHTML += '&#9833; &#9834;&#9834;<br />';
+			}, false);
+		}
+
+		worker.addEventListener('message', function(e) {
+			if (e.data.msg) $('outMsg').innerHTML += e.data.msg + '<br />';
+			if (e.data.result) $('outResult').textContent = e.data.result;
+		}, false);
+
+	</script>
+</body>
+</html>

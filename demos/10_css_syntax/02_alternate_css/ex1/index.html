@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<title> Testpage </title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/basic.css" />
+	<link rel="stylesheet" href="css/classic.css" title="classic" />
+	<link rel="alternate stylesheet" href="css/fancy.css" title="fancy" />
+	<link rel="alternate stylesheet" href="css/farty.css" title="farty" />
+	<script>
+
+		// cookie functies
+		function setCookie(name, value) {
+			var str = name + "=" + escape(value);
+			str += "; expires= Tue, 28 Dec 2010 00:00:00";
+			document.cookie = str;
+		}
+		function getCookie(name) {
+			var allCookies = document.cookie.split("; ");
+			for(i in allCookies) {
+				var singleCookie = allCookies[i].split("=");
+				if(singleCookie[0] == name) {
+					return unescape(singleCookie[1]);
+				}
+			}
+			return undefined;
+		}
+
+		// stylesheet functies
+		function setActiveStyleSheet(title) {
+			var links = document.getElementsByTagName("link");
+			for (var i=0; i<links.length; i++) {
+				if (links[i].getAttribute("rel").indexOf("style")==-1) continue;
+				if (!links[i].getAttribute("title")) continue;
+				links[i].disabled = true;
+				if (links[i].getAttribute("title") == title) {
+					links[i].disabled = false;
+				}
+			}
+		}
+
+		function loadEvents() {
+			var objLnkClassic = document.getElementById("lnkClassic");
+			var objLnkFancy   = document.getElementById("lnkFancy");
+			var objLnkFarty   = document.getElementById("lnkFarty");
+			objLnkClassic.onclick = function() {
+				setActiveStyleSheet('classic');
+				setCookie("cookieTitle", 'classic');
+				return false;
+			}
+			objLnkFancy.onclick = function() {
+				setActiveStyleSheet('fancy');
+				setCookie("cookieTitle", 'fancy');
+				return false;
+			}
+			objLnkFarty.onclick = function() {
+				setActiveStyleSheet('farty');
+				setCookie("cookieTitle", 'farty');
+				return false;
+			}
+		}
+
+		// onload en onunload
+		if (document.getElementById) window.onload = function() {
+			if (getCookie("cookieTitle")) {
+				setActiveStyleSheet(getCookie("cookieTitle"));
+			}
+			loadEvents();
+		}
+
+	</script>
+</head>
+<body>
+	<a href="#" id="lnkClassic">Classic style</a>
+	<a href="#" id="lnkFancy">Fancy style</a>
+	<a href="#" id="lnkFarty">Farty style</a>
+	<p> Text to test different styles...</p>
+</body>
+</html>

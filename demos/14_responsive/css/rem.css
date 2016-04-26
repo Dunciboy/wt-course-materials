@@ -1,0 +1,183 @@
+/* General Section */
+html {
+	font-size: 62.5%;
+}
+
+body {
+	background-color: #999;
+	font-family: Verdana;
+	font-size: 1.6rem;
+}
+
+/* Site Wrapper */
+#wrapper {
+	width: 90rem;
+	margin: 0 auto;
+	background-color: white;
+	background-image: url(../img/fauxcolumn.png);
+	background-repeat: repeat-y;
+}
+
+/* Header Section */
+#wrapper > header {
+	background-color: #333;
+	padding: 2rem;
+	height: 6rem;
+	position: relative;
+	color: #ccc;
+}
+#wrapper > header h1 {
+	position: absolute;
+	top: 1rem;
+	left: 2rem;
+	margin: 0;
+	padding: 0;
+}
+#wrapper > header p {
+	text-align: right;
+	position: absolute;
+	top: 1rem;
+	right: 2rem;
+	margin: 0;
+}
+#wrapper > header a {
+	color: #ddd;
+}
+#wrapper > header a:hover {
+	color: white;
+}
+
+/* Main Menu Section */
+#mainmenu {
+	display: block;
+}
+#mainmenu a {
+	color: #ccc;
+}
+#mainmenu ul {
+	background-color: #666;
+	margin: 0;
+	padding-left: 1rem;
+}
+#mainmenu ul li {
+	display: inline-block;
+}
+#mainmenu ul li a {
+	line-height: 2.4rem;
+	display: inline-block;
+	height: 2.8rem;
+	width: 5rem;
+	padding: 0.2rem 0.5rem;
+	text-align: center;
+}
+#mainmenu ul li + li:before {
+	content: '|';
+	color: #999;
+}
+
+/* Sub Menu Section */
+
+#submenu {
+	width: 18rem;
+	padding: 1rem 1rem 1rem 2rem;
+	float: left;
+}
+#submenu ul {
+	padding-left: 0;
+	list-style: none;
+}
+
+
+
+/* Content Section */
+#content {
+	width: 64rem;
+	padding: 1rem 1rem 1rem 2rem;
+	float: left;
+}
+
+#content h2 {
+	margin-top: 1rem;
+}
+
+#content aside {
+	float: right;
+	width: 13rem;
+	border: 1px solid gray;
+	font-size: smaller;
+	padding: 1rem;
+	margin: 0 0 1rem 1rem;
+}
+
+#content aside p {
+	margin: 0;
+}
+
+#content aside h1 {
+	font-size: 1rem;
+}
+
+#content article footer {
+	font-size: smaller;
+	margin-bottom: 1rem;
+}
+
+#content article {
+	font-size: 1.2rem;
+	line-height: 1.7;
+}
+
+#content article {
+	text-align: justify;
+}
+
+#comments {
+	border-top: 1px dotted #ccc;
+}
+
+#comments footer {
+	font-size: smaller;
+	font-style: italic;
+}
+
+#some_picture {
+	width: 40rem;
+}
+
+/* Footer Section */
+#wrapper > footer {
+	background-color: #666;
+	text-align: center;
+	font-size: smaller;
+	color: #eee;
+	clear: both;
+	padding: 1rem;
+}
+
+#wrapper > footer a {
+	color: #ccc;
+}
+
+#wrapper > footer p, #wrapper > footer ul  {
+	margin: 0;
+}
+
+#wrapper > footer ul {
+	list-style: none;
+	padding: 0;
+}
+
+#wrapper > footer li {
+	display: inline-block;
+}
+
+#wrapper > footer ul a {
+	line-height: 2.4rem;
+	display: inline;
+	padding: 0.2rem 0.5rem;
+}
+#wrapper > footer li + li:before {
+	content: '|';
+	color: #999;
+}
+

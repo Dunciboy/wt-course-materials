@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<title>Websocket demo</title>
+	<script>
+
+	    // the socket
+	    var wsUri = "ws://echo.websocket.org/";
+	    var mySocket;
+
+	    // helper function to write message with specified color
+	    var writeMessage = function(message, color) {
+	      if (!color) color = 'black';
+	      var p = document.createElement("p");
+	      p.innerHTML = '<span style="color: ' + color + '">' + message + '</span><br />';
+	      $('output').appendChild(p);
+	    }
+
+	    // helper function to convert ready states to strings
+	    var readyStateToString = function(state) {
+	      switch (state) {
+	        case 0:
+	        return 'CONNECTING...';
+	        break;
+	      case 1:
+	        return 'OPEN';
+	        break;
+	      case 2:
+	        return 'CLOSING...';
+	        break;
+	      case 3:
+	        return 'CLOSED';
+	        break;
+	      default:
+	        return 'UNKNWON';
+	        break;
+	      };
+	    }
+
+	    // shorthand
+	    var $ = function (s) { return document.getElementById(s); };
+
+	    window.addEventListener("load", function() {
+	      // create socket
+	      mySocket = new WebSocket(wsUri);
+	      writeMessage(readyStateToString(mySocket.readyState));
+
+	      // open, close and error events
+	      mySocket.addEventListener("open", function(evt) {
+	        writeMessage(readyStateToString(mySocket.readyState));
+	      });
+	      mySocket.addEventListener("close", function(evt) {
+	        writeMessage(readyStateToString(mySocket.readyState));
+	      });
+	      mySocket.addEventListener("error", function(evt) {
+	        writeMessage('ERROR: ' + evt.data, '#900');
+	      });
+
+	      // capture socket messages
+	      mySocket.addEventListener("message", function(evt) {
+	        writeMessage('RESPONSE: ' + evt.data, 'blue');
+	      });
+
+	      // send button
+	      $('btnSend').addEventListener('click', function() {
+	        writeMessage("SENDING: " + $('inpMessage').value, '#663300');
+	        mySocket.send($('inpMessage').value);
+	      });
+
+	      // close button
+	      $('btnClose').addEventListener('click', function() {
+	        mySocket.close();
+	        writeMessage(readyStateToString(mySocket.readyState));
+	        $('btnClose').disabled = true;
+	        $('btnSend').disabled = true;
+	      });
+	    }, false);
+
+	</script>
+</head>
+<body>
+  <h2>Websocket Test</h2>
+  <p>
+    <label for="inpMessage">Send a message:</label><input type="text" id="inpMessage" value="Leo! Leheheheo!" />
+    <input type="button" id="btnSend" value="Send Message" />
+  </p>
+  <p>
+    <button id="btnClose">Close Websocket</button>
+  </p>
+  <p><output id="output"></output></p>
+</body>
+</html>

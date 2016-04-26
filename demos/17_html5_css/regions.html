@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+
+	Run this page in Chrome Canary with the experimental WebKit features flag enabled
+	(see http://blogs.adobe.com/webplatform/2012/09/18/new-flag-for-css-regions-in-chrome-canary/)
+
+-->
+<html>
+<head>
+    <title>CSS Regions - Single flow demo</title>
+    <meta charset="utf-8">
+    <style>
+
+    	body {
+    		padding: 0 20px;
+    	}
+
+	    #myArticle {
+	        -ms-flow-into: myFlow;
+	        -webkit-flow-into: myFlow;
+	        font-size: 10px;
+	        font-family: Arial;
+	    }
+
+	    #myArticle h1 + p {
+	        font-size: 12px;
+	    }
+
+	    .region {
+	        -ms-flow-from: myFlow;
+	        -webkit-flow-from: myFlow;
+	        border: 1px dashed;
+	        padding: 10px;
+	    	width: 25%;
+	    	max-width: 280px;
+	    	resize: vertical;
+	    	height: 300px;
+	    	float: left;
+	    }
+
+	    #region1 {
+	    	margin-top: 20px;
+	    	-ms-transform: perspective(700px) rotateY(30deg);
+	    	-webkit-transform: perspective(700px) rotateY(30deg);
+	    	background-color: rgba(0, 50, 50, 0.3);
+	    }
+
+	    #region2 {
+	    	margin-top: 100px;
+	    	background-color: rgba(50, 0, 50, 0.3);
+	    }
+
+	    #region3 {
+	    	margin-top: 180px;
+	    	-ms-transform: perspective(700px) rotateY(-30deg);
+	    	-webkit-transform: perspective(700px) rotateY(-30deg);
+	    	background-color: rgba(50, 50, 0, 0.3);
+	    }
+
+    </style>
+</head>
+<body>
+	<p><i>tip: make the browser window smaller</i></p>
+    <div id="region1" class="region"></div>
+    <div id="region2" class="region"></div>
+    <div id="region3" class="region"></div>
+
+
+    <article id="myArticle" contenteditable>
+    	<h1>Bacon Ipsum</h1>
+    	<p>
+			Bacon ipsum dolor sit amet t-bone prosciutto short loin jerky shankle venison ground round strip steak brisket capicola rump spare ribs. 
+    	</p>
+
+    	<h2>Venison ham kielbasa</h2>
+    	<p>
+			Venison ham kielbasa, turducken doner chicken fatback meatball turkey drumstick leberkas. Kielbasa pastrami andouille boudin ham biltong tri-tip capicola bresaola jerky venison corned beef shankle pork chop turkey. Andouille sirloin rump pastrami turkey ball tip meatball swine bacon boudin jerky shank tenderloin pancetta. 
+    	</p>
+    	<p>
+			<i>
+				Ball tip biltong tenderloin ham hock leberkas turkey. Shoulder ground round drumstick, prosciutto tail sirloin boudin kielbasa. Drumstick ball tip jowl chuck tail leberkas shoulder prosciutto capicola doner short loin rump. Pork corned beef rump sirloin. Leberkas spare ribs t-bone pancetta ham sausage shoulder. Pancetta meatball prosciutto shank pastrami pork drumstick ground round shoulder.
+			</i>
+    	</p>
+
+    	<h2>Shoulder beef bacon</h2>
+    	<p>
+			Shoulder beef bacon shankle tail sirloin drumstick spare ribs meatloaf fatback. Biltong flank shankle cow, beef ribs strip steak tenderloin tail turducken. 
+    	</p>
+    	<blockquote>
+			Ball tip brisket filet mignon meatloaf jowl bresaola jerky pork belly tongue. Fatback turkey strip steak leberkas filet mignon flank capicola. 
+    	</blockquote>
+    	<p>
+			Filet mignon brisket prosciutto, pancetta frankfurter drumstick tri-tip sausage boudin cow corned beef biltong pork chop capicola.
+    	</p>
+ 
+    	<h2>Hamburger sirloin tri-tip</h2>
+    	<p>
+			Hamburger sirloin tri-tip, chicken meatloaf short loin sausage shank pastrami swine brisket. T-bone pancetta ball tip fatback shank. Pancetta drumstick brisket biltong t-bone, jowl ground round cow. Jerky sirloin bacon, ribeye tri-tip frankfurter fatback flank turkey pancetta beef ham hock turducken rump. Ball tip capicola ribeye swine short loin spare ribs meatloaf. Corned beef andouille leberkas ham. Turducken andouille shoulder, tenderloin flank ham hock pig.
+    	</p>
+    </article>
+    
+</body>
+</html>

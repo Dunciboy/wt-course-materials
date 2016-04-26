@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Stacking context </title>
+	<meta charset="utf-8" />
+	<style>
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			border: 2px solid black;
+			width: 100px;
+			height: 50px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			padding: 5px;
+		}
+		.box2 {
+			border: 2px dotted black;
+			width: 100px;
+			height: 50px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			padding: 5px;
+		}
+		.wrapper {
+			border: 1px dotted black;
+			width: 500px;
+			margin: 10px auto;
+			padding: 10px;
+			height: 150px;
+			position: relative;
+		}
+		#wrapper1 {
+			z-index: 1;
+		}
+		#wrapper2 {
+			top: -120px;
+			left: 50px;
+			z-index: 2;
+		}
+		#box1 {
+			background-color: #ddd;
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			z-index: 10;
+		}
+		#box2 {
+			background-color: #333;
+			position: absolute;
+			left: 30px;
+			top: 40px;
+			z-index: 20;
+		}
+		#box3 {
+			background-color: #888;
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			z-index: 1;
+		}
+		#box4 {
+			background-color: #fff;
+			position: absolute;
+			left: 30px;
+			top: 40px;
+			z-index: 2;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="wrapper" id="wrapper1">
+		<div class="box" id="box1"></div>
+		<div class="box" id="box2"></div>
+	</div>
+	<div class="wrapper" id="wrapper2">
+		<div class="box2" id="box3"></div>
+		<div class="box2" id="box4"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,1521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webtechnology &mdash; CSS Syntax</title>
+  <meta name="author" content="Rogier van der Linde - ikdoeict.be">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="library/reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="library/reveal/css/theme/rogier.css" id="rogier">
+  <link rel="stylesheet" href="library/highlight/styles/vs.css">
+  <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+
+  <!-- SLIDES -->
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      <!-- 0 : Title -->
+      <section>
+        <section>
+          <h1>CSS Syntax</h1>
+          <small>use the arrow keys to navigate; press space for slide overview</small>
+          <figure>
+            <img src="img/10_css_syntax/icon.jpg" alt="" class="border" />
+            <figcaption></figcaption>
+          </figure>
+          <footer>
+            <a href="http://www.ikdoeict.be/">ikdoeict.be</a> &mdash; <a href="mailto:rogier.vanderlinde@odisee.be">rogier.vanderlinde@odisee.be</a>
+          </footer>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Using CSS</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>The power of CSS</h2>
+          <ul>
+            <li>In the early days, inspirational examples were missing</li>
+            <li>
+              <em>Dave Shea</em> created <a href="http://www.csszengarden.com">csszengarden.com</a> in 2003: one single HTML page with CSS showcase
+            </li>
+            <li>
+              Some examples of this page, with different CSS:
+              <ul class="no-style">
+                <li><a href="http://www.csszengarden.com/?cssfile=/019/019.css&amp;page=0">example 019</a></li>
+                <li><a href="http://www.csszengarden.com/?cssfile=/026/026.css&amp;page=0">example 026</a></li>
+                <li><a href="http://www.csszengarden.com/?cssfile=/035/035.css&amp;page=0">example 035</a></li>
+                <li><a href="http://www.csszengarden.com/?cssfile=/213/213.css&amp;page=0">example 213</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            <img src="img/14_webstandards/daveshea.jpg" alt="dave shea" style="position: absolute; bottom: 30px; right: 30px; z-index: -1" />
+          </p>
+        </section>
+        <section>
+          <h2>Basic CSS rule</h2>
+          <ul>
+            <li>
+              A basic CSS rule consists of a <em>selector</em>, a <em>property</em> and a <em>value</em>:
+              <pre class="bigger"><code class="language-css"><i>selector</i> {
+  <i>property</i>: <i>value</i>;
+}</code></pre>
+            </li>
+            <li>
+              Example:
+              <pre class="bigger"><code contenteditable class="language-css">p {
+  color: black;
+}</code></pre>
+            </li>
+            <li class="no-style">
+              &rarr; this selects all paragraphs, and sets the text color to black
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>External stylesheet</h2>
+          <ul>
+            <li>
+              External stylesheet (index.html):
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/styles.css" /&gt;
+  ...
+&lt;/head&gt;
+...</code></pre>
+            </li>
+            <li>
+              Example (styles.css):
+              <pre class="bigger"><code contenteditable class="language-css" data-subject="slide" data-step="1">...
+p {
+  font-size: 18px;
+  margin-left: 20px;
+}
+body {
+  background-color: #f7ba5a;
+}
+...</code></pre>
+              <div class="demolink"><a href="demos/10_css_syntax/01_add_stylesheets/extern.html">demo</a></div>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Internal stylesheet</h2>
+          <ul>
+            <li>
+              Internal stylesheet (index.html):
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  &lt;style&gt;
+    p {
+      font-size: 18px;
+      margin-left: 20px
+    }
+    body {
+      background-color: #f7ba5a;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+...</code></pre>
+              <div class="demolink"><a href="demos/10_css_syntax/01_add_stylesheets/intern.html">demo</a></div>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Inline styles</h2>
+          <ul class="no-style">
+            <li>
+              Inline styles (index.html):
+              <pre class="bigger"><code class="language-html">...
+&lt;body style="background-color: #f7ba5a"&gt;
+&lt;p style="font-size: 18px; margin-left: 20px"&gt;
+...</code></pre>
+              <div class="demolink"><a href="demos/10_css_syntax/01_add_stylesheets/inline.html">demo</a></div>
+            </li>
+            <li class="no-style fragment">&rarr; <i>external, internal or inline?</i></li>
+          </ul>
+        </section>
+        <section>
+          <h2>External, internal or inline?</h2>
+          <ul>
+            <li>inline is forbidden: breaks separation HTML/CSS</li>
+            <li>internal in each page: better structure</li>
+            <li>all styles in one large external CSS file: better for caching</li>
+            <li class="no-style">
+              &rarr; good compromise:
+              <ul class="v-style">
+                <li>common styles external</li>
+                <li>page-specific styles internal</li>
+              </ul>
+              <ul class="x-style">
+                <li>never inline</li>
+              </ul>
+            </li>
+            <li class="fragment no-style">
+              &rarr; but what is 'common'?
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Importing stylesheets</h2>
+          <ul class="no-style">
+            <li>
+              Importing stylesheets with <code>@import</code>:
+              <pre class="bigger"><code class="language-css">@import "extra.css"; /* don't forget the ; at the end */
+p {
+  color: sienna;
+  margin-left: 20px
+}
+body {
+  background-image: url(../img/back.jpg)
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Conditional stylesheets</h2>
+          <ul>
+            <li>
+              Conditional stylesheets:
+              <pre class="bigger"><code class="language-html">...
+&lt;link rel="stylesheet" href="css/common.css" /&gt;
+&lt;link rel="stylesheet" href="css/forms.css" /&gt;
+&lt;!--[if IE]&gt;
+&lt;link rel="stylesheet" href="css/iehacks.css" /&gt;
+&lt;![endif]--&gt;
+...</code></pre>
+            </li>
+            <li>
+              Ideal for fixing IE problems
+            </li>
+            <li>
+              Differentiation possible between minor versions (IE5.0, IE5.5, IE6.0...)
+            </li>
+            <li>
+              IE10+ ignores conditional stylesheets
+            </li>
+            <li class="arrow">
+              modern CSS can easily live without conditionals
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Alternate stylesheets">
+          <h2>Alternate stylesheets (1)</h2>
+          <ul>
+            <li>
+              Alternate stylesheets:
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/basic.css" /&gt;
+  &lt;link rel="stylesheet" href="css/classic.css"
+        title="classic" /&gt;
+  &lt;link rel="alternate stylesheet" href="css/fancy.css"
+        title="fancy" /&gt;
+  &lt;link rel="alternate stylesheet" href="css/farty.css"
+        title="farty" /&gt;
+  &lt;/head&gt;
+...</code></pre>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/02_alternate_css/ex1/index.html">demo1</a>
+                |
+                <a href="demos/10_css_syntax/02_alternate_css/ex2/index.html">demo2</a>
+              </div>
+            </li>
+            <li>Switch between alternate stylesheets using browser or Javascript</li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Alternate stylesheets (2)</h2>
+          <ul>
+            <li>
+              Persistent stylesheets:
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/basic.css" /&gt;
+  ...
+  ...
+  ...
+&lt;/head&gt;
+...</code></pre>
+            </li>
+            <li class="fragment no-style">
+              <ul>
+                <li class="v-style">rel attribute has value 'stylesheet'</li>
+                <li class="x-style">no title attribute</li>
+                <li class="v-style">always active</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Alternate stylesheets (3)</h2>
+          <ul>
+            <li>
+              Preferred stylesheets:
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  ...
+  &lt;link rel="stylesheet" href="css/classic.css"
+        title="classic" /&gt;
+  ...
+  ...
+&lt;/head&gt;
+...</code></pre>
+            </li>
+            <li class="fragment no-style">
+              <ul class="v-style">
+                <li>rel attribute has value 'stylesheet'</li>
+                <li>title attribute defined</li>
+                <li>normally active</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Alternate stylesheets (4)</h2>
+          <ul>
+            <li>
+              Alternate stylesheets:
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  ...
+  ...
+  &lt;link rel="alternate stylesheet" href="css/fancy.css"
+        title="fancy" /&gt;
+  &lt;link rel="alternate stylesheet" href="css/farty.css"
+        title="farty" /&gt;
+&lt;/head&gt;
+...</code></pre>
+            </li>
+            <li class="fragment no-style">
+              <ul class="v-style">
+                <li>rel attribute has value 'alternate stylesheet'</li>
+                <li>title attribute defined</li>
+                <li>normally unactive</li>
+                <li>can replace preferred stylesheet (browser or Javascript)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Media types</h2>
+          <ul>
+            <li>
+              Different CSS media types:
+              <pre class="bigger"><code class="language-html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/screen.css"
+        media="screen"&gt;
+  &lt;link rel="stylesheet" href="css/print.css"
+        media="print"&gt;
+&lt;/head&gt;
+...</code></pre>
+            </li>
+            <li>
+              e.g. print stylesheet: hide complex styles, images etc...
+            </li>
+            <li class="no-style">
+              online demo's enough, e.g. try printing <a href="http://coding.smashingmagazine.com/2011/11/24/how-to-set-up-a-print-style-sheet/">this webpage</a>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Media queries</h2>
+          <ul>
+            <li>
+              Finer tweaks can be done with media queries:
+              <pre class="bigger"><code class="language-css" style="height: 200px">@media all {
+  body {
+    background-color: white;
+  }
+}
+
+@media (min-width: 480px) {
+  body {
+    background-color: #ddd;
+  }
+}
+
+@media (min-width: 600px) {
+  body {
+    background-color: #bbb;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    background-color: #999;
+  }
+}
+</code></pre>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/05_mediaqueries/index.html">demo</a>
+              </div>
+            </li>
+            <li class="no-style smaller">
+              &rarr; <a href="http://caniuse.com/#search=med">not supported</a> in IE8 or lower (a <a href="https://code.google.com/p/css3-mediaqueries-js/">fix</a> exists, but who cares)<br />
+              &rarr; we'll get back to media queries later when we talk about responsive design
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>CSS comments</h2>
+          <ul>
+            <li>
+              Comments:
+              <pre class="bigger"><code class="language-css">/**
+* Main styles
+*
+* @author Rogier van der Linde
+*/
+
+p {
+  color: black; /* all paragraphs black */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>CSS1 selectors</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Tag selector</h2>
+          <ul>
+            <li>
+              A <em>tag selector</em> selects elements by tagname:
+              <pre class="bigger"><code class="language-css">p {
+  /* styles for all paragraphs */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Class selector</h2>
+          <ul>
+            <li>
+              A <em>class selector</em> selects elements by class attribute:
+              <pre class="bigger"><code class="language-css">.message {
+  /* styles for &lt;... class="message"&gt;...&lt;/...&gt; */
+}</code></pre>
+            </li>
+            <li>
+              A <em>multiple class selector</em> selects elements by multiple class attributes:
+              <pre class="bigger"><code class="language-css">.message.error {
+  /* styles for &lt;... class="message error"&gt;...&lt;/...&gt; */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Id selector</h2>
+          <ul>
+            <li>
+              An <em>id selector</em> select a single element by its id attribute:
+              <pre class="bigger"><code class="language-css">#active {
+  /* styles for &lt;... id="active"&gt;...&lt;/...&gt; */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Pseudo class selector</h2>
+          <ul>
+            <li>
+              A <em>pseudo class selector</em> selects elements in a certain state or relation:
+              <pre class="bigger"><code class="language-css">a:link { /* ... */ }
+a:visited { /* ... */ }
+a:hover { /* ... */ }
+a:active { /* ... */ }
+</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; more pseudo class selectors are defined in CSS2 (see further)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Pseudo element selector</h2>
+          <ul>
+            <li>
+              A <em>pseudo element selector</em> selects a part of an element:
+              <pre class="bigger"><code class="language-css">em::first-letter { /* ... */ }
+p::first-line { /* ... */ }
+</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; more pseudo element selectors are defined in CSS2 (see further)
+            </li>
+          </ul>
+          <div class="tooltip">
+            <div>
+              Actually, the double colon notation was introduced in CSS3 to make a differentiation between pseudo class and pseudo element selectors. For the sake of IE8 and older who does not support this, you can still use the old single colon notation:
+              <pre><code>em:first-letter { /* ... */ }
+p:first-line { /* ... */ }
+</code></pre>
+              For CSS3 and higher pseudo element selectors (which are unsupported by IE8- in any notation) however you should always use the double colon notation.
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Combined selectors</h2>
+          <ul>
+            <li>
+              Different selectors can be combined
+            </li>
+            <li>
+              Tag/class selector example:
+              <pre class="bigger"><code class="language-css">span.error {
+  /* styles for &lt;span class="error"&gt;...&lt;/span&gt; */
+}</code></pre>
+            </li>
+            <li>
+              Tag/class/pseudo selector example:
+              <pre class="bigger"><code class="language-css">a.topmenu:link { /* ... */ }
+a.topmenu:hover { /* ... */ }
+
+a.leftmenu:link { /* ... */ }
+a.leftmenu:hover { /* ... */ }
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Grouped selectors</h2>
+          <ul>
+            <li>
+              Different selectors may be grouped in a comma-separated list:
+              <pre class="bigger"><code class="language-css">input, select, a:hover, p.formpar {
+  color: blue;
+}
+</code></pre>
+            </li>
+            <li>
+              This is equal to:
+              <pre class="bigger"><code class="language-css">input {
+  color: blue;
+}
+select{
+  color: blue;
+}
+a:hover {
+  color: blue;
+}
+p.formpar {
+  color: blue;
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Contextual selector</h2>
+          <ul>
+            <li>
+              A <em>contextual selector</em> selects elements in a certain context
+            </li>
+            <li>
+               Element nested inside another element:
+              <pre class="bigger"><code class="language-css">#leftcol p {
+  /* styles for p nested in div with id 'leftcol' */
+}
+</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; many more contextual selectors are defined in CSS2 (see further)
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>CSS2.1 selectors</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Universal selector</h2>
+          <ul>
+            <li>
+              The <em>universal</em> selector selects all elements:
+              <pre class="bigger"><code class="language-css">* {
+  /* ... */
+}</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; the universal selector is slow, but you won't notice unless you have tons of CSS
+            </li>
+          </ul>
+          <div class="tooltip">
+            <div>
+              ...just don't add CPU intensive styles like shadows and animations to every single element in your page, but this is common sense...
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>More contextual selectors</h2>
+          <ul>
+            <li>
+               Element directly nested inside another element:
+              <pre class="bigger"><code class="language-css">header > p {
+  /* styles for &lt;p&gt;'s where &lt;header&gt; is direct parent */
+}
+</code></pre>
+            </li>
+            <li>
+               Element directly following another element:
+              <pre class="bigger"><code class="language-css">h2 + p {
+  /* styles for &lt;p&gt;'s directly following a &lt;h2&gt; */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="More pseudo class selectors">
+          <h2>More pseudo class selectors (1)</h2>
+          <ul>
+            <li>
+              CSS2 defines <code>:focus</code> and <code>:first-child</code>:
+              <pre class="bigger"><code class="language-css">input:focus {
+  /* selects every input receiving focus */
+}
+
+tr:first-child {
+  /* selects the first child of every &lt;tr&gt; */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>More pseudo class selectors (2)</h2>
+          <ul>
+            <li>
+              CSS2 allows <code>:hover</code> and <code>:active</code> for non-links too:
+              <div class="codescrollpanel"><pre class="bigger"><code class="language-html overlayrun" contenteditable style="height:200px">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;testpage&lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;style&gt;
+    input[type=button] {
+      background-color: #999;
+    }
+    input[type=button]:hover {
+      background-color: #ccc;
+    }
+    input[type=button]:active {
+      background-color: #eee;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;form action="#"&gt;
+    &lt;input type="button" value="click me" /&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+            </li>
+            <li class="no-style smaller">
+              &rarr; many more pseudo class selectors are defined in CSS3 (see <a href="../html5/03_css.html#/">this presentation</a>)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>More pseudo element selectors</h2>
+          <ul>
+            <li>
+              CSS2 defines <code>::before</code> and <code>::after</code>:
+              <div class="codescrollpanel"><pre class="bigger"><code class="language-html overlayrun" contenteditable style="height:200px">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;testpage&lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;style&gt;
+    li {
+      list-style: none;
+    }
+    li::before {
+      content: "♣ ";
+      color: blue;
+    }
+    blockquote {
+      position: relative;
+    }
+    blockquote::before {
+      content: "“";
+      font-size: 60px;
+      position: absolute;
+      left: -34px;
+      top: -22px;
+      color: #999;
+    }
+    blockquote::after {
+      content: "”";
+      font-size: 60px;
+      position: absolute;
+      right: -34px;
+      top: -22px;
+      color: #999;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;item 1&lt;/li&gt;
+    &lt;li&gt;item 2&lt;/li&gt;
+    &lt;li&gt;item 3&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;blockquote&gt;
+    We've heard that a million monkeys at a million keyboards could produce the complete works of Shakespeare; now, thanks to the Internet, we know that is not true.
+  &lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+            </li>
+            <li class="no-style smaller">
+              &rarr; puts and styles any content before or after the selected elements<br />
+              &rarr; many more pseudo element selectors are defined in CSS3 (see <a href="../html5/03_css.html#/">this presentation</a>)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Attribute selectors</h2>
+          <ul>
+            <li>
+              An <em>attribute selector</em> selects elements by attribute:
+              <pre class="bigger"><code class="language-css">select[multiple] {
+  /* &lt;select&gt; contains multiple attribute */
+}
+input[type=button] {
+  /* &lt;input&gt; type attribute is exactly 'button' */
+}
+a[title~=flower] {
+  /* &lt;a&gt; title attribute contains 'flower' */
+}
+img[src|=http://www.ikdoeict.be] {
+  /* &lt;img&gt; src attribute starts with 'http://www.ikdoeict.be' */
+}</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; more attribute selectors are defined in CSS3 (see <a href="../html5/03_css.html#/">this presentation</a>)
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>CSS properties</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Property list</h2>
+          <ul>
+            <li>
+              You may group properties with the same selector in a list:
+              <pre class="bigger"><code contenteditable class="language-css">p {
+  font-size: 10px;
+  color: red;
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Grouped properties</h2>
+          <ul>
+            <li>
+              Some properties may be grouped in a single values list:
+              <pre class="bigger"><code class="language-css">body {
+  background-image: url(../img/bg.jpg);
+  background-repeat: repeat-y;
+  background-position: right;
+}</code></pre>
+            </li>
+            <li class="no-style">
+              this is the same as:
+              <pre class="bigger"><code class="language-css">body {
+  background: url(../img/bg.jpg) repeat-y right;
+}</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; the order of property values is important!
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Quotes around properties</h2>
+          <ul>
+            <li>
+              Put quotes around values with spaces and <code>::before</code> or <code>::after</code> content:
+              <pre class="bigger"><code class="language-css">p {
+  font-family: Arial, Verdana, "sans serif";
+}
+p:before {
+  content: "→";
+}</code></pre>
+            </li>
+            <li>
+              Don't put quotes around other values:
+              <pre class="bigger"><code contenteditable class="language-css">body {
+  background-image: url(img/bg.jpg);
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Colors">
+          <h2>Colors (1)</h2>
+          <ul>
+            <li>
+              Hexadecimal:
+              <pre class="bigger"><code class="language-css">p {
+  color: #cc0099;
+  background-color: #ffffff;
+}
+</code></pre>
+            </li>
+            <li>
+              Hexadecimal shorthand:
+              <pre class="bigger"><code class="language-css">p {
+  color: #c09;
+  background-color: #fff;
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Colors (2)</h2>
+          <ul>
+            <li>
+              Decimal or percentage notation:
+              <pre class="bigger"><code class="language-css">p {
+  color: rgb(204,0,153);
+  background-color: rgb(100%,100%,100%);
+}
+</code></pre>
+            </li>
+            <li>
+              Mnemonic notation:
+              <pre class="bigger"><code class="language-css">p {
+  color: VioletRed;
+  background-color: white;
+}</code></pre>
+            </li>
+            <li class="no-style smaller">
+              &rarr; mnemonic notation is for wussies<br />
+              &rarr; more notations exist: hsl, rgba (CSS3)...
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Sizes">
+          <h2>Sizes (1)</h2>
+          <ul>
+            <li>
+              The most used units are <em>px</em> (pixel) and <em>em</em> (relative to font size); we'll elaborate on this in the next presentation
+            </li>
+            <li>
+              Shorthand notation for margins, borders...:
+              <pre class="bigger"><code class="language-css">img {
+  margin-top: 0.5em;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+}</code></pre>
+            </li>
+            <li class="no-style">
+              is the same as:
+              <pre class="bigger"><code class="language-css">img {
+  margin: 0.5em 1em 0.5em 1em; /* top-right-bottom-left */
+}
+</code></pre>
+            </li>
+            <li class="no-style">
+              is the same as:
+              <pre class="bigger"><code class="language-css">img {
+  margin: 0.5 1em 0.5em; /* top-horizontal-bottom */
+}</code></pre>
+            </li>
+            <li class="no-style">
+              is the same as:
+              <pre class="bigger"><code class="language-css">img {
+  margin: 0.5 1em; /* vertical-horizontal */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Sizes (2)</h2>
+          <ul>
+            <li>
+              For reasons explained later, it is a good idea to start your CSS with:
+              <pre class="bigger"><code class="language-css">/* default font size is 16px; set html font size to 10px */
+html {
+  font-size: 62.5%;
+}
+
+/* rest of your CSS; 1rem is now 10px */
+body {
+  font-size: 1.5rem; /* 15px  */
+  padding: 1rem; /* 10px  */
+}
+h1 {
+  font-size: 2.2rem; /* 22px  */
+}
+...
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Try it out!</h2>
+          <ul>
+            <li>
+              Experiment with some properties:
+              <pre class="bigger"><code contenteditable class="language-css" data-subject="#css-demo1">font-size: 1.3em;
+color: #c39;
+/* add more if you like */</code></pre>
+            </li>
+            <li class="no-style">
+              <span id="css-demo1">this is a sample text</span>
+            </li>
+          </ul>
+          <div class="tooltip">
+            <div>
+              Tip: this codepanel is editable; try it out!
+            </div>
+          </div>
+        </section>
+        <section data-toc-title="Exercise 1">
+          <h2>Exercise 1 &mdash; assignment</h2>
+          <ul>
+            <li>
+              HTML code:
+              <div class="codescrollpanel"><pre class="bigger"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="nl"&gt;
+&lt;head&gt;
+  &lt;title&gt; Testpagina &lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;&lt;a href="#"&gt;TestSite.com&lt;/a&gt;&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;link1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;link2&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;link3&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#" class="current"&gt;link4&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;p id="login"&gt;&lt;a href="#"&gt;login&lt;/a&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;section id="content"&gt;
+    &lt;h2&gt;Eenvoudige testpagina&lt;/h2&gt;
+    &lt;section&gt;
+      &lt;h3&gt;Lorem Ipsum&lt;/h3&gt;
+      &lt;p&gt;
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut &lt;a href="#" class="trefwoord"&gt;labore&lt;/a&gt;
+        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco &lt;a href="#"&gt;laboris&lt;/a&gt; nisi
+        ut aliquip ex ea commodo consequat.
+      &lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h3&gt;Lorem Ipsum&lt;/h3&gt;
+      &lt;p&gt;
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium &lt;a href="#"&gt;doloremque laudantium&lt;/a&gt;, totam aperiam,
+        quae ab illo inventore veritatis et quasi architecto beatae vitae
+        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+        aspernatur aut &lt;a href="#" class="trefwoord"&gt;odit&lt;/a&gt;
+        aut fugit, sed quia consequuntur magni dolores eos qui ratione
+        voluptatem sequi nesciunt.
+      &lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
+    vragen? mail naar &lt;a href="#"&gt;admin@testsite.com&lt;/a&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/03_try_it_out/exercise1.pdf">exercise 1</a> |
+                <a href="demos/10_css_syntax/03_try_it_out/exercise1.html">demo</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Exercise 1 &mdash; solution</h2>
+          <ul>
+            <li>
+              Solution:
+              <div class="codescrollpanel"><pre class="bigger"><code contenteditable class="language-css">/* general */
+html {
+  font-size: 0.625em;
+}
+body {
+  font-size: 1.5rem;
+  font-family: Verdana;
+  max-width: 96rem;
+  border: 1px solid;
+}
+h1, h2, h3 {
+  color: #009;
+}
+.trefwoord {
+  background-color: #ff6;
+}
+
+/* header */
+header {
+  background-color: #eee;
+  padding: 1rem;
+}
+header > nav ul {
+  padding-left: 0;
+}
+header > nav li {
+  list-style: none;
+  display: inline-block;
+}
+header > nav a {
+  text-decoration: none;
+  color: #333;
+  display: inline
+}
+header > nav li + li:before {
+  content: ' | ';
+}
+h1 {
+  margin-top: 0;
+}
+h1 a {
+  text-decoration: none;
+  font-family: Georgia;
+  color: black;
+}
+#login {
+  text-align: right;
+}
+
+/* content */
+#content {
+  padding: 1rem;
+}
+#content p:first-letter {
+  font-size: 2rem;
+}
+
+/* footer */
+footer {
+  background-color: #ccc;
+  font-size: 1rem;
+}
+</code></pre></div>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/03_try_it_out/solution1.html">solution</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Exercise 2">
+          <h2>Exercise 2 &mdash; assignment</h2>
+          <ul>
+            <li>
+              HTML code:
+              <div class="codescrollpanel"><pre class="bigger"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;Home | Tomas Nollet en Hilde Huyghe&lt;/title&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;style&gt;
+    html {
+      font-size: 0.625em;
+    }
+    body {
+      font-size: 1.5rem;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li class="active"&gt;&lt;a href="#"&gt;Lorem ipsum&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;dolor&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;consetetur&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;sed diam&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;diam voluptua&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;nonumy eirmod&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;tempor invidunt&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;ut labore&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;justo duo&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/03_try_it_out/exercise2.pdf">exercise 2</a> |
+                <a href="demos/10_css_syntax/03_try_it_out/exercise2.html">demo</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Exercise 2 &mdash; solution</h2>
+          <ul>
+            <li>
+              Solution a:
+              <div class="codescrollpanel"><pre class="bigger"><code contenteditable class="language-css">html {
+  font-size: 0.625em;
+}
+body {
+  font-size: 1.5rem;
+  font-family: Arial;
+}
+ul {
+  list-style: none;
+}
+li, a {
+  display: inline-block;
+  line-height: 2.5rem;
+  height: 2.5rem;
+}
+li:last-child a {
+  text-decoration: none;
+}
+a {
+  color: #999;
+}
+a:hover {
+  color: black;
+}
+li + li:before {
+  content: ' > ';
+  margin: 0 0.3rem;
+}
+</code></pre></div>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/03_try_it_out/solution2a.html">solution a</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Exercise 2 &mdash; solution</h2>
+          <ul>
+            <li>
+              Solution b:
+              <div class="codescrollpanel"><pre class="bigger"><code contenteditable class="language-css">html {
+  font-size: 0.625em;
+}
+body {
+  font-size: 1.5rem;
+  font-family: Arial;
+}
+ul {
+  list-style: none;
+}
+li {
+  background-color: #ccc;
+}
+li, a {
+  display: inline-block;
+  line-height: 2.5rem;
+  height: 2.5rem;
+  text-decoration: none;
+  padding: 0 0.3rem;
+  color: #666;
+}
+li:hover, li.active {
+  background-color: #eee;
+}
+</code></pre></div>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/03_try_it_out/solution2b.html">solution b</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Priority and inheritance</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Priority</h2>
+          <ul>
+            <li>
+              Final style is a combination of
+              <ul>
+                <li>non-conflicting styles: combination</li>
+                <li>conflicting styles: priority rules</li>
+                <li>undefined styles: browser defaults</li>
+              </ul>
+            </li>
+            <li>
+              In case of conflict, priority is determined by
+              <ul>
+                <li>selector weight</li>
+                <li>in case of same weight: last one wins</li>
+              </ul>
+            </li>
+            <li>
+              Inline always has priority over external and internal styles
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Priority by order">
+          <h2>Priority by order (1)</h2>
+          <ul>
+            <li>
+              Example:
+              <pre class="bigger"><code class="language-css">p {
+  font: bold smaller Arial;
+  font-family: Courier, Verdana;
+}
+</code></pre>
+            </li>
+            <li class="fragment no-style">
+              &rarr; conflict between Arial and Courier
+            </li>
+            <li class="fragment no-style">
+              &rarr; selector is the same for both properties
+            </li>
+            <li class="fragment no-style">
+              &rarr; last one wins, which is Courier
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Priority by order (2)</h2>
+          <ul>
+            <li>
+              What is wrong with this fragment?
+              <pre class="bigger"><code class="language-css">a:active {
+  color: white;
+}
+a:hover {
+  color: lightblue;
+}
+</code></pre>
+            </li>
+            <li class="fragment">
+              What is the border color in this fragment?
+              <pre class="bigger"><code class="language-css">p {
+  border-color: red;
+  border: 1px solid;
+}
+</code></pre>
+            </li>
+            <li class="fragment no-style">
+              &rarr; black, the default value for <code>border</code>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Priority by weight">
+          <h2>Priority by weight (1)</h2>
+          <ul>
+            <li>
+              Example:
+              <pre class="bigger"><code class="language-css">div#idtest {
+  font-size: 12px;
+}
+div.ctest {
+  font-size: 14px;
+}
+</code></pre>
+            </li>
+            <li>
+              This element is selected by both selectors:
+              <pre class="bigger"><code class="language-html">&lt;div id="idtest" class="ctest"&gt;...&lt;/div&gt;
+</code></pre>
+            </li>
+            <li class="fragment no-style">
+              &rarr; the first selector weighs more, so <code>12px</code>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Priority by weight (2)</h2>
+          <ul>
+            <li>
+              Calculation selector weight ('specificity'):
+              <img src="img/10_css_syntax/specificity.jpg" alt="specificity" />
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Inheritance</h2>
+          <ul>
+            <li>
+              Inheritance = passing styles to nested elements
+            </li>
+            <li>
+              Example:
+              <pre class="bigger"><code class="language-css">body {
+  font-family: courier;
+  font-style: italic;
+}
+</code></pre>
+              <pre class="bigger"><code class="language-html">...
+&lt;body&gt;
+  &lt;h2&gt;This is line 1&lt;/h2&gt;
+  &lt;p&gt;This is line 2&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              <div class="demolink">
+                <a href="demos/10_css_syntax/04_inheritance/index.html">demo</a>
+              </div>
+            </li>
+            <li class="fragment">
+              Font properties are inherited in <code>&lt;h2&gt;</code> and <code>&lt;p&gt;</code>
+            </li>
+            <li class="fragment">
+              Only a few properties are inherited, mostly list styles and font properties (see list on <a href="http://www.impressivewebs.com/inherit-value-css/">this page</a>)
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Practical notes</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Browser support</h2>
+          <ul>
+            <li>
+              CSS1 (1996):
+              <ul>
+                <li>fonts; colors, text, alignment, border, paddings...</li>
+                <li>full support by all modern browsers</li>
+              </ul>
+            </li>
+            <li>
+              CSS2 (1998) revised in CSS2.1 (2011)
+              <ul>
+                <li>positioning, media types, new font properties</li>
+                <li>error fixing, poorly supported features removed in CSS2.1</li>
+                <li>full support by all modern browsers</li>
+              </ul>
+            </li>
+            <li>
+              CSS3 (in development):
+              <ul>
+                <li>devided in >50 modules</li>
+                <li>animations, drop shadows, gradients, new selectors...</li>
+                <li>some parts supported by some browsers <br />(see <a href="http://www.caniuse.com">caniuse.com</a> or <a href="http://www.quirksmode.org/css/selectors/">quirksmode.org</a>)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>CSS reset</h2>
+          <ul>
+            <li>
+              Use some kind of CSS reset to wipe out browser default differences. The most basic reset:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+            </li>
+            <li class="no-style">
+              &rarr; or pick your favorite reset at <a href="http://www.cssreset.com/">http://www.cssreset.com/</a>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Best practices">
+          <h2>Best practices (1)</h2>
+          <ul>
+            <li>
+              Page content often comes from different sources (libraries, ads, templates...), so use class selectors rather than id selectors to prevent conflicts:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html wrong">&lt;div id="wrapper"&gt;
+  &lt;nav id="top"&gt;
+    &lt;ul&gt;
+      &lt;li id="first"&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;section id="main"&gt;...&lt;/section&gt;
+&lt;/div&gt;
+</code></pre>
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html right">&lt;div class="wrapper"&gt;
+  &lt;nav class="top"&gt;
+    &lt;ul&gt;
+      &lt;li class="first"&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;section class="main"&gt;...&lt;/section&gt;
+&lt;/div&gt;
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Best practices (2)</h2>
+          <ul>
+            <li>
+              Consider using contextual selectors instead of class selectors:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css right">.wrapper > nav {
+  ...
+}
+ul:first-child {
+  ...
+}
+.wrapper > nav + section {
+  ...
+}
+</code></pre>
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-html">&lt;div class="wrapper"&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;section&gt;...&lt;/section&gt;
+&lt;/div&gt;
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Best practices (3)</h2>
+          <ul>
+            <li>
+              Avoid extra selectors:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css wrong">body header > nav.top ul li a {
+  ...
+}
+div#wrapper {
+  ...
+}
+</code></pre>
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css right">header > nav a {
+  ...
+}
+#wrapper {
+  ...
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Malicious CSS</h2>
+          <ul>
+            <li>
+              A final note &mdash; code doesn't need Javascript to be malicious:
+              <pre class="bigger"><code class="language-html">  ...
+  &lt;style&gt;
+    a[href|=http://www.porn]:visited {
+      background-image: url(/api/historylog.php);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href="http://www.pornhub.com"&gt;some link&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="sources">
+        <section>
+          <h2>Useful links</h2>
+          <ul>
+            <li>CSS cheat sheet: <a href="http://www.cheatography.com/davechild/cheat-sheets/css2/">cheatography.com</a></li>
+            <li>Browser compatibility: <a href="http://www.caniuse.com/">caniuse.com</a></li>
+            <li>Selectors compatibility: <a href="http://www.quirksmode.org/css/selectors/">quirksmode.org</a></li>
+            <li>CSS editor: <a href="http://www.topstyle4.com/">topstyle4.com</a></li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Questions?</h2>
+        </section>
+      </section>
+
+    </div>
+
+    <!-- ikdoeict.be Link -->
+    <a href="http://www.ikdoeict.be/" title="ikdoeict.be" id="ikdoeict">ikdoeict.be</a>
+
+    <!-- Index Link -->
+    <aside class="back">
+      <nav>
+        <p><a href="index.html">&larr; Back to index</a></p>
+      </nav>
+    </aside>
+
+  </div>
+
+  <script src="library/jquery.min.js"></script>
+  <script src="library/head.min.js"></script>
+  <script src="library/reveal/reveal.min.js"></script>
+  <script src="library/highlight/highlight.pack.js"></script>
+  <script src="library/prefixfree.js"></script>
+  <script src="library/css-snippets.js"></script>
+  <script src="library/css-edit.js"></script>
+  <script src="library/incrementable.js"></script>
+  <script src="library/main.js"></script>
+
+</body>
+</html>

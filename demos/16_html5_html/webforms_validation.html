@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form>
+		<p>
+			<label for="text1">Required: </label>
+			<input type="text" id="text1" required />
+		</p>
+		<p>
+			<label for="text2">Email: </label>
+			<input type="email" id="text2" />
+		</p>
+		<p>
+			<label for="text3">URL: </label>
+			<input type="url" id="text3" />
+		</p>
+		<p>
+			<label for="text4">Pattern: </label>
+			<input type="text" id="text4" pattern="[A-Z]-[0-9]{4}" placeholder="e.g. B-4567" />
+		</p>
+		<p>
+			<label for="text5">Even number between 10 and 20: </label>
+			<input type="number" id="text5" min="10" max="20" step="2" />
+		</p>
+		<input type="submit" value="Submit">
+		<input type="submit" value="Cancel" formnovalidate>
+	</form>
+</body>
+</html>
