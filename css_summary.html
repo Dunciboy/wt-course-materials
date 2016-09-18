@@ -1,0 +1,1493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webtechnology &mdash; CSS Summary</title>
+  <meta name="author" content="Rogier van der Linde - ikdoeict.be">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="library/reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="library/reveal/css/theme/rogier.css" id="rogier">
+  <link rel="stylesheet" href="library/highlight/styles/vs.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/css_summary.css">
+</head>
+
+<body>
+
+  <!-- SLIDES -->
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      <!-- 0 : Title -->
+      <section>
+        <section>
+          <h1>CSS Summary</h1>
+          <small>use the arrow keys to navigate; press space for slide overview</small>
+          <figure>
+            <img src="img/10_css_syntax/icon.jpg" alt="" class="border" />
+            <figcaption></figcaption>
+          </figure>
+          <footer>
+            <a href="http://www.ikdoeict.be/">ikdoeict.be</a> &mdash; <a href="mailto:rogier.vanderlinde@odisee.be">rogier.vanderlinde@odisee.be</a>
+          </footer>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Stylesheets</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section data-toc-title="Including styles">
+          <h2>Including styles (1)</h2>
+          <ul>
+            <li>
+              don't use inline or internal stylesheets, only external stylesheets
+            </li>
+            <li>
+              all css links should be placed in the <code>&lt;head&gt;</code>:
+              <pre class="bigger"><code class="language-html" data-caption="index.html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/stylesheet1.css" /&gt;
+  &lt;link rel="stylesheet" href="css/stylesheet2.css" /&gt;
+  &lt;link rel="stylesheet" href="css/stylesheet3.css" /&gt;
+  ...
+&lt;/head&gt;
+...</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Including styles (2)</h2>
+          <ul>
+            <li>
+              common errors / tips:
+              <pre class="bigger"><code class="language-html" data-caption="index.html">...
+&lt;head&gt;
+  ...
+  &lt;!-- type attribute not needed in HTML5 --&gt;
+  &lt;link <del>type="text/css"</del> rel="stylesheet" href="..." /&gt;
+  &lt;!-- ERROR! wrong rel --&gt;
+  &lt;link rel="common" href="..." /&gt;
+  &lt;!-- ERROR! typo -&gt; tip: check link with inspector --&gt;
+  &lt;link rel="stylesheet" href="ccs/common.css" /&gt;
+  ...
+&lt;/head&gt;
+...</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Organizing styles</h2>
+          <ul>
+            <li>
+              minimum suggested stylesheets for e.g. index.html:
+              <pre class="bigger"><code class="language-html" data-caption="index.html">...
+&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="css/start.css" /&gt;
+  &lt;link rel="stylesheet" href="css/common.css" /&gt;
+  &lt;link rel="stylesheet" href="css/index.css" /&gt;
+  ...
+&lt;/head&gt;
+...</code></pre>
+              <ul class="arrow">
+                <li>
+                  <code>start.css</code> contains all generic code
+                </li>
+                <li>
+                  <code>common.css</code> contains all common code for all pages
+                </li>
+                <li>
+                  <code>index.css, somepage.css</code>... contains all page specific css
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Start CSS">
+          <h2>Start CSS (1)</h2>
+          <ul>
+            <li>
+              <em><code>start.css</code></em> contains all universally reusable css; think of
+              <ul>
+                <li>62.5% fontsize</li>
+                <li>some css reset</li>
+                <li><code>clearfix</code> class code (for floated layouts)</li>
+                <li><code>structural</code> class code (for outlining)</li>
+                <li><code>ir</code> class code (for image replacement)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Start CSS (2)</h2>
+          <ul>
+            <li>
+              sample code used in e.g. lab session 9:
+              <pre class="bigger"><code class="language-css" style="height: 300px" data-caption="start.css">/**
+ * Generic styles for site &lt;site-name&gt;
+ *
+ * @author Rogier van der Linde <rogier.vanderlinde@odisee.be>
+ *
+ */
+
+/* ===========================================
+   Custom reset
+   =========================================== */
+
+html {
+  font-size: 0.625em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+fieldset {
+  border: 0;
+}
+
+/* ===========================================
+   Helpers
+   =========================================== */
+
+.structural {
+  position: absolute;
+  left: -9999px;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.ir {
+  display: block;
+  background-size: 100%;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.hidden {
+  position: absolute !important;
+  visibility: hidden !important;
+  z-index: -1 !important;
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Common CSS">
+          <h2>Common CSS (1)</h2>
+          <ul>
+            <li>
+              <em><code>common.css</code></em> or <em><code>styles.css</code></em>: contains all css common for all pages; think of
+              <ul>
+                <li>general element styles for <code>&lt;body&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> etc...</li>
+                <li>header with logo, menu...</li>
+                <li>common content styles</li>
+                <li>doormat</li>
+                <li>footer</li>
+                <li>common media queries</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Common CSS (2)</h2>
+          <ul>
+            <li>
+              Structure and comment your stylesheet in a consistent way; an example:
+              <pre class="bigger"><code class="language-css" style="height: 250px" data-caption="common.css">/**
+ * Common styles for site &lt;site-name&gt;
+ *
+ * @author Rogier van der Linde <rogier.vanderlinde@odisee.be>
+ *
+ */
+
+/* ===========================================
+   General
+   =========================================== */
+
+/* general layout */
+
+.wrapper {
+  margin: 0 auto;
+  min-width: 32rem;
+  max-width: 96rem;
+  padding: 0 1rem;
+}
+
+/* element styles */
+
+body {
+  font-size: 1.3rem; /* standard font size */
+  font-family: verdana, Arial, Helvetica, sans-serif;
+  /* ... */
+}
+
+a {
+  /* ... */
+}
+
+p {
+  /* ... */
+}
+
+h1, h2, h3, h4 {
+  /* ... */
+}
+
+/* class styles */
+
+.more {
+  /* ... */
+}
+
+.bigger {
+  /* ... */
+}
+
+/* ===========================================
+   Header
+   =========================================== */
+
+/* general */
+/* ... */
+
+/* logo */
+/* ... */
+
+/* main menu */
+/* ... */
+
+/* ===========================================
+   Content
+   =========================================== */
+
+/* ...content styles... */
+
+/* ===========================================
+   Doormat
+   =========================================== */
+
+/* general */
+/* ... */
+
+/* left column */
+/* ... */
+
+/* middle column */
+/* ... */
+
+/* right column */
+/* ... */
+
+/* ===========================================
+   Footer
+   =========================================== */
+
+/* ...footer styles... */
+
+/* ===========================================
+   Media queries
+   =========================================== */
+
+@media (min-width: 30em) { /* 30 * 16 = 480px */
+  /* your media queries here */
+  /* ... */
+}
+
+@media (min-width: 50em) { /* 50 * 16 = 800px */
+  /* your media queries here */
+  /* ... */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Page specific CSS</h2>
+          <ul>
+            <li>
+              Use the same structure for page-specific styes
+              <pre class="bigger"><code class="language-css" style="height: 250px" data-caption="index.css">/**
+ * Page-specific styles for site &lt;site-name&gt;
+ *
+ * @author Rogier van der Linde <rogier.vanderlinde@odisee.be>
+ *
+ */
+
+/* ===========================================
+   General
+   =========================================== */
+
+/* general layout */
+/* ... */
+
+/* element styles */
+/* ... */
+
+/* class styles */
+/* ... */
+
+/* ===========================================
+   Content
+   =========================================== */
+
+/* ...content styles... */
+
+/* ===========================================
+   Media queries
+   =========================================== */
+
+@media (min-width: 30em) { /* 30 * 16 = 480px */
+  /* your media queries here */
+  /* ... */
+}
+
+@media (min-width: 50em) { /* 50 * 16 = 800px */
+  /* your media queries here */
+  /* ... */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="CSS layout">
+          <h2>CSS layout (1)</h2>
+          <ul>
+            <li>
+              Properly layout your css:
+              <ul>
+                <li>each property on a separate line</li>
+                <li>properly indent (tabs OR spaces)</li>
+                <li>space after :</li>
+                <li>whiteline after each block</li>
+              </ul>
+              <pre class="bigger"><code class="language-css wrong">p { line-height: 1.3; color: #333 }
+.box {
+  background-color: #666;
+  font-size:        1.2rem;
+  padding:          1rem 2rem;
+}
+@media (min-width: 50em) {
+.box {
+  padding: 0;
+}
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>CSS layout (2)</h2>
+          <ul>
+            <li>
+              Properly layout your css:
+              <pre class="bigger"><code class="language-css right">p {
+  line-height: 1.3;
+  color: #333;
+}
+
+.box {
+  background-color: #666;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+}
+
+@media (min-width: 50em) {
+  .box {
+    padding: 0;
+  }
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Editing tools">
+          <h2>Editing tools (1)</h2>
+          <ul>
+            <li>
+              Use Ctrl-Space to call autocomplete:
+              <img src="img/css_summary/ss1.png" class="border" alt="" style="max-width: 75%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (2)</h2>
+          <ul>
+            <li>
+              Inspect an element:
+              <img src="img/css_summary/ss2.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (3)</h2>
+          <ul>
+            <li>
+              Disable properties:
+              <img src="img/css_summary/ss3.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (4)</h2>
+          <ul>
+            <li>
+              Find out which property value applies and from where:
+              <img src="img/css_summary/ss4.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (5)</h2>
+          <ul>
+            <li>
+              Inspect states:
+              <img src="img/css_summary/ss5.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (6)</h2>
+          <ul>
+            <li>
+              Box model:
+              <img src="img/css_summary/ss6.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (7)</h2>
+          <ul>
+            <li>
+              Live edit values (optionally use arrows)
+              <img src="img/css_summary/ss7.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (8)</h2>
+          <ul>
+            <li>
+              Filter properties:
+              <img src="img/css_summary/ss8.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (9)</h2>
+          <ul>
+            <li>
+              Add new style rules:
+              <img src="img/css_summary/ss9.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (10)</h2>
+          <ul>
+            <li>
+              Remove large portions of the DOM to isolate a problem:
+              <img src="img/css_summary/ss10a.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (10)</h2>
+          <ul>
+            <li>
+              Remove large portions of the DOM to isolate a problem:
+              <img src="img/css_summary/ss10b.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Editing tools (11)</h2>
+          <ul>
+            <li>
+              For advanced image inspection (and processing) without Photoshop, check the free great <a href="https://pixlr.com/editor/">Pixlr Editor</a> plugin for Chrome:
+              <img src="img/css_summary/ss11.png" class="border" alt="" style="max-width: 85%">
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Selectors</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Selecting elements</h2>
+          <ul>
+            <li>
+              Selecting elements:
+              <pre class="bigger"><code class="language-css">p {
+  /* tag selector; selects &lt;p&gt; */
+}
+.message {
+  /* tag selector; selects &lt;... class="message"&gt; */
+}
+.message.error {
+  /* multiple class selector; selects &lt;... class="message error"&gt; */
+}
+#lnk-login {
+  /* id selector; selects &lt;... id="lnk-login"&gt; */
+}
+* {
+  /* selects all elements */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Element states</h2>
+          <ul>
+            <li>
+              Selecting elements in a certain state:
+              <pre class="bigger"><code class="language-css">a:hover {
+  /* selects hovered link */
+}
+textarea:focus {
+  /* selects focused &lt;textarea&gt; */
+}
+input[type=email]:invalid {
+  /* selects invalid &lt;input type="email"&gt; */
+}
+input:disabled {
+  /* selects disabled &lt;input&gt; */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Parts of elements</h2>
+          <ul>
+            <li>
+              Selecting parts of elements:
+              <pre class="bigger"><code class="language-css">a::first-letter {
+  /* selects first letter of &lt;a&gt; */
+}
+::selection {
+  /* selects user selected part */
+}
+li::after {
+  content: url(../img/bullet.png); /* inject image before */
+  /* more content properties */
+}
+li::after {
+  content: "some text"; /* inject text after */
+  /* more content properties */
+}              </code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Combining selectors</h2>
+          <ul>
+            <li>
+              Combining selectors:
+              <pre class="bigger"><code class="language-css">p.message {
+  /* tag-class selector; selects &lt;p class="message"&gt; */
+}
+nav#mainmenu {
+  /* tag-id selector; selects &lt;nav id="mainmenu"&gt; */
+}
+#mainmenu.open {
+  /* id-class selector; selects &lt;... id="mainmenu" class="open"&gt; */
+}
+header li a {
+  /* id-class selector; selects &lt;a&gt; nested in &lt;li&gt; nested in &lt;header&gt; */
+}
+img, .thumb {
+  /* iselects &lt;img&gt; and &lt;... class="thumb"&gt; */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Element positions</h2>
+          <ul>
+            <li>
+              Specify element position:
+              <pre class="bigger"><code class="language-css">h1 + p {
+  /* selects &lt;p&gt; directly following &lt;h1&gt; */
+}
+li + li {
+  /* selects all &lt;li&gt;'s except first */
+}
+li:first-child {
+  /* selects first &lt;li&gt; of its parent */
+}
+#content > section {
+  /* selects &lt;section&gt; directly nested in &lt;... id="content"&gt; */
+}
+article:nth-child(3n+1) {
+  /* selects &lt;article&gt; that is the 1st, 4th, 7th, ... child of its parent */
+}
+article:nth-of-type(3n+1) {
+  /* selects the 1st, 4th, 7th, ... &lt;article&gt; of its parent */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Common mistakes</h2>
+          <ul>
+            <li>
+              Some common mistakes:
+              <pre class="bigger"><code class="language-css" style="height: 250px">p {
+  font-size: 1rem /* ERROR: no semicolon */
+  color: red;
+}
+p .message { /* did you mean p.message? */
+  /* ... */
+}
+.container {
+  background-image: url(img/bg.png); /* did you mean url(../img/bg.png)? */
+}
+.box {
+  border: 1px; /* did you mean 1px solid? */
+}
+.col-2 {
+  padding: 5px; /* did you mean 2%? */
+  width: 50%;  /* did you mean 46%? */
+  float: left;
+}
+p {
+  font-size: 1.2rem;
+/* ERROR: closing bracket missing */
+</code></pre>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Values and properties</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Grouping</h2>
+          <ul>
+            <li>
+              Grouped properties:
+              <pre class="bigger"><code class="language-css">p { /* groups font-size and color properties */
+  font-size: 1rem;
+  color: red;
+}</code></pre>
+            </li>
+            <li>
+              Grouped values:
+              <pre class="bigger"><code class="language-css">.box {
+  padding: 1rem 2rem 0 2rem; /* top right bottom left */
+  margin: 1rem 2rem; /* top-bottom left-right */
+  border: 1px solid #900; /* thickness style color */
+  background: #eee url(../img/bg.png) no-repeat center top;
+    /* color image repeat positionX positionY */
+  font: italic uppercase bold 12px/30px Georgia, "Times New Roman", serif;
+    /* style variant weight size/line-height family */
+}</code></pre>
+              <ul class="arrow">
+                <li>
+                  error prone; dont't forget properties or mix up the order!
+                </li>
+                <li>
+                  in case of <code>font</code> or <code>background</code>, separate properties (<code>font-family</code>, <code>font-weight</code> etc...) are probably easier
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Inheritance and priority</h2>
+          <ul>
+            <li>
+              Remember, the final property value attributed to an element is, in descending order of priority:
+              <ul>
+                <li>important styles (i.e. <code>p { color: red !important; }</code>)</li>
+                <li>inline styles (i.e. <code>&lt;p style="color: blue"&gt;</code>)</li>
+                <li>external styles, heavier selectors first</li>
+                <li>same selector weight: latest wins</li>
+                <li>
+                  if no style defined:
+                  <ul>
+                    <li>if inheritable (mostly font related): parent style if defined</li>
+                    <li>else: browser default (may differ; consider using a CSS reset)</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="arrow">
+              use your inspector to see how and which styles are attributed!
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Units and sizes">
+          <h2>Units and sizes (1)</h2>
+          <ul>
+            <li>
+              Basic scheme:
+              <pre class="bigger"><code class="language-css">html {
+  font-size: 0.625em; /* resize to 1rem = 10px */
+}
+body {
+  font-size: 1.2rem; /* 12px standard font size */
+}
+/* from here on, convert all pixel values to rem, i.e. 10px -> 1rem */
+.box {
+  width: 47.5rem; /* 475px */
+  height: 22rem; /* 220px */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Units and sizes (2)</h2>
+          <ul>
+            <li>
+              For 1px or 2px values, you may still use px, e.g. border widths
+            </li>
+            <li>
+              For flexible building blocks you should use %, e.g.
+              <pre class="bigger"><code class="language-css">.col1 {
+  width: 40%;
+  float: left;
+}
+.col2 {
+  width: 25%;
+  float: left;
+  margin-left: 5%;
+}
+.col3 {
+  width: 25%;
+  float: right;
+  margin-left: 5%;
+}
+.banner img {
+  width: 100%;
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Colors</h2>
+          <ul>
+            <li>
+              Colors:
+              <pre class="bigger"><code class="language-css">p {
+  color: orange; /* mnemonic notation */
+  color: #ffa500; /* hex notation */
+  color: rgb(255, 165, 00); /* rgb notation */
+  color: rgba(255, 165, 00, 0.7); /* rgba notation */
+  color: #fa0; /* shorthand notation for #ffaa00 */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Backgrounds</h2>
+          <ul>
+            <li>
+              Single covering background:
+              <pre class="bigger"><code class="language-css">.container {
+  background-image: url(../img/bg_full.png); /* note the ../ */
+  background-size: 100% 100%; /* fully stretch horizontal and vertical */
+  background-size: cover; /* other option: fully cover but keep aspect ratio */
+}
+</code></pre>
+            </li>
+            <li>
+              Single background image:
+              <pre class="bigger"><code class="language-css">.container {
+  background-image: url(../img/icon.png); /* note the ../ */
+  background-repeat: no-repeat;
+  background-position: top center; /* horizontal and vertical position */
+  background-position: 1rem 2rem; /* other option; 10px left, 20px top */
+}
+</code></pre>
+            </li>
+            <li>
+              Repeating background:
+              <pre class="bigger"><code class="language-css">.container {
+  background-image: url(../img/visual.png);
+  background-repeat: repeat-y; /* other options are repeat-x, repeat */
+  background-position: center; /* other options are left, right  */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Image replacement">
+          <h2>Image replacement (1)</h2>
+          <ul>
+            <li>
+              Simple image replacement:
+              <pre class="bigger"><code class="language-css">a.replace_me {
+  display: block;
+  width: 20rem;
+  height: 10rem;
+  white-space: nowrap;
+  text-indent: 100%;
+  overflow: hidden;
+  background-image: url(../img/replace_image.png);
+  background-size: 100% 100%;
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Image replacement (2)</h2>
+          <ul>
+            <li>
+              Using a generic <code>ir</code> class:
+              <pre class="bigger"><code class="language-html" data-caption>&lt;ul&gt;
+  &lt;li class="ir facebook"&gt;&lt;a href="#"&gt;facebook&lt;/a&gt;&lt;/li&gt;
+  &lt;li class="ir twitter"&gt;&lt;a href="#"&gt;twitter&lt;/a&gt;&lt;/li&gt;
+  &lt;li class="ir gplus"&gt;&lt;a href="#"&gt;google+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+              <pre class="bigger"><code class="language-css" data-caption="start.css">/* generic part */
+.ir {
+  display: block;
+  white-space: nowrap;
+  text-indent: 100%;
+  overflow: hidden;
+  background-size: 100% 100%;
+}</code></pre>
+              <pre class="bigger"><code class="language-css" style="height: 150px" data-caption="styles.css">/* non-generic part */
+li.facebook a {
+  width: 5rem;
+  height: 5rem;
+  background-image: url(../img/logo_fb.png);
+}
+
+li.twitter a {
+  width: 5rem;
+  height: 5rem;
+  background-image: url(../img/logo_twitter.png);
+}
+
+li.gplus a {
+  width: 5rem;
+  height: 5rem;
+  background-image: url(../img/logo_gplus.png);
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Image replacement (3)</h2>
+          <ul>
+            <li>
+              Spritesheets:
+              <pre class="bigger"><code class="language-css">a.replace_me {
+  ...
+  width: 5rem;
+  height: 5rem;
+  background-image: url(../img/replace_image.png);
+  background-size: 1000% 500%; /* e.g. 10x5 spritesheet of 50px/50px icons */
+  background-position: -15rem -10rem; /* e.g. sprite on column 4, row 3 */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Box model</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section data-toc-title="Box model">
+          <h2>Box model (1)</h2>
+          <ul>
+            <li>
+              Remember the weird box model:
+              <p><img src="img/11_css_design/boxmodel.png" alt="box model" /></p>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Box model (2)</h2>
+          <ul>
+            <li>
+              To get a total width of e.g. 250px, you need to substract horizontal borders and paddings:
+              <pre class="bigger"><code class="language-css" contenteditable>p {
+  background-color: #ccc;
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+  width: 226px; /* 226 + 2*10 + 2*2 = 250 */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Box model (3)</h2>
+          <ul>
+            <li>
+              Two 50% columns with fixed with borders/paddings are even impossible with this model:
+              <pre class="bigger"><code class="language-css" contenteditable data-selector=".reveal #boxsizedemo1">.container {
+  border: 4px dashed blue;
+  overflow: hidden; /* cheap clearfix */
+}
+.container-box {
+  border: 10px solid #999; /* fixed width border */
+  float: left;
+  padding: 20px; /* fixed width padding */
+  width: 50%; /* real width = 50% + 2*10px + 2*20px */
+}
+</code></pre>
+              <div id="boxsizedemo1" class="clearfix">
+                <div class="container" style="margin-top: 30px; width: 598px;">
+                  <div class="container-box" style="background-color: #eee; height: 30px"></div>
+                  <div class="container-box" style="background-color: #eee; height: 30px"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Box sizing">
+          <h2>Box sizing (1)</h2>
+          <ul>
+            <li>
+              You can fix this by setting <code>box-sizing: border-box</code>:
+              <pre class="bigger"><code class="language-css" contenteditable data-selector=".reveal #boxsizedemo2">.container {
+  border: 4px dashed blue;
+  overflow: hidden; /* cheap clearfix */
+}
+.container-box {
+  border: 10px solid #999;
+  box-sizing: border-box; /* try to remove this line */
+  float: left;
+  padding: 20px;
+  width: 50%; /* real width = 50% */
+}
+</code></pre>
+              <div id="boxsizedemo2" class="clearfix">
+                <div class="container" style="margin-top: 30px; width: 598px;">
+                  <div class="container-box" style="background-color: #eee; height: 90px"></div>
+                  <div class="container-box" style="background-color: #eee; height: 90px"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Box sizing (2)</h2>
+          <ul>
+            <li>
+              Beware however when aligning a line of text vertically: now you have to substract paddings and borders from line-height (which is unaffected by the box model)
+              <pre class="bigger"><code class="language-css" contenteditable data-selector=".reveal #boxsizedemo3">.box {
+  border: 5px solid #999;
+  box-sizing: border-box; /* default is content-box */
+  height: 60px;
+  line-height: 30px; /* 40 - 2x5 - 2x10 */
+  padding: 10px;
+}
+</code></pre>
+              <div id="boxsizedemo3">
+                <div class="box" style="background-color: #eee; font-size: 12px">line of text</div>
+              </div>
+            </li>
+            <li class="no-style">
+              <ul class="arrow">
+                <li>
+                  <code>border-box</code> is generally easier, with a few exceptions like the code above
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>Layout</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Center box horizontally</h2>
+          <ul>
+            <li>
+              Center box horizontally:
+              <pre class="bigger"><code class="language-css">.container {
+  ...
+  margin: 0 auto; /* center box horizontally */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Center box vertically</h2>
+          <ul>
+            <li>
+              You can't (we'll have to wait for flexbox support)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Center text horizontally</h2>
+          <ul>
+            <li>
+              Center text horizontally:
+              <pre class="bigger"><code class="language-css">.container {
+  ...
+  text-align: center;
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Center text vertically</h2>
+          <ul>
+            <li>
+              Only works with single line of text:
+              <pre class="bigger"><code class="language-css">li a {
+  display: block; /* height only works with blocklevel elements */
+  height: 5rem; /* set height */
+  line-height: 5rem;
+  white-space: nowrap; /* only works with a single line of text */
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Floating">
+          <h2>Floating (1)</h2>
+          <ul>
+            <li>
+              basic scheme:
+              <pre class="bigger"><code class="language-html" data-caption>&lt;div class="container clearfix"&gt;
+  &lt;div class="box box1"&gt;&lt;/div&gt;
+  &lt;div class="box box2"&gt;&lt;/div&gt;
+  &lt;div class="box box3"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+              <pre class="bigger"><code class="language-css" data-caption contenteditable data-selector=".reveal #boxsizedemo4" style="height: 200px;">.container {
+  border: 4px dashed blue;
+}
+.box {
+  float: left;
+  box-sizing: border-box;
+  padding: 2rem;
+  border: 2px dashed gray;
+}
+.box1 {
+  width: 20%;
+}
+.box2 {
+  width: 50%;
+  margin-left: 5%;
+}
+.box3 {
+  width: 20%;
+  margin-left: 5%;
+}
+</code></pre>
+              <div id="boxsizedemo4" class="clearfix">
+                <div class="container" style="margin-top: 30px; overflow: hidden;">
+                  <div class="box box1" style="background-color: #eee; height: 90px"></div>
+                  <div class="box box2" style="background-color: #eee; height: 90px"></div>
+                  <div class="box box3" style="background-color: #eee; height: 90px"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Floating (2)</h2>
+          <ul>
+            <li>
+              steps:
+              <ul>
+                <li>set column widths (total with margins should not exceed 100%)</li>
+                <li>set <code>box-sizing: border-box</code> if you wish to set column paddings and/or borders</li>
+                <li>float all columns left (the last may also be floated right)</li>
+                <li>apply clearfix to container</li>
+              </ul>
+            </li>
+            <li class="arrow">
+              most used layout technique
+            </li>
+            <li class="arrow">
+              may be used for horizontal menus, columns etc...
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Clearing">
+          <h2>Clearing (1)</h2>
+          <ul>
+            <li>
+              prevent elements to have floated elements left and / or right:
+              <pre class="bigger"><code class="language-css" data-caption>h1, h2, h3, h4 {
+  clear: left; /* always start on a new line */
+}
+footer {
+  clear: both; /* no floated elements left or right */
+}
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Clearing (2)</h2>
+          <ul>
+            <li>
+              remember to clear the next unfloated element:
+              <pre class="bigger"><code class="language-html" data-caption>&lt;div class="container clearfix"&gt;
+  &lt;div class="box box1"&gt;&lt;/div&gt;
+  &lt;div class="box box2"&gt;&lt;/div&gt;
+  &lt;div class="box box3"&gt;&lt;/div&gt;
+  &lt;div class="footerbox"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+              <pre class="bigger"><code class="language-css" data-caption contenteditable data-selector=".reveal #boxsizedemo4" style="height: 150px;">.container {
+  border: 4px dashed blue;
+}
+.footerbox {
+  border: 2px dashed red;
+  clear: both; /* try removing this line */
+}
+.box {
+  float: left;
+  box-sizing: border-box;
+  padding: 2rem;
+  border: 2px dashed gray;
+}
+.box1 {
+  width: 20%;
+}
+.box2 {
+  width: 50%;
+  margin-left: 5%;
+}
+.box3 {
+  width: 20%;
+  margin-left: 5%;
+}
+</code></pre>
+              <div id="boxsizedemo4" class="clearfix">
+                <div class="container" style="margin-top: 30px; overflow: hidden;">
+                  <div class="box box1" style="background-color: #eee; height: 90px"></div>
+                  <div class="box box2" style="background-color: #eee; height: 90px"></div>
+                  <div class="box box3" style="background-color: #eee; height: 90px"></div>
+                  <div class="footerbox" style="background-color: #dcc; height: 40px"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Clearing (3)</h2>
+          <ul>
+            <li>
+              nice example with neat rows of boxes with different heights:
+              <pre class="bigger"><code class="language-html" data-caption>&lt;div class="container clearfix"&gt;
+  &lt;div class="box"&gt;&lt;/div&gt;
+  &lt;div class="box"&gt;&lt;/div&gt;
+  &lt;div class="box"&gt;&lt;/div&gt;
+  &lt;div class="box"&gt;&lt;/div&gt;
+  ...
+&lt;/div&gt;
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Clearing (3)</h2>
+          <ul>
+            <li>
+              the CSS:
+              <pre class="bigger"><code class="language-css" data-caption contenteditable data-selector=".reveal #boxsizedemo5" style="height: 200px;">.container {
+  border: 2px dashed blue;
+  width: 490px;
+}
+.box {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 90px;
+}
+.box:nth-child(5n) {
+  margin-right: 0;
+}
+.box:nth-child(5n+1) {
+  clear: left; /* try removing this line */
+}
+</code></pre>
+              <div id="boxsizedemo5" class="clearfix">
+                <div class="container" style="margin-top: 30px; overflow: hidden;">
+                  <div class="box" style="background-color: #eee; height: 85px"></div>
+                  <div class="box" style="background-color: #eee; height: 77px"></div>
+                  <div class="box" style="background-color: #eee; height: 50px"></div>
+                  <div class="box" style="background-color: #eee; height: 90px"></div>
+                  <div class="box" style="background-color: #eee; height: 83px"></div>
+                  <div class="box" style="background-color: #eee; height: 87px"></div>
+                  <div class="box" style="background-color: #eee; height: 65px"></div>
+                  <div class="box" style="background-color: #eee; height: 89px"></div>
+                  <div class="box" style="background-color: #eee; height: 70px"></div>
+                  <div class="box" style="background-color: #eee; height: 68px"></div>
+                  <div class="box" style="background-color: #eee; height: 75px"></div>
+                  <div class="box" style="background-color: #eee; height: 90px"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Absolute/relative positioning</h2>
+          <ul>
+            <li>
+              remember to set the parent <code>position: relative</code>
+            </li>
+            <li>
+              doesn't play nice with responsive fluid designs; rather use floating + margins
+            </li>
+            <li>
+              only use
+              <ul>
+                <li>when you really need stacked elements</li>
+                <li>to position elements outside their parent</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="Responsive">
+          <h2>Responsive (1)</h2>
+          <ul>
+            <li>
+              Quick recap of all steps:
+              <ol>
+                <li>
+                  make the desktop version using em/rem units
+                </li>
+                <li>
+                  make the page flexible and fluid
+                  <ul>
+                    <li>set <code>max-width</code> and <code>min-width</code> for wrappers</li>
+                    <li>remove <code>height</code> for all flexible elements</li>
+                    <li>use percentages for column widths and margins</li>
+                    <li>use <code>width: 100%; max-width: ...em</code> (native width) for flexible images</li>
+                  </ul>
+                </li>
+                <li>
+                  decide on a breakpoint; add media query block at the bottom
+                </li>
+                <li>
+                  adjust the CSS code above for mobile version; where necessary, correct in media query for desktop version
+                </li>
+                <li>
+                  optional: add more breakpoints
+                </li>
+                <li>
+                  add the viewport metatag
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </section>
+        <section data-toc-title="">
+          <h2>Responsive (2)</h2>
+          <ul>
+            <li>
+              example for images in a flexible context:
+              <pre class="bigger"><code class="language-css" data-caption contenteditable data-selector=".reveal #boxsizedemo6" style="height: 200px;">.container {
+  border: 2px dashed blue;
+  resize: horizontal;
+  width: 200px;
+}
+.photo { /* flexible */
+  width: 100%;
+  max-width: 500px; /* native width */
+}
+.logo { /* not flexible */
+  width: 100px; /* native width */
+  height: 50px; /* native height */
+}</code></pre>
+              <div id="boxsizedemo6" class="clearfix">
+                <div class="container" style="margin-top: 30px; overflow: hidden;">
+                  <p><img src="img/css_summary/logo.png" alt="" class="logo" style="margin: 0" /></p>
+                  <p><img src="img/css_summary/photo.jpg" alt="" class="photo" style="margin: 0" /></p>
+                  <p style="text-align: right; font-size: 9px;padding-right: 5px;">resize me ↘</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>CSS</h1>
+          <h2>HTML5/CSS3</h2>
+          <ul class="chapterlist">
+            <!-- to be filled by Javascript -->
+          </ul>
+        </section>
+        <section>
+          <h2>Webfonts</h2>
+          <ul>
+            <li>
+              Option 1: download fonts and include them:
+              <pre class="bigger"><code class="language-css">@font-face {
+ font-family: 'LeagueGothic';
+ src: url(../fonts/LeagueGothic.otf);
+}</code></pre>
+            </li>
+            <li>
+              Option 2: find online hosted fonts, e.g. <a href="https://www.google.com/fonts/">Google fonts</a>, and include the code in the <code>&lt;head&gt;</code>:
+              <pre class="bigger"><code class="language-html">&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,600italic,800"&gt;
+  ...
+&lt;/head&gt;</code></pre>
+            </li>
+            <li class="no-style">
+              <ul>
+                <li class="arrow">
+                  first option is nicer in offline situations, second option is easier
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Gradients</h2>
+          <ul>
+            <li>
+              Gradients:
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css" contenteditable data-subject="#gradientdemo" data-step="2">background: -webkit-linear-gradient(top, #fff 10%, #fff057 90%);
+background: -o-linear-gradient(top, #fff 10%, #fff057 90%);
+background: -moz-linear-gradient(top, #fff 10%, #fff057 90%);
+background: -ms-linear-gradient(top, #fff 10%, #fff057 90%);
+background: linear-gradient(top, #fff 10%, #fff057 90%);
+</code></pre>
+              <div id="gradientdemo" style="margin-top: 30px; margin-bottom: 30px; width: 400px; height: 80px; line-height: 80px; text-align: center; font-size: 24px;border: 1px solid #ccc">GRADIENT EXAMPLE</div>
+              <ul>
+                <li class="arrow">
+                  add vendor prefixes when you've finished the rest of your CSS
+                </li>
+                <li class="arrow">
+                  <a href="http://www.colorzilla.com/gradient-editor/">several online tools</a> exist to generate your gradient
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Shadow &amp; radius</h2>
+          <ul>
+            <li>
+              Some effects:
+              <ul>
+                <li><em><code>box-shadow</code></em></li>
+                <li><em><code>text-shadow</code></em></li>
+                <li><em><code>border-radius</code></em></li>
+              </ul>
+            </li>
+            <li class="no-style">
+              <pre class="bigger"><code class="language-css" contenteditable data-subject="#shadowdemo">box-shadow: 10px 10px 5px #888;
+text-shadow: 2px 2px 5px #008;
+border-radius: 5px 5px 5px 5px;
+</code></pre>
+              <div id="shadowdemo" style="position: absolute; top: 110px; right: 60px; margin-top: 30px; margin-bottom: 30px; width: 400px; height: 80px; line-height: 80px; text-align: center; font-size: 24px;background-color: #ccc">SHADOWS EXAMPLE</div>
+            <ul>
+              <li class="arrow">
+                again, <a href="http://css3buttongenerator.com/">online tools</a> exist to generate your shadow, radius etc...
+              </li>
+            </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Transitions &amp; animations</h2>
+          <ul>
+            <li>
+              See presentation about CSS3
+            </li>
+            <li>
+              But <a href="http://www.css3maker.com/css3-transition.html">then</a> <a href="http://cssanimate.com/">again</a>...
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="sources">
+        <section>
+          <h2>Useful links</h2>
+          <ul>
+            <li>CSS cheat sheet: <a href="http://www.cheatography.com/davechild/cheat-sheets/css2/">cheatography.com</a></li>
+            <li>Browser compatibility: <a href="http://www.caniuse.com/">caniuse.com</a></li>
+            <li>Selectors compatibility: <a href="http://www.quirksmode.org/css/selectors/">quirksmode.org</a></li>
+            <li>CSS editor: <a href="http://www.topstyle4.com/">topstyle4.com</a></li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Questions?</h2>
+        </section>
+      </section>
+
+    </div>
+
+    <!-- ikdoeict.be Link -->
+    <a href="http://www.ikdoeict.be/" title="ikdoeict.be" id="ikdoeict">ikdoeict.be</a>
+
+    <!-- Index Link -->
+    <aside class="back">
+      <nav>
+        <p><a href="index.html">&larr; Back to index</a></p>
+      </nav>
+    </aside>
+
+  </div>
+
+  <script src="library/jquery.min.js"></script>
+  <script src="library/head.min.js"></script>
+  <script src="library/reveal/reveal.min.js"></script>
+  <script src="library/highlight/highlight.pack.js"></script>
+  <script src="library/prefixfree.js"></script>
+  <script src="library/css-snippets.js"></script>
+  <script src="library/css-edit.js"></script>
+  <script src="library/incrementable.js"></script>
+  <script src="library/main.js"></script>
+
+</body>
+</html>

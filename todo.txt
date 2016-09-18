@@ -1,0 +1,17 @@
+Blend modes
+===========
+- gray out main context when menu flies out on mobile
+- darken pictures a little bit to have broken white pictures on white document
+- blur background image in main content panel to create overview effect
+- try multiply green/yellow on b/w picture
+- blend mode screen: 
+	. combine snow video with a portrait
+	. text masks
+-> zie Una Kravets op https://vimeo.com/channels/cssday
+
+
+CSS filters
+===========
+
+https://www.youtube.com/watch?time_continue=428&v=LY65F2e4B5w
+
